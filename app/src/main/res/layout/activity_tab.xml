@@ -36,6 +36,12 @@
             android:id="@+id/tab_TabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </FrameLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/tab_ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
