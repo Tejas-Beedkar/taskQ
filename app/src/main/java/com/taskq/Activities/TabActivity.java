@@ -2,11 +2,18 @@ package com.taskq.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
+import com.taskq.Fragments.AllFragment;
+import com.taskq.Fragments.WhatFragment;
+import com.taskq.Fragments.WhenFragment;
+import com.taskq.Fragments.WhoFragment;
 import com.taskq.R;
 
 import java.util.ArrayList;
@@ -34,6 +41,10 @@ public class TabActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tab_ViewPager = findViewById(R.id.tab_ViewPager);
+        setupViewPager(tab_ViewPager);
+
+        tab_TabLayout = findViewById(R.id.tab_TabLayout);
+        tab_TabLayout.setupWithViewPager(tab_ViewPager);
 
     }
 
@@ -66,5 +77,50 @@ public class TabActivity extends AppCompatActivity {
 //        super.onDestroy();
 //    }
 
+
+//    private void setupTabIcons() {
+//        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+//        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+//        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+//        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+//    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new AllFragment(), "ALL");
+        adapter.addFrag(new WhatFragment(), "WHAT");
+        adapter.addFrag(new WhenFragment(), "WHEN");
+        adapter.addFrag(new WhoFragment(), "WHO");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
 
 }
