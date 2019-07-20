@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 import com.taskq.Fragments.AllFragment;
+import com.taskq.Fragments.HomeFragment;
 import com.taskq.Fragments.WhatFragment;
 import com.taskq.Fragments.WhenFragment;
 import com.taskq.Fragments.WhoFragment;
@@ -25,6 +26,7 @@ public class TabActivity extends AppCompatActivity {
     private TabLayout tab_TabLayout;
     private ViewPager tab_ViewPager;
     private int[] tabIcons = {
+            R.drawable.ic_tab_home_light,
             R.drawable.ic_tab_all_light,
             R.drawable.ic_tab_what_light,
             R.drawable.ic_tab_when_light,
@@ -85,10 +87,12 @@ public class TabActivity extends AppCompatActivity {
         tab_TabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tab_TabLayout.getTabAt(2).setIcon(tabIcons[2]);
         tab_TabLayout.getTabAt(3).setIcon(tabIcons[3]);
+        tab_TabLayout.getTabAt(4).setIcon(tabIcons[4]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new HomeFragment(), "HOME");
         adapter.addFrag(new AllFragment(), "ALL");
         adapter.addFrag(new WhatFragment(), "WHAT");
         adapter.addFrag(new WhenFragment(), "WHEN");
