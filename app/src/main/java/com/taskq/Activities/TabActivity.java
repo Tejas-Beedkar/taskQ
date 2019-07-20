@@ -33,6 +33,7 @@ public class TabActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
 
@@ -45,6 +46,7 @@ public class TabActivity extends AppCompatActivity {
 
         tab_TabLayout = findViewById(R.id.tab_TabLayout);
         tab_TabLayout.setupWithViewPager(tab_ViewPager);
+        setupTabIcons();
 
     }
 
@@ -78,12 +80,12 @@ public class TabActivity extends AppCompatActivity {
 //    }
 
 
-//    private void setupTabIcons() {
-//        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-//        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-//        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-//        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
-//    }
+    private void setupTabIcons() {
+        tab_TabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tab_TabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tab_TabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tab_TabLayout.getTabAt(3).setIcon(tabIcons[3]);
+    }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
