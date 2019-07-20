@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tab_ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     tools:context="com.taskq.Activities.TabActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/tab_AppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.Main"
-        app:layout_constraintBottom_toTopOf="@+id/tab_FrameLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        android:theme="@style/AppTheme.Main">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tab_toolbar"
@@ -25,17 +22,19 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <FrameLayout
-        android:id="@+id/tab_FrameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_TabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
+            android:layout_height="wrap_content"
+            app:tabIconTint="@color/colorAccent"
+            app:tabSelectedTextColor="@android:color/background_light"
+            app:tabTextColor="@color/colorAccent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/tab_ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
