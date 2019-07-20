@@ -1,4 +1,4 @@
-package com.taskqv2;
+package com.taskq;
 
 import android.content.Context;
 
