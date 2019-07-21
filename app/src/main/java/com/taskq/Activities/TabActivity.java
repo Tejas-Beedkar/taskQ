@@ -7,7 +7,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.taskq.Fragments.AllFragment;
@@ -15,6 +19,7 @@ import com.taskq.Fragments.HomeFragment;
 import com.taskq.Fragments.WhatFragment;
 import com.taskq.Fragments.WhenFragment;
 import com.taskq.Fragments.WhoFragment;
+import com.taskq.Settings.taskQSettings;
 import com.taskq.R;
 
 import java.util.ArrayList;
@@ -32,6 +37,8 @@ public class TabActivity extends AppCompatActivity {
             R.drawable.ic_tab_when_light,
             R.drawable.ic_tab_who_light
     };
+    private int backButtonCount;
+    private taskQSettings Settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +48,8 @@ public class TabActivity extends AppCompatActivity {
 
         tab_Toolbar = findViewById(R.id.tab_toolbar);
         setSupportActionBar(tab_Toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setTitle(R.string.app_name_with_copyright);
 
         tab_ViewPager = findViewById(R.id.tab_ViewPager);
         setupViewPager(tab_ViewPager);
@@ -58,10 +66,17 @@ public class TabActivity extends AppCompatActivity {
 //    }
 
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Feature - 001 distributed code
+        backButtonCount = 0;
+
+        //Feature - 002 distributed code
+        Settings = new taskQSettings(getApplicationContext());
+
+    }
 
 
 //    @Override
@@ -129,4 +144,62 @@ public class TabActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        //==========================================================================================
+        // ToDo: Feature - 001 Prevents the back button from exiting the app on the first press.
+        //                 Avoids that ungraceful exit.
+        //==========================================================================================
+        if(backButtonCount >= 1)
+        {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(TabActivity.this, "Press the back button once again to close the application.", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
+    }
+
+
+    //==========================================================================================
+    // ToDo: Feature - 002 Show Settings Menu and update to last set user values
+    //==========================================================================================
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        MenuItem sCompletedswitch = menu.findItem(R.id.tab_activity_menu_switch_completed);
+        sCompletedswitch.setChecked(Settings.getSwitchShowCompleted());
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.tab_activity_menu_switch_completed:
+                if(item.isChecked())
+                {
+                    item.setChecked(false);
+                    Settings.setSwitchShowCompleted(false);
+                }
+                else
+                {
+                    item.setChecked(true);
+                    Settings.setSwitchShowCompleted(true);
+                }
+                break;
+            case R.id.tab_activity_menu_show_all:
+                Toast.makeText(this, getString(R.string.app_name_with_copyright) + " " + getString(R.string.app_version), Toast.LENGTH_LONG).show();
+                break;
+            case R.id.tab_activity_menu_about:
+                Toast.makeText(this, getString(R.string.app_name_with_copyright) + " " + getString(R.string.app_version), Toast.LENGTH_LONG).show();
+                break;
+            default:
+                return super.onContextItemSelected(item);
+        }
+        return true;
+    }
 }

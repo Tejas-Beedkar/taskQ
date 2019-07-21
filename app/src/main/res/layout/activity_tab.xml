@@ -5,7 +5,7 @@
     android:id="@+id/tab_ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@android:color/background_light"
     tools:context="com.taskq.Activities.TabActivity">
 
     <com.google.android.material.appbar.AppBarLayout

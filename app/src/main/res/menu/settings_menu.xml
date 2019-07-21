@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_activity_menu_switch_completed"
+        android:checkable="true"
+        android:title="@string/settings_show_completed" />
+    <item
+        android:id="@+id/tab_activity_menu_show_all"
+        android:title="@string/settings_show_all" />
+    <item
+        android:id="@+id/tab_activity_menu_about"
+        android:title="@string/settings_about" />
+</menu>

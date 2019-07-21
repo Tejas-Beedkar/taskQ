@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">taskQ</string>
+    <string name="app_name_with_copyright">taskQ (c)</string>
+    <string name="app_version">v1.0.0</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_show_completed">Show Completed Tasks</string>
+    <string name="settings_show_all">Show All Settings</string>
+    <string name="settings_about">About taskQ</string>
 </resources>
