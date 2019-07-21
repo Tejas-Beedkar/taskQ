@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.SplashScreen">
-        <activity android:name=".Activities.TabActivity"></activity>
+        <activity android:name=".Activities.taskQEntryActivity"></activity>
+        <activity android:name=".Activities.TabActivity" />
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -39,6 +41,7 @@ public class TabActivity extends AppCompatActivity {
     };
     private int backButtonCount;
     private taskQSettings Settings;
+    private Button tab_Button_NewItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,18 @@ public class TabActivity extends AppCompatActivity {
         //Feature - 002 distributed code
         Settings = new taskQSettings(getApplicationContext());
 
+        //==========================================================================================
+        // ToDo: Feature - 003 Add New Item Button will launch the User Entry Activity to add a
+        //                     new item
+        //==========================================================================================
+        tab_Button_NewItem = findViewById(R.id.tab_Button_NewItem);
+        tab_Button_NewItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent modifyIntent = new Intent(TabActivity.this, taskQEntryActivity.class);
+                startActivity(modifyIntent);
+            }
+        });
     }
 
 

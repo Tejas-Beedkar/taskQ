@@ -8,5 +8,5 @@
     <string name="settings_about">About taskQ</string>
 
     <string name="button_add_symbol">+</string>
-    <string name="tab_BottomText_dummyText">\ taskQ\n You should be working\n Hard</string>
+    <string name="tab_BottomText_dummyText">\ xx Active Tasks\n xx Due Today\n xx Completed Today</string>
 </resources>

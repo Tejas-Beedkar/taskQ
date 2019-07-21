@@ -53,14 +53,14 @@
             android:maxLines="3"
             android:singleLine="false"
             android:text="@string/tab_BottomText_dummyText"
-            app:layout_constraintBottom_toBottomOf="@+id/tab_NewItemButton"
-            app:layout_constraintEnd_toStartOf="@+id/tab_NewItemButton"
+            app:layout_constraintBottom_toBottomOf="@+id/tab_Button_NewItem"
+            app:layout_constraintEnd_toStartOf="@+id/tab_Button_NewItem"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tab_NewItemButton" />
+            app:layout_constraintTop_toTopOf="@+id/tab_Button_NewItem" />
 
         <Button
-            android:id="@+id/tab_NewItemButton"
+            android:id="@+id/tab_Button_NewItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
