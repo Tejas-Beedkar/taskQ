@@ -6,4 +6,7 @@
     <string name="settings_show_completed">Show Completed Tasks</string>
     <string name="settings_show_all">Show All Settings</string>
     <string name="settings_about">About taskQ</string>
+
+    <string name="button_add_symbol">+</string>
+    <string name="tab_BottomText_dummyText">\ taskQ\n You should be working\n Hard</string>
 </resources>
