@@ -52,4 +52,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView_Name"
         app:layout_constraintTop_toBottomOf="@+id/imageView_taskQIcon" />
+
+    <ImageView
+        android:id="@+id/imageView_Tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/taskQEntry_Task_Tags"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Tags"
+        app:srcCompat="@drawable/ic_tab_what_dark" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/tabTaskQEntry_Tags"
+        android:layout_width="0dp"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorThemeLightGrey"
+        android:onClick="ClipGroup_AddTags"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView_Tag"
+        app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_Task_Description" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

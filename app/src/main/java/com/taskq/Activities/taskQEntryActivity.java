@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 
 import com.taskq.R;
@@ -56,5 +58,14 @@ public class taskQEntryActivity extends AppCompatActivity {
 //    protected void onDestroy() {
 //        super.onDestroy();
 //    }
+
+    //==========================================================================================
+    // ToDo: Feature - 004 Add Tags using Diaglog Fragment on click
+    //==========================================================================================
+    public void ClipGroup_AddTags(View v){
+
+
+        Log.d(getString(R.string.app_name), "taskQ Feature - 004 tabTaskQEntry_Tags click");
+    }
 
 }

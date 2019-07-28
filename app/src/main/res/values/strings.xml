@@ -13,5 +13,6 @@
     <string name="imageView_Name_contentDescription">New task description</string>
     <string name="imageView_taskQIcon_contentDescription">Task Details Form</string>
     <string name="taskQEntry_Task_Description">Task Description</string>
+    <string name="taskQEntry_Task_Tags">Tags</string>
 
 </resources>
