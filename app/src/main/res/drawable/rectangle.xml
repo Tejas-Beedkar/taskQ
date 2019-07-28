@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+    <corners
+        android:topLeftRadius="@dimen/taskQ_dialog_corner"
+        android:topRightRadius="@dimen/taskQ_dialog_corner"
+        android:bottomLeftRadius="@dimen/taskQ_dialog_corner"
+        android:bottomRightRadius="@dimen/taskQ_dialog_corner"/>
+    <solid
+        android:color="@android:color/background_light"/>
+    <padding
+        android:left="0dp"
+        android:top="0dp"
+        android:right="0dp"
+        android:bottom="0dp"/>
+    <size
+        android:width="64dp"
+        android:height="64dp"/>
+</shape>
