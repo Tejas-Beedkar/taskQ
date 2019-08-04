@@ -87,6 +87,8 @@ public class TagsDialogFragment extends DialogFragment {
                 );
             chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);
             chip.setText("Chip #" + i);
+            chip.setCheckable(true);
+            chip.setCloseIconVisible(true);
             chip.setChipBackgroundColorResource(R.color.colorPrimaryDark);
             chip.setTextColor(getContext().getResources().getColor(R.color.colorThemeLightGrey));
             chpGrpTagsDialog.addView(chip);

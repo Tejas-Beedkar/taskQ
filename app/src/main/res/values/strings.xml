@@ -8,6 +8,7 @@
     <string name="settings_about">About taskQ</string>
 
     <string name="button_add_symbol">+</string>
+    <string name="button_Done">Done</string>
     <string name="tab_BottomText_dummyText">\ xx Active Tasks\n xx Due Today\n xx Completed Today</string>
 
     <string name="imageView_Name_contentDescription">New task description</string>
