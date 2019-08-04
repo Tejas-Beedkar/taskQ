@@ -12,8 +12,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        setTheme(R.style.AppTheme_Main);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
@@ -28,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        setTheme(R.style.AppTheme_Main);
         Intent modifyIntent = new Intent(MainActivity.this, TabActivity.class);
         startActivity(modifyIntent);
     }

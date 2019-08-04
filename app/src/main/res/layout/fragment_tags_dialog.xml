@@ -20,8 +20,8 @@
         android:fontFamily="@font/ubuntu_light"
         android:gravity="center_vertical"
         android:selectAllOnFocus="true"
+        android:singleLine="true"
         android:text="@string/taskQEntry_Task_Tags"
-        android:textAlignment="viewStart"
         app:layout_constraintBottom_toBottomOf="@+id/TagsDialog_EntryButton"
         app:layout_constraintEnd_toStartOf="@+id/TagsDialog_EntryButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,14 +36,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.chip.ChipGroup
+        android:id="@+id/ChipsGroupTagsDialog"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TagsDialog_EntryButton" />
+        app:layout_constraintTop_toBottomOf="@+id/tagsDialog_UserEntry"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
