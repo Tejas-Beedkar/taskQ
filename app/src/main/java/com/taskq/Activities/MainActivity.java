@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        //Dummy Comment
         setTheme(R.style.AppTheme_Main);
         Intent modifyIntent = new Intent(MainActivity.this, TabActivity.class);
         startActivity(modifyIntent);
