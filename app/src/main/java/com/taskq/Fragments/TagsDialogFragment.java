@@ -17,12 +17,17 @@ import com.google.android.material.chip.ChipGroup;
 import com.taskq.R;
 
 import android.util.TypedValue;
+import android.widget.CompoundButton;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class TagsDialogFragment extends DialogFragment {
 
     private int height;
     private int width;
     private View view;
+    private final ArrayList<String> list = new ArrayList<>();
 
     public TagsDialogFragment() {
         // Required empty public constructor
@@ -49,7 +54,23 @@ public class TagsDialogFragment extends DialogFragment {
 
         addChips();
 
-
+        final ChipGroup chpGrpTagsDialog = getDialog().findViewById(R.id.ChipsGroupTagsDialog);
+        for(int i = 0; i < chpGrpTagsDialog.getChildCount(); i++){
+            Chip chip = (Chip) chpGrpTagsDialog.getChildAt(i);
+            chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        list.add(buttonView.getText().toString());
+                    }else{
+                        list.remove(buttonView.getText().toString());
+                    }
+                    if(!list.isEmpty()){
+                        Toast.makeText(getContext(), list.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -72,15 +93,18 @@ public class TagsDialogFragment extends DialogFragment {
     @Override
     public void onDetach() {
         super.onDetach();
+
+        final ChipGroup chpGrpTagsDialog = getDialog().findViewById(R.id.ChipsGroupTagsDialog);
+
         getActivity().setTheme(R.style.AppTheme_Main);
     }
 
     private void addChips()
     {
-        ChipGroup chpGrpTagsDialog = getDialog().findViewById(R.id.ChipsGroupTagsDialog);
+        final ChipGroup chpGrpTagsDialog = getDialog().findViewById(R.id.ChipsGroupTagsDialog);
 
         for (int i = 1; i <= 3; i++) {
-            Chip chip = new Chip(getActivity());
+            final Chip chip = new Chip(getActivity());
                 int paddingDp = (int) TypedValue.applyDimension(
                         TypedValue.COMPLEX_UNIT_DIP, 10,
                         getResources().getDisplayMetrics()
@@ -91,6 +115,14 @@ public class TagsDialogFragment extends DialogFragment {
             chip.setCloseIconVisible(true);
             chip.setChipBackgroundColorResource(R.color.colorPrimaryDark);
             chip.setTextColor(getContext().getResources().getColor(R.color.colorThemeLightGrey));
+
+            chip.setOnCloseIconClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    chpGrpTagsDialog.removeView(chip);
+                }
+            });
+
             chpGrpTagsDialog.addView(chip);
         }
 

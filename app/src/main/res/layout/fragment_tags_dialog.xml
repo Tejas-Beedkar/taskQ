@@ -47,7 +47,8 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonTagsDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tagsDialog_UserEntry" />
+        app:layout_constraintTop_toBottomOf="@+id/tagsDialog_UserEntry"
+        app:singleSelection="false" />
 
     <Button
         android:id="@+id/buttonTagsDone"
