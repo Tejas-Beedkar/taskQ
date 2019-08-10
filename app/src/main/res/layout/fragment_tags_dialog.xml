@@ -12,7 +12,7 @@
     tools:context=".Fragments.TagsDialogFragment">
 
     <EditText
-        android:id="@+id/tagsDialog_UserEntry"
+        android:id="@+id/TagsDialog_UserEntry"
         android:layout_width="0dp"
         android:layout_height="@dimen/taskQ_dialog_boxSize"
         android:layout_marginStart="8dp"
@@ -44,14 +44,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/buttonTagsDone"
+        app:layout_constraintBottom_toTopOf="@+id/TagsDialog_DoneButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tagsDialog_UserEntry"
+        app:layout_constraintTop_toBottomOf="@+id/TagsDialog_UserEntry"
         app:singleSelection="false" />
 
     <Button
-        android:id="@+id/buttonTagsDone"
+        android:id="@+id/TagsDialog_DoneButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
