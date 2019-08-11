@@ -1,14 +1,15 @@
 package com.taskq.Fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-
+import androidx.lifecycle.ViewModelProviders;
 import androidx.fragment.app.DialogFragment;
 
+import android.util.TypedValue;
 import android.util.DisplayMetrics;
+
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +17,12 @@ import android.view.ViewGroup;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+
+import com.taskq.Activities.taskQEntryActivity;
+import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.R;
 
-import android.util.TypedValue;
+
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -45,6 +49,10 @@ public class TagsDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        taskQviewModel tagsDialogViewModel =  ViewModelProviders.of(getActivity()).get(taskQviewModel.class);
+
+        tagsDialogViewModel.scoreTeamA = "Value Set By TagsDialogFragment";
     }
 
     @Override
@@ -119,6 +127,7 @@ public class TagsDialogFragment extends DialogFragment {
         buttonDone.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                ((taskQEntryActivity)getActivity()).onDialogDismiss();
                 dismiss();
             }
         });

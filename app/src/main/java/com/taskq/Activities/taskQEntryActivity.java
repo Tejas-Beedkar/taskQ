@@ -3,22 +3,22 @@ package com.taskq.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 
+import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.Fragments.TagsDialogFragment;
 import com.taskq.R;
 
 public class taskQEntryActivity extends AppCompatActivity {
 
     private EditText EditText_Task;
-    TagsDialogFragment TagsDialog;
+    private TagsDialogFragment TagsDialog;
+    private taskQviewModel tagsDialogViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,8 @@ public class taskQEntryActivity extends AppCompatActivity {
         super.onResume();
 
         EditText_Task = findViewById(R.id.tabTaskQEntry_Task_Description);
+        tagsDialogViewModel =  ViewModelProviders.of(this).get(taskQviewModel.class);
+        EditText_Task.setText(tagsDialogViewModel.scoreTeamA);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             EditText_Task.setAutofillHints(getString(R.string.taskQEntry_Task_Description));
@@ -87,6 +89,13 @@ public class taskQEntryActivity extends AppCompatActivity {
         TagsDialog.show(ft, "dialog");
 
         Log.d(getString(R.string.app_name), "taskQ Feature - 004 tabTaskQEntry_Tags click");
+    }
+
+
+    public void onDialogDismiss(){
+        EditText_Task.setText(tagsDialogViewModel.scoreTeamA);
+        //finish();
+        //startActivity(getIntent());
     }
 
 }
