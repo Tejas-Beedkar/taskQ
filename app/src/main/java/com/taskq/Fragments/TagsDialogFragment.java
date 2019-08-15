@@ -49,10 +49,6 @@ public class TagsDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        taskQviewModel tagsDialogViewModel =  ViewModelProviders.of(getActivity()).get(taskQviewModel.class);
-
-        tagsDialogViewModel.scoreTeamA = "Value Set By TagsDialogFragment";
     }
 
     @Override
@@ -127,6 +123,20 @@ public class TagsDialogFragment extends DialogFragment {
         buttonDone.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                taskQviewModel tagsDialogViewModel =  ViewModelProviders.of(getActivity()).get(taskQviewModel.class);
+                tagsDialogViewModel.strDialogTags.clear();
+
+                //Get the Tags, convert to string and load to ViewModel
+                final ChipGroup chpGrpTagsDialog = getDialog().findViewById(R.id.ChipsGroupTagsDialog);
+
+                for(int i = 0; i < chpGrpTagsDialog.getChildCount(); i++){
+                    Chip chip = (Chip) chpGrpTagsDialog.getChildAt(i);
+                    if(chip.isChecked()){
+                        tagsDialogViewModel.strDialogTags.add(chip.getText());
+                    }
+                }
+
                 ((taskQEntryActivity)getActivity()).onDialogDismiss();
                 dismiss();
             }
