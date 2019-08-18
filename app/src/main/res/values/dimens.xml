@@ -3,4 +3,12 @@
     <dimen name="taskQ_dialog_padding">16dp</dimen>
     <dimen name="taskQ_dialog_boxSize">60dp</dimen>
     <dimen name="taskQ_dialog_corner">16dp</dimen>
+    <dimen name="taskQ_dialog_tagsChipGroupDefaultHeight">@android:dimen/app_icon_size</dimen>
+
+    <dimen name="switch_track_width">175dp</dimen>
+    <dimen name="switch_track_height">32dp</dimen>
+    <dimen name="switch_radius">50dp</dimen>
+    <dimen name="switch_selector_padding">2dp</dimen>
+    <dimen name="switch_stroke_height">0dp</dimen>
+
 </resources>
