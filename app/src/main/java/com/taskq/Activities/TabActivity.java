@@ -29,9 +29,12 @@ import java.util.List;
 
 public class TabActivity extends AppCompatActivity {
 
-    private Toolbar tab_Toolbar;
+    private Button tab_Button_NewItem;
     private TabLayout tab_TabLayout;
+    private taskQSettings Settings;
+    private Toolbar tab_Toolbar;
     private ViewPager tab_ViewPager;
+    private int backButtonCount;
     private int[] tabIcons = {
             R.drawable.ic_tab_home_light,
             R.drawable.ic_tab_all_light,
@@ -39,9 +42,6 @@ public class TabActivity extends AppCompatActivity {
             R.drawable.ic_tab_when_light,
             R.drawable.ic_tab_who_light
     };
-    private int backButtonCount;
-    private taskQSettings Settings;
-    private Button tab_Button_NewItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +50,22 @@ public class TabActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab);
 
         tab_Toolbar = findViewById(R.id.tab_toolbar);
+        tab_TabLayout = findViewById(R.id.tab_TabLayout);
+        tab_ViewPager = findViewById(R.id.tab_ViewPager);
+
+        //==========================================================================================
+        // ToDo:    Feature - 003
+        //          Load the tabs with images and text
+        //==========================================================================================
         setSupportActionBar(tab_Toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setTitle(R.string.app_name_with_copyright);
-
-        tab_ViewPager = findViewById(R.id.tab_ViewPager);
         setupViewPager(tab_ViewPager);
-
-        tab_TabLayout = findViewById(R.id.tab_TabLayout);
         tab_TabLayout.setupWithViewPager(tab_ViewPager);
         setupTabIcons();
 
     }
+
 
 //    @Override
 //    protected void onStart() {
@@ -73,16 +77,16 @@ public class TabActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        //Feature - 001 distributed code
+        //Feature - 002 distributed code
+        setTheme(R.style.AppTheme_Main);
+
+        //Feature - 004 distributed code
         backButtonCount = 0;
 
-        //Feature - 002 distributed code
+        //Feature - 005 distributed code
         Settings = new taskQSettings(getApplicationContext());
 
-        //==========================================================================================
-        // ToDo: Feature - 003 Add New Item Button will launch the User Entry Activity to add a
-        //                     new item
-        //==========================================================================================
+        //Feature - 006 distributed code
         tab_Button_NewItem = findViewById(R.id.tab_Button_NewItem);
         tab_Button_NewItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +116,7 @@ public class TabActivity extends AppCompatActivity {
 //    }
 
 
+    //Feature - 003 distributed code
     private void setupTabIcons() {
         tab_TabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tab_TabLayout.getTabAt(1).setIcon(tabIcons[1]);
@@ -120,6 +125,7 @@ public class TabActivity extends AppCompatActivity {
         tab_TabLayout.getTabAt(4).setIcon(tabIcons[4]);
     }
 
+    //Feature - 003 distributed code
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new HomeFragment(), "HOME");
@@ -130,6 +136,7 @@ public class TabActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    //Feature - 003 distributed code
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -159,12 +166,13 @@ public class TabActivity extends AppCompatActivity {
         }
     }
 
+    //==========================================================================================
+    // ToDo:    Feature - 004
+    //          Prevents the back button from exiting the app on the first press.
+    //          Avoids that ungraceful exit.
+    //==========================================================================================
     @Override
     public void onBackPressed() {
-        //==========================================================================================
-        // ToDo: Feature - 001 Prevents the back button from exiting the app on the first press.
-        //                 Avoids that ungraceful exit.
-        //==========================================================================================
         if(backButtonCount >= 1)
         {
             Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -180,9 +188,7 @@ public class TabActivity extends AppCompatActivity {
     }
 
 
-    //==========================================================================================
-    // ToDo: Feature - 002 Show Settings Menu and update to last set user values
-    //==========================================================================================
+    //Feature - 005 distributed code
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.settings_menu, menu);
@@ -191,6 +197,7 @@ public class TabActivity extends AppCompatActivity {
         return true;
     }
 
+    //Feature - 005 distributed code
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

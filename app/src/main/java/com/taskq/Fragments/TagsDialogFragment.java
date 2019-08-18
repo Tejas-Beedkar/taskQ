@@ -31,6 +31,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+//==========================================================================================
+// ToDo:    Feature - 007
+//          Tags Dialog to load the tags.
+//==========================================================================================
 public class TagsDialogFragment extends DialogFragment {
 
     private int height;
@@ -45,11 +49,23 @@ public class TagsDialogFragment extends DialogFragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        //view = inflater.inflate(R.layout.fragment_tags_dialog, container, false);
+
+        getActivity().setTheme(R.style.AppTheme_MaterialTab);
+        //getDialog().setTitle("Tags"); //does not do anything
+
+        return inflater.inflate(R.layout.fragment_tags_dialog, container, false);
+    }
+
 
     @Override
     public void onResume() {
@@ -58,17 +74,18 @@ public class TagsDialogFragment extends DialogFragment {
         buttonDone = getDialog().findViewById(R.id.TagsDialog_DoneButton);
         buttonAdd = getDialog().findViewById(R.id.TagsDialog_EntryButton);
         editTextTags = getDialog().findViewById(R.id.TagsDialog_UserEntry);
+        final ChipGroup chpGrpTagsDialog = getDialog().findViewById(R.id.ChipsGroupTagsDialog);
+        final EditText edittext = (EditText) getDialog().findViewById(R.id.TagsDialog_UserEntry);
 
-        //Set Size
+        //Set Dialog Size
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         height = (int)(displayMetrics.heightPixels * 0.9f);
         width = (int)(displayMetrics.widthPixels * 0.9f);
         getDialog().getWindow().setLayout(width, height);
-        //make corners transparent
+        //Make Dialog Corners Transparent
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        final ChipGroup chpGrpTagsDialog = getDialog().findViewById(R.id.ChipsGroupTagsDialog);
 
         for(int i = 0; i < chpGrpTagsDialog.getChildCount(); i++){
             Chip chip = (Chip) chpGrpTagsDialog.getChildAt(i);
@@ -87,7 +104,18 @@ public class TagsDialogFragment extends DialogFragment {
             });
         }
 
-        final EditText edittext = (EditText) getDialog().findViewById(R.id.TagsDialog_UserEntry);
+        //Add new Tag
+        buttonAdd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String strChip = ((TextView)getDialog().findViewById(R.id.TagsDialog_UserEntry)).getText().toString();
+                if(!strChip.isEmpty() && !strChip.equals(getString(R.string.taskQEntry_Task_Tags))){
+                    addChips(strChip);
+                }
+                ((TextView)getDialog().findViewById(R.id.TagsDialog_UserEntry)).setText("");
+            }
+        });
+        //Keyboard enter is the same as Add
         edittext.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
@@ -109,17 +137,7 @@ public class TagsDialogFragment extends DialogFragment {
             }
         });
 
-        buttonAdd.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                String strChip = ((TextView)getDialog().findViewById(R.id.TagsDialog_UserEntry)).getText().toString();
-                if(!strChip.isEmpty() && !strChip.equals(getString(R.string.taskQEntry_Task_Tags))){
-                    addChips(strChip);
-                }
-                ((TextView)getDialog().findViewById(R.id.TagsDialog_UserEntry)).setText("");
-            }
-        });
-
+        //Return back to the taskQEntryActivity
         buttonDone.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -142,18 +160,6 @@ public class TagsDialogFragment extends DialogFragment {
             }
         });
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_tags_dialog, container, false);
-
-        getActivity().setTheme(R.style.AppTheme_MaterialTab);
-        //getDialog().setTitle("Tags"); //does not do anything
-
-        return inflater.inflate(R.layout.fragment_tags_dialog, container, false);
     }
 
     @Override

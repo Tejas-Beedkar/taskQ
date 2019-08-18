@@ -22,16 +22,20 @@ import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.Fragments.TagsDialogFragment;
 import com.taskq.R;
 
-
+//==========================================================================================
+// ToDo:    Feature - 006
+//          Task entry form
+//==========================================================================================
 public class taskQEntryActivity extends AppCompatActivity {
 
+    private ChipGroup TaskQEntry_Tags;
     private EditText EditText_Task;
+    private ImageButton tabTaskQEntry__SetReminder;
+    private ImageView imageView_done;
     private TagsDialogFragment TagsDialog;
     private taskQviewModel tagsDialogViewModel;
-    private ChipGroup TaskQEntry_Tags;
-    private ImageButton tabTaskQEntry__SetReminder;
     private Switch tabTaskQEntry_Switch_Completion;
-    private ImageView imageView_done;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +54,18 @@ public class taskQEntryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        //Feature - 002 distributed code
+        setTheme(R.style.AppTheme_Main);
+
         EditText_Task = findViewById(R.id.tabTaskQEntry_Task_Description);
-        tagsDialogViewModel =  ViewModelProviders.of(this).get(taskQviewModel.class);
+        imageView_done = findViewById(R.id.imageView_done);
         tabTaskQEntry__SetReminder = findViewById(R.id.tabTaskQEntry__SetReminder);
-        tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_on_dark);
         tabTaskQEntry_Switch_Completion = findViewById(R.id.tabTaskQEntry_Switch_Completion);
         TaskQEntry_Tags = findViewById(R.id.tabTaskQEntry_Tags);
-        imageView_done = findViewById(R.id.imageView_done);
+
+        //Feature - 007 distributed code
+        tagsDialogViewModel =  ViewModelProviders.of(this).get(taskQviewModel.class);
+        tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_on_dark);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             EditText_Task.setAutofillHints(getString(R.string.taskQEntry_Task_Description));
@@ -81,92 +90,80 @@ public class taskQEntryActivity extends AppCompatActivity {
 //        super.onDestroy();
 //    }
 
-    //==========================================================================================
-    // ToDo: Feature - 004 Add Tags using Diaglog Fragment on click
-    //==========================================================================================
+
+    //Feature - 007 distributed code
     public void ClipGroup_AddTags(View v){
 
         TagsDialog = new TagsDialogFragment();
 
         Bundle bundle = new Bundle();
         bundle.putBoolean("notAlertDialog", true);
-
         TagsDialog.setArguments(bundle);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
-
         TagsDialog.show(ft, "dialog");
-
-        Log.d(getString(R.string.app_name), "taskQ Feature - 004 tabTaskQEntry_Tags click");
     }
 
-    //==========================================================================================
-    // ToDo: Feature - TBU
-    //==========================================================================================
+    //Feature - 006 distributed code
     public void ClipGroup_AddNames(View v){
 
     }
 
-    //==========================================================================================
-    // ToDo: Feature - TBU
-    //==========================================================================================
+    //Feature - 006 distributed code
     public void Button_Today(View v){
 
     }
 
-    //==========================================================================================
-    // ToDo: Feature - TBU
-    //==========================================================================================
+    //Feature - 006 distributed code
     public void Button_Add_a_Day(View v){
 
     }
 
-    //==========================================================================================
-    // ToDo: Feature - TBU
-    //==========================================================================================
+    //Feature - 006 distributed code
     public void Button_Weekend(View v){
 
     }
 
-    //==========================================================================================
-    // ToDo: Feature - TBU
-    //==========================================================================================
+    //Feature - 006 distributed code
     public void Button_Sub_a_Day(View v){
 
     }
 
-    //==========================================================================================
-    // ToDo: Feature - TBU
-    //==========================================================================================
+    //Feature - 006 distributed code
     public void Button_SetReminder(View v){
 
-        if((Integer)tabTaskQEntry__SetReminder.getTag() == R.drawable.ic_reminder_on_dark){
-            tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_off_dark);
-            tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_off_dark);
-
-            //The Off icon is offset by 4 points to the right. So we need to do this.
-            int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
-            tabTaskQEntry__SetReminder.setPadding(intPadding+4,intPadding,intPadding,intPadding);
+        if(true == tabTaskQEntry_Switch_Completion.isChecked()){
+            Log.d(getString(R.string.app_name), "taskQEntryActivity - Delete");
         }
         else{
-            tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
-            tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_on_dark);
+            if((Integer)tabTaskQEntry__SetReminder.getTag() == R.drawable.ic_reminder_on_dark){
+                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_off_dark);
+                tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_off_dark);
 
-            //The Off icon is offset by 4 points to the right. So we need to do this.
-            int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
-            tabTaskQEntry__SetReminder.setPadding(intPadding,intPadding,intPadding,intPadding);
+                //The Off icon is offset by 4 points to the right. So we need to do this.
+                int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
+                tabTaskQEntry__SetReminder.setPadding(intPadding+4,intPadding,intPadding,intPadding);
+                Log.d(getString(R.string.app_name), "taskQEntryActivity - Reminder Off");
+            }
+            else{
+                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
+                tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_on_dark);
+
+                //The Off icon is offset by 4 points to the right. So we need to do this.
+                int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
+                tabTaskQEntry__SetReminder.setPadding(intPadding,intPadding,intPadding,intPadding);
+                Log.d(getString(R.string.app_name), "taskQEntryActivity - Reminder On");
+            }
         }
-
     }
 
-    //==========================================================================================
-    // ToDo: Feature - TBU
-    //==========================================================================================
+    //Feature - 006 distributed code
     public void Switch_Completion(View v){
         if(true == tabTaskQEntry_Switch_Completion.isChecked()){
             imageView_done.setVisibility(View.VISIBLE);
@@ -193,9 +190,9 @@ public class taskQEntryActivity extends AppCompatActivity {
         //finish();
         //startActivity(getIntent());
 
+        //Feature - 007 distributed code
         for (int x=0; x<tagsDialogViewModel.strDialogTags.size(); x++){
             addChips((String)tagsDialogViewModel.strDialogTags.get(x));
-
             ViewGroup.LayoutParams params = TaskQEntry_Tags.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             TaskQEntry_Tags.setLayoutParams(params);
@@ -203,6 +200,7 @@ public class taskQEntryActivity extends AppCompatActivity {
         tagsDialogViewModel.strDialogTags.clear();
     }
 
+    //Feature - 007 distributed code
     private void addChips(String addchip)
     {
         final Chip chip = new Chip(this);
@@ -230,6 +228,5 @@ public class taskQEntryActivity extends AppCompatActivity {
         });
 
         TaskQEntry_Tags.addView(chip);
-
     }
 }
