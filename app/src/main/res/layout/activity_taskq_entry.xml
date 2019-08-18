@@ -1,80 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/userEntry_Background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
+    android:background="?attr/colorBackgroundFloating"
     tools:context=".Activities.taskQEntryActivity">
 
-    <ImageView
-        android:id="@+id/imageView_taskQIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="@string/imageView_taskQIcon_contentDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/imageView_Name_contentDescription"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Task_Description"
-        app:srcCompat="@drawable/ic_tab_all_dark" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/tabTaskQEntry_Task_Description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:cursorVisible="true"
-        android:ems="10"
-        android:fontFamily="@font/ubuntu_light"
-        android:hint="@string/taskQEntry_Task_Description"
-        android:inputType="textAutoCorrect|textMultiLine|textCapSentences"
-        android:selectAllOnFocus="true"
-        android:singleLine="false"
-        android:text="@string/taskQEntry_Task_Description"
-        android:textAlignment="viewStart"
-        android:typeface="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView_Name"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_taskQIcon" />
+            <ImageView
+                android:id="@+id/imageView_taskQIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/imageView_taskQIcon_contentDescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_round" />
 
-    <ImageView
-        android:id="@+id/imageView_Tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/taskQEntry_Task_Tags"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Tags"
-        app:srcCompat="@drawable/ic_tab_what_dark" />
+            <ImageView
+                android:id="@+id/imageView_Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/imageView_Name_contentDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Task_Description"
+                app:srcCompat="@drawable/ic_tab_all_dark" />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/tabTaskQEntry_Tags"
-        android:layout_width="0dp"
-        android:layout_height="@android:dimen/app_icon_size"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/colorThemeLightGrey"
-        android:onClick="ClipGroup_AddTags"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView_Tag"
-        app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_Task_Description" />
+            <EditText
+                android:id="@+id/tabTaskQEntry_Task_Description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu_light"
+                android:hint="@string/taskQEntry_Task_Description"
+                android:inputType="textAutoCorrect|textMultiLine|textCapSentences"
+                android:selectAllOnFocus="true"
+                android:singleLine="false"
+                android:text="@string/taskQEntry_Task_Description"
+                android:textAlignment="viewStart"
+                android:typeface="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView_Name"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_taskQIcon" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/imageView_Tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/taskQEntry_Task_Tags"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Tags"
+                app:srcCompat="@drawable/ic_tab_what_dark" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/tabTaskQEntry_Tags"
+                android:layout_width="0dp"
+                android:layout_height="@android:dimen/app_icon_size"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/colorThemeLightGrey"
+                android:onClick="ClipGroup_AddTags"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView_Tag"
+                app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_Task_Description" />
+
+            <ImageView
+                android:id="@+id/imageView_Who"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/taskQEntry_Task_Who"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Who"
+                app:srcCompat="@drawable/ic_tab_who_dark" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/tabTaskQEntry_Who"
+                android:layout_width="0dp"
+                android:layout_height="@android:dimen/app_icon_size"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/colorThemeLightGrey"
+                android:onClick="ClipGroup_AddNames"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView_Who"
+                app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_Tags">
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <ImageView
+                android:id="@+id/imageView_when"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry__Time"
+                app:srcCompat="@drawable/ic_tab_when_dark" />
+
+            <EditText
+                android:id="@+id/tabTaskQEntry__Time"
+                android:layout_width="80dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="@string/TimeDummyValue_24_59"
+                android:inputType="time"
+                app:layout_constraintEnd_toStartOf="@+id/tabTaskQEntry__Date"
+                app:layout_constraintStart_toEndOf="@+id/imageView_when"
+                app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_Who" />
+
+            <EditText
+                android:id="@+id/tabTaskQEntry__Date"
+                android:layout_width="140dp"
+                android:layout_height="0dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="@string/Month_september"
+                android:inputType="date"
+                app:layout_constraintEnd_toStartOf="@+id/tabTaskQEntry__Day"
+                app:layout_constraintStart_toEndOf="@+id/tabTaskQEntry__Time"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry__Time" />
+
+            <EditText
+                android:id="@+id/tabTaskQEntry__Day"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:autofillHints=""
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:hint="@string/WD_wednesday"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="@+id/tabTaskQEntry__Time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tabTaskQEntry__Date"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry__Time" />
+
+            <Button
+                android:id="@+id/tabTaskQEntry_button_Today"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:onClick="Button_Today"
+                android:text="@string/button_today"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry__Time"
+                app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry__Date" />
+
+            <Button
+                android:id="@+id/tabTaskQEntry_button_add_a_day"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:onClick="Button_Add_a_Day"
+                android:text="@string/button_plus_1_day"
+                app:layout_constraintStart_toEndOf="@+id/tabTaskQEntry_button_Today"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_button_Today" />
+
+            <Button
+                android:id="@+id/tabTaskQEntry_button_weekend"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:onClick="Button_Weekend"
+                android:text="@string/button_weekend"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_button_Today"
+                app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_Today" />
+
+            <Button
+                android:id="@+id/tabTaskQEntry_button_sub_a_day"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:onClick="Button_Sub_a_Day"
+                android:text="@string/button_minus_1_day"
+                app:layout_constraintStart_toEndOf="@+id/tabTaskQEntry_button_weekend"
+                app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_add_a_day" />
+
+            <ImageButton
+                android:id="@+id/tabTaskQEntry__SetReminder"
+                android:layout_width="wrap_content"
+                android:layout_height="104dp"
+                android:layout_marginStart="24dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:onClick="Button_SetReminder"
+                android:padding="@dimen/taskQ_dialog_corner"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toEndOf="@+id/tabTaskQEntry_button_add_a_day"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_button_Today"
+                app:srcCompat="@drawable/ic_reminder_on_dark" />
+
+            <Switch
+                android:id="@+id/tabTaskQEntry_Switch_Completion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:onClick="Switch_Completion"
+                android:switchMinWidth="@dimen/switch_track_width"
+                android:thumb="@drawable/switch_selector"
+                android:track="@drawable/switch_tracker"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_button_Today"
+                app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_weekend" />
+
+            <ImageView
+                android:id="@+id/imageView_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clickable="false"
+                android:longClickable="false"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry__SetReminder"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry__SetReminder"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Switch_Completion"
+                app:srcCompat="@drawable/ic_task_done" />
+
+            <EditText
+                android:id="@+id/userEntry_Description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:fontFamily="@font/ubuntu_light"
+                android:hint="@string/taskQEntry_Details"
+                android:inputType="textMultiLine"
+                android:selectAllOnFocus="false"
+                android:textAlignment="textStart"
+                android:textColorHint="?android:attr/colorButtonNormal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_Switch_Completion" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

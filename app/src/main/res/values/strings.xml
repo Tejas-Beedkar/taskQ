@@ -8,13 +8,46 @@
     <string name="settings_about">About taskQ</string>
 
     <string name="button_add_symbol">+</string>
-    <string name="tab_BottomText_dummyText">\ xx Active Tasks\n xx Due Today\n xx Completed Today</string>
+    <string name="button_Done">Done</string>
+    <string name="button_today">Today</string>
+    <string name="button_plus_1_day">+ 1 Day</string>
+    <string name="button_minus_1_day">- 1 Day</string>
+    <string name="button_weekend">Weekend</string>
 
     <string name="imageView_Name_contentDescription">New task description</string>
     <string name="imageView_taskQIcon_contentDescription">Task Details Form</string>
+
     <string name="taskQEntry_Task_Description">Task Description</string>
     <string name="taskQEntry_Task_Tags">Tags</string>
+    <string name="taskQEntry_Task_Who">Names</string>
+    <string name="taskQEntry_Details">Details</string>
 
     <string name="Long_String">Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment Hello blank fragment </string>
+    <string name="tab_BottomText_dummyText">\ xx Active Tasks\n xx Due Today\n xx Completed Today</string>
+    <string name="TimeDummyValue_24_59">24:59</string>
+
+    <string name="Month_january">January</string>
+    <string name="Month_february">February</string>
+    <string name="Month_march">March</string>
+    <string name="Month_april">April</string>
+    <string name="Month_may">May</string>
+    <string name="Month_june">June</string>
+    <string name="Month_july">July</string>
+    <string name="Month_august">August</string>
+    <string name="Month_september">September</string>
+    <string name="Month_october">October</string>
+    <string name="Month_november">November</string>
+    <string name="Month_december">December</string>
+
+    <string name="WD_sunday">Sunday</string>
+    <string name="WD_monday">Monday</string>
+    <string name="WD_tuesday">Tuesday</string>
+    <string name="WD_wednesday">Wednesday</string>
+    <string name="WD_thursday">Thursday</string>
+    <string name="WD_friday">Friday</string>
+    <string name="WD_saturday">Saturday</string>
+
+    <string name="Switch_working_on_it">Working on it...</string>
+    <string name="Switch_completed">Completed!</string>
 
 </resources>

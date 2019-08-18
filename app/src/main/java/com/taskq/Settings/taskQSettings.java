@@ -6,7 +6,10 @@ import android.content.res.Resources;
 
 import com.taskq.R;
 
-//Dummy Edit for Git merge
+//==========================================================================================
+// ToDo:    Feature - 005
+//          taskQ user customization cofiguration container
+//==========================================================================================
 public class taskQSettings {
 
     private static final String APP_SHARED_PREFS = "taskQPref";

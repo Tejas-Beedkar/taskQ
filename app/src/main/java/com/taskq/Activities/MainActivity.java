@@ -22,10 +22,18 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
+    //==========================================================================================
+    // ToDo:    Feature - 001
+    //          Load the TabActivity, This is the home screen
+    //==========================================================================================
     @Override
     protected void onResume() {
         super.onResume();
-        //Dummy Comment
+
+        //==========================================================================================
+        // ToDo:    Feature - 002
+        //          We do not want the splash screen as our background all the time.
+        //==========================================================================================
         setTheme(R.style.AppTheme_Main);
         Intent modifyIntent = new Intent(MainActivity.this, TabActivity.class);
         startActivity(modifyIntent);
