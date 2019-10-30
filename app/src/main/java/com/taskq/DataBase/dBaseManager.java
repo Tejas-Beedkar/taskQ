@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+//==========================================================================================
+//          Feature 12 - Main database of all entries (interfaces)
+//==========================================================================================
 public class dBaseManager {
 
     private dBaseArchitecture dbHelper;

@@ -23,16 +23,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.CustomClasses.taskQviewModel;
+import com.taskq.DataBase.dBaseManager;
 import com.taskq.Fragments.TagsDialogFragment;
 import com.taskq.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -43,7 +47,8 @@ import java.util.Date;
 public class taskQEntryActivity extends AppCompatActivity {
 
     private ChipGroup TaskQEntry_Tags;
-    private EditText EditText_Task;
+    private ChipGroup TaskQEntry_Names;
+    private EditText tabTaskQEntry_Task_Description;
     private ImageButton tabTaskQEntry__SetReminder;
     private ImageView imageView_done;
     private TagsDialogFragment TagsDialog;
@@ -53,6 +58,12 @@ public class taskQEntryActivity extends AppCompatActivity {
     private EditText EditText_Time;
     private EditText EditText_Date;
     private EditText EditText_Day;
+    private EditText tabTaskQEntry_Description;
+    private dBaseManager dbManager;
+    private static boolean bSetReminder;
+
+    //ToDo: add this to taskQGlobal
+    public static String strSeparator = "__,__";
 
     //NOTE - The simple act of creating a date/time object populated it to the current time.
     private SimpleDateFormat sdfDate_Month = new SimpleDateFormat("dd MMMM");
@@ -80,11 +91,13 @@ public class taskQEntryActivity extends AppCompatActivity {
         //Feature - 002 distributed code
         setTheme(R.style.AppTheme_Main);
 
-        EditText_Task = findViewById(R.id.tabTaskQEntry_Task_Description);
+        tabTaskQEntry_Task_Description = findViewById(R.id.tabTaskQEntry_Task_Description);
         imageView_done = findViewById(R.id.imageView_done);
         tabTaskQEntry__SetReminder = findViewById(R.id.tabTaskQEntry__SetReminder);
         tabTaskQEntry_Switch_Completion = findViewById(R.id.tabTaskQEntry_Switch_Completion);
         TaskQEntry_Tags = findViewById(R.id.tabTaskQEntry_Tags);
+        TaskQEntry_Names = findViewById(R.id.tabTaskQEntry_Who);
+        tabTaskQEntry_Description = findViewById(R.id.tabTaskQEntry_Description);
 
         //Feature - 008 distributed code - init the Calender for the time/date pickers
         cUserTimeDate = Calendar.getInstance();
@@ -94,12 +107,16 @@ public class taskQEntryActivity extends AppCompatActivity {
         tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_on_dark);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            EditText_Task.setAutofillHints(getString(R.string.taskQEntry_Task_Description));
+            tabTaskQEntry_Task_Description.setAutofillHints(getString(R.string.taskQEntry_Task_Description));
         }
 
         EditText_Time = findViewById(R.id.tabTaskQEntry__Time);
         EditText_Date = findViewById(R.id.tabTaskQEntry__Date);
         EditText_Day  = findViewById(R.id.tabTaskQEntry__Day);
+
+        //Feature 12 - Open the dBase
+        dbManager = new dBaseManager(this);
+        dbManager.open();
 
         //==========================================================================================
         //          Feature - 010
@@ -122,13 +139,16 @@ public class taskQEntryActivity extends AppCompatActivity {
                 EditText_Date.setText(sdfDate_Month.format(d));
                 EditText_Time.setText(sdfHours_Minutes.format(d));
                 EditText_Day.setText(sdfDay.format(d));
+
+                //Feature TBU
+                bSetReminder = true; //This is true because wa want to set the alarm by default
             }
 
         }
 
 
         //==========================================================================================
-        // ToDo: Feature - 011 Allow the user to change the Date and Time the Task is Due
+        //          Feature - 011 Allow the user to change the Date and Time the Task is Due
         //==========================================================================================
         EditText_Time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,10 +194,12 @@ public class taskQEntryActivity extends AppCompatActivity {
 //    }
 
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //Feature 12 - Close the dBase manager
+        dbManager.close();
+    }
 
 
 //    @Override
@@ -187,8 +209,11 @@ public class taskQEntryActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //if(false == tagsDialogViewModel.bClearUserEntryNew()){
-        if(true == ((taskQGlobal) getApplication()).bClearUserEntryNew()){
+
+        //Feature - 010
+        saveForm();
+        //bClearUserEntryNew MUST be the last thing to be done here. Elase saveForm() will break.
+        if(false == ((taskQGlobal) getApplication()).bClearUserEntryNew()){
             //The flag failed to clear. Now what?
             Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
         }
@@ -216,32 +241,32 @@ public class taskQEntryActivity extends AppCompatActivity {
         TagsDialog.show(ft, "dialog");
     }
 
-    //Feature - 006 distributed code
+    //Feature - TBU distributed code
     public void ClipGroup_AddNames(View v){
 
     }
 
-    //Feature - 006 distributed code
+    //Feature - TBU distributed code
     public void Button_Today(View v){
 
     }
 
-    //Feature - 006 distributed code
+    //Feature - TBU distributed code
     public void Button_Add_a_Day(View v){
 
     }
 
-    //Feature - 006 distributed code
+    //Feature - TBU distributed code
     public void Button_Weekend(View v){
 
     }
 
-    //Feature - 006 distributed code
+    //Feature - TBU distributed code
     public void Button_Sub_a_Day(View v){
 
     }
 
-    //Feature - 006 distributed code
+    //Feature - TBU distributed code
     public void Button_SetReminder(View v){
 
         if(true == tabTaskQEntry_Switch_Completion.isChecked()){
@@ -256,6 +281,9 @@ public class taskQEntryActivity extends AppCompatActivity {
                 int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
                 tabTaskQEntry__SetReminder.setPadding(intPadding+4,intPadding,intPadding,intPadding);
                 Log.d(getString(R.string.app_name), "taskQEntryActivity - Reminder Off");
+
+                //Feature TBU
+                bSetReminder = false;
             }
             else{
                 tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
@@ -265,11 +293,14 @@ public class taskQEntryActivity extends AppCompatActivity {
                 int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
                 tabTaskQEntry__SetReminder.setPadding(intPadding,intPadding,intPadding,intPadding);
                 Log.d(getString(R.string.app_name), "taskQEntryActivity - Reminder On");
+
+                //Feature TBU
+                bSetReminder = true;
             }
         }
     }
 
-    //Feature - 006 distributed code
+    //Feature - TBU distributed code
     public void Switch_Completion(View v){
         if(true == tabTaskQEntry_Switch_Completion.isChecked()){
             imageView_done.setVisibility(View.VISIBLE);
@@ -292,6 +323,7 @@ public class taskQEntryActivity extends AppCompatActivity {
         }
     }
 
+    //Feature - 007 distributed code
     public void onDialogDismiss(){
         //finish();
         //startActivity(getIntent());
@@ -334,5 +366,72 @@ public class taskQEntryActivity extends AppCompatActivity {
         });
 
         TaskQEntry_Tags.addView(chip);
+    }
+
+    //==============================================================================================
+    //      Feature - 010 Save the form to the dBaseArchitecture dBase
+    //==============================================================================================
+    private void saveForm(){
+
+        String strTask = tabTaskQEntry_Task_Description.getText().toString();
+        String strStatus = String.valueOf(tabTaskQEntry_Switch_Completion.isChecked());
+        String strDescription = tabTaskQEntry_Description.getText().toString();
+        long RowId = 0;
+
+        //Feature - 010 - Needed to convert a list of chips to a store able SQL buffer
+        ArrayList<String> alTagsBuffer = new ArrayList<String>();;
+        final StringBuilder sbTags = new StringBuilder();
+        String strTags;
+        for (int i=0; i<TaskQEntry_Tags.getChildCount();i++){
+            Chip chip = (Chip)TaskQEntry_Tags.getChildAt(i);
+            sbTags.append(chip.getText());
+            alTagsBuffer.add(sbTags.toString());
+            sbTags.setLength(0);
+        }
+        strTags = convertArrayToString(alTagsBuffer);
+
+        //Feature - 010 - Needed to convert a list of chips to a store able SQL buffer
+        ArrayList<String> alNamesBuffer = new ArrayList<String>();;
+        final StringBuilder sbNames = new StringBuilder();
+        String strNames;
+        for (int i=0; i<TaskQEntry_Names.getChildCount();i++){
+            Chip chip = (Chip)TaskQEntry_Names.getChildAt(i);
+            sbNames.append(chip.getText());
+            alNamesBuffer.add(sbNames.toString());
+            sbNames.setLength(0);
+        }
+        strNames = convertArrayToString(alNamesBuffer);
+
+
+
+
+        //Round off seconds and milliseconds before saving.
+        cUserTimeDate.set( Calendar.SECOND, 0 );
+        cUserTimeDate.set( Calendar.MILLISECOND, 0 );
+
+        //Was this a new entry?
+        if(((taskQGlobal) getApplication()).bCheckUserEntryNew()){
+            //Save a new entrys
+            RowId = dbManager.insert(strTask, strTags, strNames, strDescription, cUserTimeDate.getTimeInMillis(), strStatus, String.valueOf(bSetReminder));
+            Toast.makeText(this, "Task # " + RowId + " has been saved.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    //Feature - 010 - support
+    public static String convertArrayToString(ArrayList<String> array){
+        String str = "";
+        for (int i = 0;i<array.size(); i++) {
+            str = str+array.get(i);
+            // Do not append comma at the end of last element
+            if(i<array.size()-1){
+                str = str+strSeparator;
+            }
+        }
+        return str;
+    }
+    //ToDo: MUST be fixed to support ArrayLists
+    public static String[] convertStringToArray(String str){
+        String[] arr = str.split(strSeparator);
+        return arr;
     }
 }

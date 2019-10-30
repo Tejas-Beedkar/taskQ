@@ -258,7 +258,7 @@
                 app:srcCompat="@drawable/ic_task_done" />
 
             <EditText
-                android:id="@+id/userEntry_Description"
+                android:id="@+id/tabTaskQEntry_Description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

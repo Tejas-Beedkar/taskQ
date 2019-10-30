@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+//==========================================================================================
+//          Feature 12 - Main database of all entries (architecture)
+//==========================================================================================
 public class dBaseArchitecture extends SQLiteOpenHelper {
 
     //Table properties
