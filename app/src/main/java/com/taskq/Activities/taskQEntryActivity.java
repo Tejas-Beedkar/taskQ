@@ -22,6 +22,7 @@ import android.widget.Switch;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.Fragments.TagsDialogFragment;
 import com.taskq.R;
@@ -102,7 +103,8 @@ public class taskQEntryActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(false == tagsDialogViewModel.bClearUserEntryNew()){
+        //if(false == tagsDialogViewModel.bClearUserEntryNew()){
+        if(true == ((taskQGlobal) getApplication()).bClearUserEntryNew()){
             //The flag failed to clear. Now what?
             Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
         }

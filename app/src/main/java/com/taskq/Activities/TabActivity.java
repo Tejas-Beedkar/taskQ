@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.Fragments.AllFragment;
 import com.taskq.Fragments.HomeFragment;
@@ -97,7 +98,8 @@ public class TabActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(true == tagsDialogViewModel.bSetUserEntryNew()){
+                //if(true == tagsDialogViewModel.bSetUserEntryNew()){
+                if(true == ((taskQGlobal) getApplication()).bSetUserEntryNew()){
                     Intent modifyIntent = new Intent(TabActivity.this, taskQEntryActivity.class);
                     startActivity(modifyIntent);
                 }
