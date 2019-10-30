@@ -32,7 +32,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 //==========================================================================================
-// ToDo:    Feature - 007
+//          Feature - 007
 //          Tags Dialog to load the tags.
 //==========================================================================================
 public class TagsDialogFragment extends DialogFragment {

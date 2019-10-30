@@ -7,7 +7,7 @@ import android.content.res.Resources;
 import com.taskq.R;
 
 //==========================================================================================
-// ToDo:    Feature - 005
+//          Feature - 005
 //          taskQ user customization configuration container
 //==========================================================================================
 public class taskQSettings {

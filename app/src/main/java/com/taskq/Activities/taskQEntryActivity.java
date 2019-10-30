@@ -29,7 +29,7 @@ import com.taskq.R;
 import java.util.Calendar;
 
 //==========================================================================================
-// ToDo:    Feature - 006
+//          Feature - 009
 //          Task entry form
 //==========================================================================================
 public class taskQEntryActivity extends AppCompatActivity {
@@ -42,7 +42,6 @@ public class taskQEntryActivity extends AppCompatActivity {
     private taskQviewModel tagsDialogViewModel;
     private Switch tabTaskQEntry_Switch_Completion;
     private Calendar cUserTimeDate;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,16 +100,6 @@ public class taskQEntryActivity extends AppCompatActivity {
 //        super.onDestroy();
 //    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
     @Override
     public void onBackPressed() {
         if(false == tagsDialogViewModel.bClearUserEntryNew()){

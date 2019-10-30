@@ -57,7 +57,7 @@ public class TabActivity extends AppCompatActivity {
         tab_ViewPager = findViewById(R.id.tab_ViewPager);
 
         //==========================================================================================
-        // ToDo:    Feature - 003
+        //          Feature - 003
         //          Load the tabs with images and text
         //==========================================================================================
         setSupportActionBar(tab_Toolbar);
@@ -179,7 +179,7 @@ public class TabActivity extends AppCompatActivity {
     }
 
     //==========================================================================================
-    // ToDo:    Feature - 004
+    //          Feature - 004
     //          Prevents the back button from exiting the app on the first press.
     //          Avoids that ungraceful exit.
     //==========================================================================================

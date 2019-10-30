@@ -1,39 +1,23 @@
 package com.taskq.CustomClasses;
 
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
 
-import java.util.ArrayList;
 
 //==========================================================================================
 //          Feature - 008
-//          General Purpose ViewModel to store lifecycle independent information.
+//          General Purpose Global Class
 //==========================================================================================
-public class taskQviewModel extends ViewModel {
+public class taskQGlobal extends Application {
 
-    //Used to pass data from TagsDialogFragment to the taskQEntryActivity
-    public ArrayList strDialogTags = new ArrayList();
-    private String strUserEntryStatus;
+    private static String strUserEntryStatus;
     public static final String fstrUserEntryNew = "NewUserEntry";
     public static final String fstrUserEntryMod = "ModUserEntry";
     public static final String fstrUserEntryclr = "ClrUserEntry";
 
-    public taskQviewModel() {
+    public taskQGlobal() {
         super();
         strUserEntryStatus = fstrUserEntryclr;
     }
-
-    public void setTagsString(){
-        return;
-    }
-
-    public void getTagsString(){
-        return;
-    }
-
-    public void clearTagsString(){
-        return;
-    }
-
 
     public boolean bSetUserEntryNew(){
         boolean fRet = false;
@@ -67,5 +51,4 @@ public class taskQviewModel extends ViewModel {
         }
         return fRet;
     }
-
 }
