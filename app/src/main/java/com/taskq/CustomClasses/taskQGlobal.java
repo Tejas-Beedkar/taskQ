@@ -35,6 +35,14 @@ public class taskQGlobal extends Application {
         }
         return fRet;
     }
+    public boolean bCheckUserEntryNew(){
+        boolean fRet = false;
+        if(strUserEntryStatus.equals(fstrUserEntryNew)){
+            fRet = true;
+        }
+        return fRet;
+    }
+
     public boolean bSetUserEntryModify(){
         boolean fRet = false;
         if(strUserEntryStatus.equals(fstrUserEntryclr)){
@@ -47,6 +55,13 @@ public class taskQGlobal extends Application {
         boolean fRet = false;
         if(strUserEntryStatus.equals(fstrUserEntryMod)){
             strUserEntryStatus = fstrUserEntryclr;
+            fRet = true;
+        }
+        return fRet;
+    }
+    public boolean bCheckUserEntryModify(){
+        boolean fRet = false;
+        if(strUserEntryStatus.equals(fstrUserEntryMod)){
             fRet = true;
         }
         return fRet;

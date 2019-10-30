@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -27,7 +28,9 @@ import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.Fragments.TagsDialogFragment;
 import com.taskq.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 //==========================================================================================
 //          Feature - 009
@@ -43,6 +46,14 @@ public class taskQEntryActivity extends AppCompatActivity {
     private taskQviewModel tagsDialogViewModel;
     private Switch tabTaskQEntry_Switch_Completion;
     private Calendar cUserTimeDate;
+    private EditText EditText_Time;
+    private EditText EditText_Date;
+    private EditText EditText_Day;
+
+    //NOTE - The simple act of creating a date/time object populated it to the current time.
+    private SimpleDateFormat sdfDate_Month = new SimpleDateFormat("dd MMMM");
+    private SimpleDateFormat sdfHours_Minutes = new SimpleDateFormat("HH:mm");
+    private SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +92,39 @@ public class taskQEntryActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             EditText_Task.setAutofillHints(getString(R.string.taskQEntry_Task_Description));
         }
+
+        EditText_Time = findViewById(R.id.tabTaskQEntry__Time);
+        EditText_Date = findViewById(R.id.tabTaskQEntry__Date);
+        EditText_Day  = findViewById(R.id.tabTaskQEntry__Day);
+
+        //==========================================================================================
+        //          Feature - 010
+        //          User Entry- Init of New Entry
+        //==========================================================================================
+        if(((taskQGlobal) getApplication()).bCheckUserEntryNew()){
+
+            //Init the day and time.
+            if(TextUtils.isEmpty(EditText_Date.getText().toString())){
+                //==================================================================================
+                // ToDo: Feature - 007 Populate the current time into the new entry.
+                //==================================================================================
+                if(cUserTimeDate.get(Calendar.MINUTE) <= 30){
+                    cUserTimeDate.set(Calendar.MINUTE, 30);
+                }
+                else
+                {
+                    cUserTimeDate.set(Calendar.MINUTE,0);
+                    cUserTimeDate.add(Calendar.HOUR, 1);
+                }
+
+                Date d = cUserTimeDate.getTime();
+                EditText_Date.setText(sdfDate_Month.format(d));
+                EditText_Time.setText(sdfHours_Minutes.format(d));
+                EditText_Day.setText(sdfDay.format(d));
+            }
+
+        }
+
     }
 
 
