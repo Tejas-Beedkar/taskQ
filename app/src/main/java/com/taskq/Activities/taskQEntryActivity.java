@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,10 +18,12 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TimePicker;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -105,9 +109,6 @@ public class taskQEntryActivity extends AppCompatActivity {
 
             //Init the day and time.
             if(TextUtils.isEmpty(EditText_Date.getText().toString())){
-                //==================================================================================
-                // ToDo: Feature - 007 Populate the current time into the new entry.
-                //==================================================================================
                 if(cUserTimeDate.get(Calendar.MINUTE) <= 30){
                     cUserTimeDate.set(Calendar.MINUTE, 30);
                 }
@@ -124,6 +125,45 @@ public class taskQEntryActivity extends AppCompatActivity {
             }
 
         }
+
+
+        //==========================================================================================
+        // ToDo: Feature - 011 Allow the user to change the Date and Time the Task is Due
+        //==========================================================================================
+        EditText_Time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(taskQEntryActivity.this, R.style.TimePicker, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        cUserTimeDate.set(Calendar.HOUR_OF_DAY, selectedHour);
+                        cUserTimeDate.set(Calendar.MINUTE, selectedMinute);
+                        EditText_Time.setText(sdfHours_Minutes.format(cUserTimeDate.getTime()));
+                    }
+                }, cUserTimeDate.get(Calendar.HOUR_OF_DAY), cUserTimeDate.get(Calendar.MINUTE), true);//Yes 24 hour time
+                //mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+
+        EditText_Date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(taskQEntryActivity.this,  R.style.TimePicker, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        cUserTimeDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        cUserTimeDate.set(Calendar.MONTH, monthOfYear);
+                        cUserTimeDate.set(Calendar.YEAR, year);
+                        EditText_Date.setText(sdfDate_Month.format(cUserTimeDate.getTime()));
+                        EditText_Day.setText(sdfDay.format(cUserTimeDate.getTime()));
+                    }
+                }, cUserTimeDate.get(Calendar.YEAR), cUserTimeDate.get(Calendar.MONTH), cUserTimeDate.get(Calendar.DAY_OF_MONTH));
+                //datePickerDialog.setTitle("Select Date");
+                datePickerDialog.show();
+            }
+        });
 
     }
 
