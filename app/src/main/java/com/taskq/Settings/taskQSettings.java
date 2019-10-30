@@ -8,7 +8,7 @@ import com.taskq.R;
 
 //==========================================================================================
 // ToDo:    Feature - 005
-//          taskQ user customization cofiguration container
+//          taskQ user customization configuration container
 //==========================================================================================
 public class taskQSettings {
 

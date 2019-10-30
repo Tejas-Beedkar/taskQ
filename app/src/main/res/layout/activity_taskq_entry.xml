@@ -171,8 +171,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/rectangle_taskqentry_buttonborder"
                 android:onClick="Button_Today"
                 android:text="@string/button_today"
+                android:textColor="@android:color/black"
                 app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry__Time"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry__Date" />
 
@@ -181,8 +183,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
+                android:background="@drawable/rectangle_taskqentry_buttonborder"
                 android:onClick="Button_Add_a_Day"
                 android:text="@string/button_plus_1_day"
+                android:textColor="@android:color/black"
                 app:layout_constraintStart_toEndOf="@+id/tabTaskQEntry_button_Today"
                 app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_button_Today" />
 
@@ -191,8 +195,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/rectangle_taskqentry_buttonborder"
                 android:onClick="Button_Weekend"
                 android:text="@string/button_weekend"
+                android:textColor="@android:color/black"
                 app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_button_Today"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_Today" />
 
@@ -202,8 +208,10 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/rectangle_taskqentry_buttonborder"
                 android:onClick="Button_Sub_a_Day"
                 android:text="@string/button_minus_1_day"
+                android:textColor="@android:color/black"
                 app:layout_constraintStart_toEndOf="@+id/tabTaskQEntry_button_weekend"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_add_a_day" />
 
@@ -267,6 +275,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_Switch_Completion" />
+
+            <TextView
+                android:id="@+id/tabTaskQEntry_Switch_Completion_Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:ems="10"
+                android:gravity="center"
+                android:text="@string/Switch_Message_Text"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/tabTaskQEntry_Switch_Completion"
+                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_Switch_Completion"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_Switch_Completion"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Switch_Completion" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

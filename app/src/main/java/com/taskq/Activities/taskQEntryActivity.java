@@ -1,6 +1,8 @@
 package com.taskq.Activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -9,6 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -21,6 +25,8 @@ import com.google.android.material.chip.ChipGroup;
 import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.Fragments.TagsDialogFragment;
 import com.taskq.R;
+
+import java.util.Calendar;
 
 //==========================================================================================
 // ToDo:    Feature - 006
@@ -35,12 +41,14 @@ public class taskQEntryActivity extends AppCompatActivity {
     private TagsDialogFragment TagsDialog;
     private taskQviewModel tagsDialogViewModel;
     private Switch tabTaskQEntry_Switch_Completion;
-
+    private Calendar cUserTimeDate;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_taskq_entry);
+
     }
 
 
@@ -62,6 +70,9 @@ public class taskQEntryActivity extends AppCompatActivity {
         tabTaskQEntry__SetReminder = findViewById(R.id.tabTaskQEntry__SetReminder);
         tabTaskQEntry_Switch_Completion = findViewById(R.id.tabTaskQEntry_Switch_Completion);
         TaskQEntry_Tags = findViewById(R.id.tabTaskQEntry_Tags);
+
+        //Feature - 008 distributed code - init the Calender for the time/date pickers
+        cUserTimeDate = Calendar.getInstance();
 
         //Feature - 007 distributed code
         tagsDialogViewModel =  ViewModelProviders.of(this).get(taskQviewModel.class);
@@ -89,6 +100,26 @@ public class taskQEntryActivity extends AppCompatActivity {
 //    protected void onDestroy() {
 //        super.onDestroy();
 //    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        if(false == tagsDialogViewModel.bClearUserEntryNew()){
+            //The flag failed to clear. Now what?
+            Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+        }
+        super.onBackPressed();
+    }
+
 
 
     //Feature - 007 distributed code
@@ -191,7 +222,7 @@ public class taskQEntryActivity extends AppCompatActivity {
         //startActivity(getIntent());
 
         //Feature - 007 distributed code
-        for (int x=0; x<tagsDialogViewModel.strDialogTags.size(); x++){
+        for (int x=0; x<tagsDialogViewModel. strDialogTags.size(); x++){
             addChips((String)tagsDialogViewModel.strDialogTags.get(x));
             ViewGroup.LayoutParams params = TaskQEntry_Tags.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;

@@ -47,7 +47,6 @@
     <string name="WD_friday">Friday</string>
     <string name="WD_saturday">Saturday</string>
 
-    <string name="Switch_working_on_it">Working on it...</string>
-    <string name="Switch_completed">Completed!</string>
+    <string name="Switch_Message_Text">Swipe to Close</string>
 
 </resources>

@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.Fragments.AllFragment;
 import com.taskq.Fragments.HomeFragment;
 import com.taskq.Fragments.WhatFragment;
@@ -42,6 +44,7 @@ public class TabActivity extends AppCompatActivity {
             R.drawable.ic_tab_when_light,
             R.drawable.ic_tab_who_light
     };
+    private taskQviewModel tagsDialogViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,8 @@ public class TabActivity extends AppCompatActivity {
         setupViewPager(tab_ViewPager);
         tab_TabLayout.setupWithViewPager(tab_ViewPager);
         setupTabIcons();
+
+        tagsDialogViewModel =  ViewModelProviders.of(this).get(taskQviewModel.class);
 
     }
 
@@ -91,8 +96,15 @@ public class TabActivity extends AppCompatActivity {
         tab_Button_NewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent modifyIntent = new Intent(TabActivity.this, taskQEntryActivity.class);
-                startActivity(modifyIntent);
+
+                if(true == tagsDialogViewModel.bSetUserEntryNew()){
+                    Intent modifyIntent = new Intent(TabActivity.this, taskQEntryActivity.class);
+                    startActivity(modifyIntent);
+                }
+                else{
+                    Toast.makeText(TabActivity.this, "Cannot add new activity. App Error.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
