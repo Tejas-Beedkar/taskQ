@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp">
+
+    <TextView
+        android:id="@+id/search_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="2dp"
+        android:text="@string/search_category"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/search_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:theme="@style/Progressbar.colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/search_category"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
+        android:progress="50" />
+
+    <TextView
+        android:id="@+id/search_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/search_category"
+        android:layout_alignEnd="@+id/search_progressBar"
+        android:layout_marginEnd="0dp"
+        android:text="@string/userEntry_NULL_id"
+        android:textSize="18sp" />
+</RelativeLayout>
