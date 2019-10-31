@@ -518,12 +518,12 @@ public class taskQEntryActivity extends AppCompatActivity {
         if(((taskQGlobal) getApplication()).bCheckUserEntryNew()){
             //Save a new entrys
             RowId = dbManager.insert(strTask, strTags, strNames, strDescription, cUserTimeDate.getTimeInMillis(), strStatus, String.valueOf(bSetReminder));
-            Toast.makeText(this, "Task # " + RowId + " has been saved.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Task saved.", Toast.LENGTH_LONG).show();
         }
         //Was this a old entry
         else if(((taskQGlobal) getApplication()).bCheckUserEntryModify()){
             dbManager.update(((taskQGlobal) getApplication()).bGetUserEntryModify(), strTask, strTags, strNames, strDescription, cUserTimeDate.getTimeInMillis(), strStatus, String.valueOf(bSetReminder));
-            Toast.makeText(this, "Task # " + RowId + " has been updated.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Task updated.", Toast.LENGTH_LONG).show();
         }
 
 
