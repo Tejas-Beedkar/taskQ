@@ -7,4 +7,5 @@
     <color name="colorThemeLightGrey">#ECEBEB</color>
     <color name="colorHtmlGrey">#808080</color>
     <color name="colorDoneGreen">#28822E</color>
+    <color name="colorChipSelected">#FF5722</color>
 </resources>

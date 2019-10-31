@@ -75,7 +75,6 @@ public class TagsDialogFragment extends DialogFragment {
         buttonAdd = getDialog().findViewById(R.id.TagsDialog_EntryButton);
         editTextTags = getDialog().findViewById(R.id.TagsDialog_UserEntry);
         final ChipGroup chpGrpTagsDialog = getDialog().findViewById(R.id.ChipsGroupTagsDialog);
-        final EditText edittext = (EditText) getDialog().findViewById(R.id.TagsDialog_UserEntry);
 
         //Set Dialog Size
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -87,22 +86,30 @@ public class TagsDialogFragment extends DialogFragment {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-        for(int i = 0; i < chpGrpTagsDialog.getChildCount(); i++){
-            Chip chip = (Chip) chpGrpTagsDialog.getChildAt(i);
-            chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked){
-                        list.add(buttonView.getText().toString());
-                    }else{
-                        list.remove(buttonView.getText().toString());
-                    }
-                    if(!list.isEmpty()){
-                        Toast.makeText(getContext(), list.toString(),Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        }
+        //ToDo - this this needed?
+//        for(int i = 0; i < chpGrpTagsDialog.getChildCount(); i++){
+//            Chip chip = (Chip) chpGrpTagsDialog.getChildAt(i);
+//            chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                    if(isChecked){
+//                        list.add(buttonView.getText().toString());
+//                    }else{
+//                        list.remove(buttonView.getText().toString());
+//                    }
+//                    if(!list.isEmpty()){
+//                        Toast.makeText(getContext(), list.toString(),Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            });
+//        }
+//        chpGrpTagsDialog.setOnCheckedChangeListener (new ChipGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(ChipGroup chipGroup, int i) {
+//                Chip chip = chipGroup.findViewById(i);
+//                chip.setChipBackgroundColorResource(R.color.colorChipSelected);
+//            }
+//        });
 
         //Add new Tag
         buttonAdd.setOnClickListener(new View.OnClickListener(){
@@ -115,8 +122,9 @@ public class TagsDialogFragment extends DialogFragment {
                 ((TextView)getDialog().findViewById(R.id.TagsDialog_UserEntry)).setText("");
             }
         });
+
         //Keyboard enter is the same as Add
-        edittext.setOnKeyListener(new View.OnKeyListener() {
+        editTextTags.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
