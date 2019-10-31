@@ -154,6 +154,7 @@ public class WhatFragment extends Fragment {
 
         //Step 6 - Update Views
         //
+        //ToDo - ExpandableListAdapter
         adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_countentries, cursorWhat, from, to, 0);
         adapter.setViewBinder(new CustomViewBinder());
         adapter.notifyDataSetChanged();
