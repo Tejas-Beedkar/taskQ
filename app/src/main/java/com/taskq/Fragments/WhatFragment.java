@@ -12,11 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.taskq.CustomClasses.ExpandableListDataPump;
+import com.taskq.CustomClasses.customExpandableListAdapter;
 import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseArchitecture_What;
 import com.taskq.DataBase.dBaseManager;
@@ -26,7 +30,9 @@ import com.taskq.Settings.taskQSettings;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -37,7 +43,7 @@ public class WhatFragment extends Fragment {
     private View view;
     private dBaseManager dbManager;
     private dBaseManager_What dbManager_What;
-    private ListView listView;
+    private ExpandableListView expandableListView;
     private taskQSettings Settings;
     private int maxProgressBar;
     private SimpleCursorAdapter adapter;
@@ -63,7 +69,7 @@ public class WhatFragment extends Fragment {
         dbManager.open();
         dbManager_What = new dBaseManager_What(getActivity());
         dbManager_What.open();
-        listView = view.findViewById(R.id.ListView_Frag_What);
+        expandableListView = view.findViewById(R.id.ListView_Frag_What_Expandable);
         Settings = new taskQSettings(getActivity().getApplicationContext());
         return view;
     }
@@ -152,22 +158,68 @@ public class WhatFragment extends Fragment {
         }
         maxProgressBar = maxProgressBar + 1;
 
-        //Step 6 - Update Views
-        //
-        //ToDo - ExpandableListAdapter
-        adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_countentries, cursorWhat, from, to, 0);
-        adapter.setViewBinder(new CustomViewBinder());
-        adapter.notifyDataSetChanged();
-        listView.setAdapter(adapter);
-        //Step 7 - Setup On Click Listener for new items
-        //ToDo: add way to sort ascending
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //Step 6 - Create a hash of each category
+        ExpandableListAdapter expandableListAdapter;
+        final List<String> expandableListTitle;
+        final HashMap<String, List<String>> expandableListDetail;
+
+        expandableListDetail = ExpandableListDataPump.getData();
+        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListAdapter = new customExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
+        expandableListView.setAdapter(expandableListAdapter);
+
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView SearchCategory = view.findViewById(R.id.search_category);
-                //ToDo - Launch Query activity from here.
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getActivity().getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Expanded.",
+                        Toast.LENGTH_SHORT).show();
             }
         });
+
+        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getActivity().getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Collapsed.",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                Toast.makeText(
+                        getActivity().getApplicationContext(),
+                        expandableListTitle.get(groupPosition)
+                                + " -> "
+                                + expandableListDetail.get(
+                                expandableListTitle.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT
+                ).show();
+                return false;
+            }
+        });
+
+//        //Step 6 - Update Views
+//        //
+//        //ToDo - ExpandableListAdapter
+//        adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_countentries, cursorWhat, from, to, 0);
+//        adapter.setViewBinder(new CustomViewBinder());
+//        adapter.notifyDataSetChanged();
+//        listView.setAdapter(adapter);
+//        //Step 7 - Setup On Click Listener for new items
+//        //ToDo: add way to sort ascending
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                TextView SearchCategory = view.findViewById(R.id.search_category);
+//                //ToDo - Launch Query activity from here.
+//            }
+//        });
     }
 
     private class CustomViewBinder implements SimpleCursorAdapter.ViewBinder{

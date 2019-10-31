@@ -20,8 +20,8 @@
             android:theme="?attr/actionBarTheme"
             android:visibility="visible" />
 
-        <ListView
-            android:id="@+id/ListView_Frag_What"
+        <ExpandableListView
+            android:id="@+id/ListView_Frag_What_Expandable"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
@@ -30,6 +30,7 @@
             android:paddingBottom="@android:dimen/app_icon_size"
             android:scrollbars="vertical"
             android:scrollingCache="true"
-            android:smoothScrollbar="true"></ListView>
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            android:smoothScrollbar="true"></ExpandableListView>
     </LinearLayout>
 </RelativeLayout>
