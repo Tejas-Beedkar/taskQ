@@ -44,6 +44,11 @@ public class customExpandableListAdapter extends BaseExpandableListAdapter {
                 .get(expandedListPosition);
     }
 
+    public Object getChild_SQL_ID(int listPosition, int expandedListPosition) {
+        return this.expandableListIDs.get(this.expandableListTitle.get(listPosition))
+                .get(expandedListPosition);
+    }
+
     @Override
     public long getChildId(int listPosition, int expandedListPosition) {
         return expandedListPosition;
@@ -54,15 +59,24 @@ public class customExpandableListAdapter extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
         final String expandedListText = (String) getChild(listPosition, expandedListPosition);
+        final String expandedListID   = (String) getChild_SQL_ID(listPosition, expandedListPosition);
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.listview_countentries_sub, null);
         }
-        TextView expandedListTextView = (TextView) convertView
-                .findViewById(R.id.expandedListItem);
+
+        //Populate the task description
+        TextView expandedListTextView = (TextView) convertView .findViewById(R.id.expandedListItem);
         expandedListTextView.setText(expandedListText);
+
+        //Populate the task description ID
+        TextView expandedListIDView = (TextView) convertView .findViewById(R.id.expandedListItemID);
+        expandedListIDView.setText(expandedListID);
+
+
+
         return convertView;
     }
 
