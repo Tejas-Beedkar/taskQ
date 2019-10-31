@@ -91,6 +91,8 @@ public class taskQEntryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        String[] strBuffer;
+
         //Feature - 002 distributed code
         setTheme(R.style.AppTheme_Main);
 
@@ -145,6 +147,13 @@ public class taskQEntryActivity extends AppCompatActivity {
 
                 //Feature TBU
                 bSetReminder = true; //This is true because wa want to set the alarm by default
+
+                //Set the chipgroup heights so that a empty chipgroup does not collapse on itself
+                ViewGroup.LayoutParams params;
+                params = TaskQEntry_Tags.getLayoutParams();
+                params.height = 120;
+                params = TaskQEntry_Names.getLayoutParams();
+                params.height = 120;
             }
 
         }else
@@ -197,6 +206,25 @@ public class taskQEntryActivity extends AppCompatActivity {
 
             //Task Details
             tabTaskQEntry_Description.setText(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_DESCRIPTION)));
+
+            //Load the Tags to the chipgroup
+            strBuffer = cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_TAGS)).split(strSeparator);
+            if(strBuffer.length ==  1 && strBuffer[0].equals("")){
+                //Set the chipgroup heights so that a empty chipgroup does not collapse on itself
+                ViewGroup.LayoutParams params = TaskQEntry_Tags.getLayoutParams();
+                params.height = 120;
+            }else {
+                for (int i = 0; i < strBuffer.length; i++) {
+                    addTagsChips(strBuffer[i]);
+                }
+            }
+
+            //Load the Names to the chipgroup
+            strBuffer = cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_NAMES)).split(strSeparator);
+            if(strBuffer.length ==  1 && strBuffer[0].equals("")){
+                ViewGroup.LayoutParams params = TaskQEntry_Names.getLayoutParams();
+                params.height = 120;
+            }
 
         }
 
@@ -395,7 +423,7 @@ public class taskQEntryActivity extends AppCompatActivity {
 
         //Feature - 007 distributed code
         for (int x=0; x<tagsDialogViewModel. strDialogTags.size(); x++){
-            addChips((String)tagsDialogViewModel.strDialogTags.get(x));
+            addTagsChips((String)tagsDialogViewModel.strDialogTags.get(x));
             ViewGroup.LayoutParams params = TaskQEntry_Tags.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             TaskQEntry_Tags.setLayoutParams(params);
@@ -404,11 +432,11 @@ public class taskQEntryActivity extends AppCompatActivity {
     }
 
     //Feature - 007 distributed code
-    private void addChips(String addchip)
+    private void addTagsChips(String addchip)
     {
         final Chip chip = new Chip(this);
 
-        int paddingDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -10, getResources().getDisplayMetrics());
+        int paddingDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
         chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);
 
         chip.setText(addchip);
