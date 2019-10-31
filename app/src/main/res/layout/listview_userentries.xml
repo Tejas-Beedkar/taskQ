@@ -29,7 +29,7 @@
         android:text="@string/app_name_with_copyright"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/userEntry_listView_bullet"
+        app:layout_constraintStart_toEndOf="@+id/search_listView_bullet"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toTopOf="@+id/userEntry_listView_task" />
 
     <ImageView
-        android:id="@+id/userEntry_listView_bullet"
+        android:id="@+id/search_listView_bullet"
         android:layout_width="@dimen/taskQ_dialog_corner"
         android:layout_height="@dimen/taskQ_dialog_corner"
         android:layout_marginStart="8dp"

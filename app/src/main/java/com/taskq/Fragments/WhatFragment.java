@@ -41,6 +41,8 @@ public class WhatFragment extends Fragment {
     private taskQSettings Settings;
     private int maxProgressBar;
     private SimpleCursorAdapter adapter;
+    //ToDo: add this to taskQGlobal
+    public static String strSeparator = "__,__";
 
     final String[] from = new String[] {
             dBaseArchitecture_What.COL_WHAT_COUNT,
@@ -112,7 +114,7 @@ public class WhatFragment extends Fragment {
         //
         for (int x=0; x<strRawTags.size(); x++){
             //This will give us a array list of arrays
-            strRecurrringTagsBuffer.add(strRawTags.get(x).toString().split(","));
+            strRecurrringTagsBuffer.add(strRawTags.get(x).toString().split(strSeparator));
         }
         for (int x=0; x<strRecurrringTagsBuffer.size(); x++) {
             //Local Buffer to dereference Array List
