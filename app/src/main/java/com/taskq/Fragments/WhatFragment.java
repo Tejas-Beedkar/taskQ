@@ -1,7 +1,6 @@
 package com.taskq.Fragments;
 
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -11,15 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.taskq.CustomClasses.ExpandableListDataPump;
 import com.taskq.CustomClasses.customExpandableListAdapter;
 import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseArchitecture_What;
@@ -188,7 +183,6 @@ public class WhatFragment extends Fragment {
             expandableListDetail.put(strCurrentTag, strLstTaskNameBuffer);
         }
 
-        //expandableListDetail = ExpandableListDataPump.getData();
         expandableListTags = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new customExpandableListAdapter(getActivity(), expandableListTags, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
