@@ -10,6 +10,7 @@ import android.app.Application;
 public class taskQGlobal extends Application {
 
     private static String strUserEntryStatus;
+    private long idModify;
     public static final String fstrUserEntryNew = "NewUserEntry";
     public static final String fstrUserEntryMod = "ModUserEntry";
     public static final String fstrUserEntryclr = "ClrUserEntry";
@@ -43,13 +44,21 @@ public class taskQGlobal extends Application {
         return fRet;
     }
 
-    public boolean bSetUserEntryModify(){
+    public boolean bSetUserEntryModify(long id){
         boolean fRet = false;
         if(strUserEntryStatus.equals(fstrUserEntryclr)){
             strUserEntryStatus = fstrUserEntryMod;
+            idModify = id;
             fRet = true;
         }
         return fRet;
+    }
+    public long bGetUserEntryModify(){
+        long retValue = 0;
+        if(strUserEntryStatus.equals(fstrUserEntryMod)){
+            retValue = idModify;
+        }
+        return retValue;
     }
     public boolean bClearUserEntryModify(){
         boolean fRet = false;

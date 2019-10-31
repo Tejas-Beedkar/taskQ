@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,6 +32,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.CustomClasses.taskQviewModel;
+import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseManager;
 import com.taskq.Fragments.TagsDialogFragment;
 import com.taskq.R;
@@ -61,6 +63,7 @@ public class taskQEntryActivity extends AppCompatActivity {
     private EditText tabTaskQEntry_Description;
     private dBaseManager dbManager;
     private static boolean bSetReminder;
+    private Cursor cursor;
 
     //ToDo: add this to taskQGlobal
     public static String strSeparator = "__,__";
@@ -144,6 +147,57 @@ public class taskQEntryActivity extends AppCompatActivity {
                 bSetReminder = true; //This is true because wa want to set the alarm by default
             }
 
+        }else
+        //==========================================================================================
+        //          Feature - 017
+        //          User Entry- Modify existing Entry
+        //==========================================================================================
+        if(((taskQGlobal) getApplication()).bCheckUserEntryModify()){
+
+            //This is now the handle to the entry
+            cursor = dbManager.fetch_EntryById(((taskQGlobal) getApplication()).bGetUserEntryModify());
+
+            //Task Description
+            tabTaskQEntry_Task_Description.setText(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_TASK)));
+
+            //Dates
+            cUserTimeDate.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(dBaseArchitecture.COL_WHEN_TIME)));
+            EditText_Date.setText(sdfDate_Month.format(cUserTimeDate.getTime()));
+            EditText_Time.setText(sdfHours_Minutes.format(cUserTimeDate.getTime()));
+            EditText_Day.setText(sdfDay.format(cUserTimeDate.getTime()));
+
+            //Reminder set/notset Icon
+            bSetReminder = Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_SET_REMINDER)));
+            if(false == bSetReminder){
+                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_off_dark);
+                tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_off_dark);
+                //The Off icon is offset by 4 points to the right. So we need to do this.
+                int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
+                tabTaskQEntry__SetReminder.setPadding(intPadding+4,intPadding,intPadding,intPadding);
+                Log.d(getString(R.string.app_name), "taskQEntryActivity - Reminder Off");
+            }
+            else{
+                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
+                tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_on_dark);
+                //The Off icon is offset by 4 points to the right. So we need to do this.
+                int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
+                tabTaskQEntry__SetReminder.setPadding(intPadding,intPadding,intPadding,intPadding);
+                Log.d(getString(R.string.app_name), "taskQEntryActivity - Reminder On");
+            }
+
+            //Status Done/noDone toggle switch
+            if(true == Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_STATUS)))){
+                imageView_done.setVisibility(View.VISIBLE);
+                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_delete);
+                tabTaskQEntry_Switch_Completion.setChecked(true);
+            }else{
+                imageView_done.setVisibility(View.INVISIBLE);
+                tabTaskQEntry_Switch_Completion.setChecked(false);
+            }
+
+            //Task Details
+            tabTaskQEntry_Description.setText(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_DESCRIPTION)));
+
         }
 
 
@@ -212,11 +266,21 @@ public class taskQEntryActivity extends AppCompatActivity {
 
         //Feature - 010
         saveForm();
-        //bClearUserEntryNew MUST be the last thing to be done here. Elase saveForm() will break.
-        if(false == ((taskQGlobal) getApplication()).bClearUserEntryNew()){
-            //The flag failed to clear. Now what?
-            Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+
+        //bClearUserEntryXXX MUST be the last thing to be done here. Else saveForm() will break.
+        if(true ==((taskQGlobal) getApplication()).bCheckUserEntryNew()) {
+            if (false == ((taskQGlobal) getApplication()).bClearUserEntryNew()) {
+                //The flag failed to clear. Now what?
+                Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+            }
+        } else
+        if(true ==((taskQGlobal) getApplication()).bCheckUserEntryModify()) {
+            if (false == ((taskQGlobal) getApplication()).bClearUserEntryModify()) {
+                //The flag failed to clear. Now what?
+                Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+            }
         }
+
         super.onBackPressed();
     }
 
@@ -417,6 +481,13 @@ public class taskQEntryActivity extends AppCompatActivity {
             RowId = dbManager.insert(strTask, strTags, strNames, strDescription, cUserTimeDate.getTimeInMillis(), strStatus, String.valueOf(bSetReminder));
             Toast.makeText(this, "Task # " + RowId + " has been saved.", Toast.LENGTH_LONG).show();
         }
+        //Was this a old entry
+        else if(((taskQGlobal) getApplication()).bCheckUserEntryModify()){
+            dbManager.update(((taskQGlobal) getApplication()).bGetUserEntryModify(), strTask, strTags, strNames, strDescription, cUserTimeDate.getTimeInMillis(), strStatus, String.valueOf(bSetReminder));
+            Toast.makeText(this, "Task # " + RowId + " has been updated.", Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     //Feature - 010 - support

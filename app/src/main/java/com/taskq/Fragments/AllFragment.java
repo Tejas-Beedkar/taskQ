@@ -1,6 +1,7 @@
 package com.taskq.Fragments;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -10,10 +11,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.taskq.Activities.MainActivity;
+import com.taskq.Activities.TabActivity;
+import com.taskq.Activities.taskQEntryActivity;
+import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseManager;
 import com.taskq.R;
@@ -83,9 +89,29 @@ public class AllFragment extends Fragment {
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
 
+        //==========================================================================================
+        //          Feature - 016
+        //          Allow items to be opened for the All-Fragment
+        //==========================================================================================
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //Get the SQL Entry index as retrieved from the view.
+                //TextView idTextView = view.findViewById(R.id.userEntry_listView_id);
+                //long idModify = Long.parseLong(idTextView.getText().toString());
+                long idModify = Long.parseLong( ((TextView)(view.findViewById(R.id.userEntry_listView_id))).getText().toString());
+
+                //Set the ID into the taskQGlobal class and load the taskQEntryActivity
+                if(true == (((taskQGlobal) getActivity().getApplication()).bSetUserEntryModify(idModify))){
+                    Intent modifyIntent = new Intent(getActivity().getApplicationContext(), taskQEntryActivity.class);
+                    startActivity(modifyIntent);
+                }
+            }
+        });
     }
 
-    //Feature 14 - List of all entries - CustomViewBinder to customize each list entry`
+    //Feature 14 - List of all entries - CustomViewBinder to customize each list entry
     private class CustomViewBinder implements SimpleCursorAdapter.ViewBinder{
         @Override
         public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
@@ -95,15 +121,19 @@ public class AllFragment extends Fragment {
             if(view.getId()==R.id.userEntry_listView_notification_image)
             {
                 ImageView imageView = (ImageView) view;
-                if(Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_SET_REMINDER))) == true){
-                    imageView.setImageResource(R.drawable.ic_reminder_on_dark);
+                if(false == Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_STATUS)))) {
+                    if (Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_SET_REMINDER))) == true) {
+                        imageView.setImageResource(R.drawable.ic_reminder_on_dark);
+                        retVal = true;
+                    } else {
+                        imageView.setImageResource(R.drawable.ic_reminder_off_dark);
+                        retVal = true;
+                    }
+                }else{
+                    imageView.setImageResource(R.drawable.ic_delete);
                     retVal = true;
                 }
-                else
-                {
-                    imageView.setImageResource(R.drawable.ic_reminder_off_dark);
-                    retVal = true;
-                }
+
             }
 
             if(view.getId()==R.id.userEntry_listView_date)
