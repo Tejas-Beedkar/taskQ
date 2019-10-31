@@ -1,70 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@android:color/background_light"
-android:paddingLeft="16dp"
-android:paddingTop="16dp"
-android:paddingRight="16dp"
-android:paddingBottom="16dp">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:paddingLeft="0dp"
+    android:paddingTop="8dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="8dp">
 
-<TextView
-    android:id="@+id/userEntry_listView_id"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentStart="true"
-    android:layout_marginStart="10dp"
-    android:text="@string/app_name_with_copyright"
-    android:textSize="18sp"
-    android:textStyle="bold"
-    android:visibility="gone" />
+    <TextView
+        android:id="@+id/userEntry_listView_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/app_name_with_copyright"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
-<TextView
-    android:id="@+id/userEntry_listView_task"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:layout_toEndOf="@+id/userEntry_listView_id"
-    android:text="@string/app_name_with_copyright"
-    android:textSize="18sp"
-    android:textStyle="bold"
-    tools:layout_width="fill_parent" />
+    <TextView
+        android:id="@+id/userEntry_listView_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:text="@string/app_name_with_copyright"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/userEntry_listView_bullet"
+        app:layout_constraintTop_toTopOf="parent" />
 
-<TextView
-    android:id="@+id/userEntry_listView_names"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/userEntry_listView_task"
-    android:layout_alignStart="@+id/userEntry_listView_task"
-    android:layout_marginStart="0dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="0dp"
-    android:layout_toStartOf="@+id/userEntry_ImageView_notification"
-    android:text="@string/app_name_with_copyright"
-    android:textSize="14sp"
-    tools:layout_width="fill_parent" />
+    <TextView
+        android:id="@+id/userEntry_listView_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/app_name_with_copyright"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/userEntry_listView_task"
+        app:layout_constraintTop_toBottomOf="@+id/userEntry_listView_task" />
 
-<TextView
-    android:id="@+id/userEntry_listView_tags"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/userEntry_listView_names"
-    android:layout_alignStart="@+id/userEntry_listView_names"
-    android:layout_marginStart="0dp"
-    android:layout_marginTop="4dp"
-    android:text="@string/app_name_with_copyright"
-    android:textSize="14sp"
-    tools:layout_width="fill_parent" />
+    <ImageView
+        android:id="@+id/userEntry_listView_notification_image"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/userEntry_listView_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userEntry_listView_task" />
 
-<ImageView
-    android:id="@+id/userEntry_ImageView_notification"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/userEntry_listView_task"
-    android:layout_alignParentEnd="true"
-    android:layout_marginTop="0dp"
-    android:layout_marginEnd="10dp"
-    app:srcCompat="@drawable/ic_reminder_off_dark" />
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/userEntry_listView_bullet"
+        android:layout_width="@dimen/taskQ_dialog_corner"
+        android:layout_height="@dimen/taskQ_dialog_corner"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/userEntry_listView_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userEntry_listView_task"
+        app:srcCompat="@drawable/ic_call_to_action" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

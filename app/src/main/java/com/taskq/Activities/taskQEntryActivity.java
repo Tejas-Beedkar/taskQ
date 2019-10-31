@@ -237,6 +237,7 @@ public class taskQEntryActivity extends AppCompatActivity {
         if (prev != null) {
             ft.remove(prev);
         }
+
         ft.addToBackStack(null);
         TagsDialog.show(ft, "dialog");
     }
@@ -343,8 +344,9 @@ public class taskQEntryActivity extends AppCompatActivity {
     {
         final Chip chip = new Chip(this);
 
-        int paddingDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
+        int paddingDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -10, getResources().getDisplayMetrics());
         chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);
+
         chip.setText(addchip);
         chip.setCheckable(true);
         chip.setCloseIconVisible(true);

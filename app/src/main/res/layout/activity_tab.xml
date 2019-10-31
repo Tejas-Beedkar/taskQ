@@ -44,10 +44,8 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tab_BottomText"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="4dp"
             android:background="@drawable/rectangle_background"
             android:fontFamily="@font/ubuntu_bold"
             android:maxLines="3"
@@ -63,8 +61,6 @@
             android:id="@+id/tab_Button_NewItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
             android:background="@color/colorPrimaryDark"
             android:fontFamily="@font/ubuntu_bold"
             android:hapticFeedbackEnabled="true"
@@ -74,6 +70,7 @@
             android:textSize="36sp"
             android:textStyle="bold"
             android:visibility="visible"
+            app:layout_constrainedHeight="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

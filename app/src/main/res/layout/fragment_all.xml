@@ -19,15 +19,17 @@ tools:context="com.taskq.Fragments.AllFragment">
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         android:visibility="visible" />
+
     <ListView
         android:id="@+id/ListView_Frag_All"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
         android:fadeScrollbars="true"
+        android:paddingTop="@dimen/taskQ_dialog_padding"
+        android:paddingBottom="@android:dimen/app_icon_size"
         android:scrollbars="vertical"
         android:scrollingCache="true"
-        android:smoothScrollbar="true">
-    </ListView>
+        android:smoothScrollbar="true"></ListView>
 </LinearLayout>
 </RelativeLayout>

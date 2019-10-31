@@ -1,7 +1,6 @@
 package com.taskq.Fragments;
 
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +18,11 @@ import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseManager;
 import com.taskq.R;
 import com.taskq.Settings.taskQSettings;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import static android.widget.TextView.BufferType.EDITABLE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,15 +35,17 @@ public class AllFragment extends Fragment {
     private taskQSettings Settings;
     private SimpleCursorAdapter adapter;
 
+    //ToDo: add this to taskQGlobal
+    public static String strSeparator = "__,__";
+
     //Feature 14 - List of all entries - components
     final String[] from = new String[] {
             dBaseArchitecture._ID,
             dBaseArchitecture.COL_TASK,
-            dBaseArchitecture.COL_NAMES,
-            dBaseArchitecture.COL_TAGS,
+            dBaseArchitecture.COL_WHEN_TIME,
             dBaseArchitecture.COL_SET_REMINDER,
     };
-    final int[] to = new int[] {R.id.userEntry_listView_id, R.id.userEntry_listView_task, R.id.userEntry_listView_names, R.id.userEntry_listView_tags, R.id.userEntry_ImageView_notification};
+    final int[] to = new int[] {R.id.userEntry_listView_id, R.id.userEntry_listView_task, R.id.userEntry_listView_date, R.id.userEntry_listView_notification_image};
 
 
     public AllFragment() {
@@ -84,20 +89,42 @@ public class AllFragment extends Fragment {
     private class CustomViewBinder implements SimpleCursorAdapter.ViewBinder{
         @Override
         public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-            if(view.getId()==R.id.userEntry_ImageView_notification)
+
+            boolean retVal = false;
+
+            if(view.getId()==R.id.userEntry_listView_notification_image)
             {
                 ImageView imageView = (ImageView) view;
                 if(Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_SET_REMINDER))) == true){
                     imageView.setImageResource(R.drawable.ic_reminder_on_dark);
-                    return true;
+                    retVal = true;
                 }
                 else
                 {
                     imageView.setImageResource(R.drawable.ic_reminder_off_dark);
-                    return true;
+                    retVal = true;
                 }
             }
-            return false;
+
+            if(view.getId()==R.id.userEntry_listView_date)
+            {
+                //Declare and init vars
+                Calendar cUserTimeDate = Calendar.getInstance();;
+                SimpleDateFormat sdfDate_Month = new SimpleDateFormat("dd MMMM");
+                SimpleDateFormat sdfHours_Minutes = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
+                String strTimeBuffer;
+                TextView textView = (TextView) view;
+                //Get Time form dBase
+                cUserTimeDate.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(dBaseArchitecture.COL_WHEN_TIME)));
+                //Construct the time string
+                strTimeBuffer = sdfDay.format(cUserTimeDate.getTime()) +", " + sdfDate_Month.format(cUserTimeDate.getTime());
+                //Show string in list view
+                textView.setText(strTimeBuffer, EDITABLE);
+                retVal = true;
+            }
+
+            return retVal;
         }
     }
 

@@ -11,4 +11,6 @@
     <dimen name="switch_selector_padding">2dp</dimen>
     <dimen name="switch_stroke_height">0dp</dimen>
 
+    <dimen name="listview_alarm">24dp</dimen>
+
 </resources>
