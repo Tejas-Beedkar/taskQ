@@ -319,8 +319,19 @@ public class taskQEntryActivity extends AppCompatActivity {
 
         TagsDialog = new TagsDialogFragment();
 
+        //Turn the existing tags to a string
+        ArrayList<String> alNamesBuffer = new ArrayList<String>();;
+        final StringBuilder sbNames = new StringBuilder();
+        for (int i=0; i<TaskQEntry_Tags.getChildCount();i++){
+            Chip chip = (Chip)TaskQEntry_Tags.getChildAt(i);
+            sbNames.append(chip.getText());
+            alNamesBuffer.add(sbNames.toString());
+            sbNames.setLength(0);
+        }
+        //ToDo - Replace Tags. It's a magic number. Second instance in TagsDialogFragment
         Bundle bundle = new Bundle();
-        bundle.putBoolean("notAlertDialog", true);
+        bundle.putStringArrayList("Tags", alNamesBuffer);
+
         TagsDialog.setArguments(bundle);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

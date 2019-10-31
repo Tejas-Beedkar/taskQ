@@ -1,6 +1,7 @@
 package com.taskq.Fragments;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ import com.google.android.material.chip.ChipGroup;
 
 import com.taskq.Activities.taskQEntryActivity;
 import com.taskq.CustomClasses.taskQviewModel;
+import com.taskq.DataBase.dBaseArchitecture;
+import com.taskq.DataBase.dBaseArchitecture_What;
+import com.taskq.DataBase.dBaseManager_What;
 import com.taskq.R;
 
 
@@ -44,6 +48,7 @@ public class TagsDialogFragment extends DialogFragment {
     private Button buttonDone;
     private Button buttonAdd;
     private EditText editTextTags;
+    private dBaseManager_What dbManager_What;
 
     public TagsDialogFragment() {
         // Required empty public constructor
@@ -85,6 +90,27 @@ public class TagsDialogFragment extends DialogFragment {
         //Make Dialog Corners Transparent
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        //Get the list of tags passed to the dialog
+        //ToDo - Replace Tags. It's a magic number. Second instance in taskQEntryActivity
+        Bundle mArgs = getArguments();
+        ArrayList<String> alNamesBuffer = mArgs.getStringArrayList("Tags");
+
+
+        //Prepopulate tags from the tags list
+        dbManager_What = new dBaseManager_What(getActivity());
+        dbManager_What.open();
+        Cursor cursorWhat = dbManager_What.fetch();
+        for(cursorWhat.moveToFirst() ; !cursorWhat.isAfterLast() ; cursorWhat.moveToNext()){
+            //Get the Description string from the current entry
+            String strCursorString = cursorWhat.getString(cursorWhat.getColumnIndex(dBaseArchitecture_What.COL_WHAT));
+            //Check if the tag is already present
+            for (int i = 0;i<alNamesBuffer.size(); i++) {
+                if(!alNamesBuffer.contains(strCursorString)){
+                    addChips(strCursorString);
+                }
+            }
+        }
+        dbManager_What.close();
 
         //ToDo - this this needed?
 //        for(int i = 0; i < chpGrpTagsDialog.getChildCount(); i++){
