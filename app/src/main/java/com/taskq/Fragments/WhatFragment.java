@@ -181,7 +181,7 @@ public class WhatFragment extends Fragment {
             }
             //Parse the list of Tasks to get make the task Array Lost
             for(cursorWhatTaskList.moveToFirst() ; !cursorWhatTaskList.isAfterLast() ; cursorWhatTaskList.moveToNext()){
-                String strCurrentWhatTask = cursorWhatTaskList.getString(cursorWhatTaskList.getColumnIndex(dBaseArchitecture.COL_NAMES));
+                String strCurrentWhatTask = cursorWhatTaskList.getString(cursorWhatTaskList.getColumnIndex(dBaseArchitecture.COL_TASK));
                 strLstTaskNameBuffer.add(strCurrentWhatTask);
             }
             //Now we have the Tag in strCurrentTag and all Tasks with names in strLstTaskNameBuffer. Add to HashMap as Key and Value
