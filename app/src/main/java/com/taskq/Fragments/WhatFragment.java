@@ -46,6 +46,7 @@ public class WhatFragment extends Fragment {
     //Expandable List Vars
     private HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
     private HashMap<String, List<String>> expandableListIDs    = new HashMap<String, List<String>>();
+    private HashMap<String, List<String>> expandableListTagCnt = new HashMap<String, List<String>>();
     private List<String>                  expandableListTags;
     private ExpandableListAdapter         expandableListAdapter;
 
@@ -165,6 +166,9 @@ public class WhatFragment extends Fragment {
         cursorWhat = dbManager_What.fetch();
         for(cursorWhat.moveToFirst() ; !cursorWhat.isAfterLast() ; cursorWhat.moveToNext()){
             List<String> strLstTaskNameBuffer = new ArrayList<String>();
+            List<String> strLstTaskIDBuffer   = new ArrayList<String>();
+            List<String> strLstTaskCntBuffer  = new ArrayList<String>();
+
             //strCurrentTag now has the Tag Name
             String strCurrentTag = cursorWhat.getString(cursorWhat.getColumnIndex(dBaseArchitecture_What.COL_WHAT));
             //Get all Tasks that have the set tag
@@ -174,17 +178,34 @@ public class WhatFragment extends Fragment {
             else{
                 cursorWhatTaskList =  dbManager.fetchEntryByTag_NoCompleted(strCurrentTag);
             }
-            //Parse the list of Tasks to get make the task Array Lost
+
+            //Step 7 - Make the HashMap of the Task Names against Tag
+            //Parse the list of Tasks to get make the task Description List
             for(cursorWhatTaskList.moveToFirst() ; !cursorWhatTaskList.isAfterLast() ; cursorWhatTaskList.moveToNext()){
                 String strCurrentWhatTask = cursorWhatTaskList.getString(cursorWhatTaskList.getColumnIndex(dBaseArchitecture.COL_TASK));
                 strLstTaskNameBuffer.add(strCurrentWhatTask);
             }
             //Now we have the Tag in strCurrentTag and all Tasks with names in strLstTaskNameBuffer. Add to HashMap as Key and Value
             expandableListDetail.put(strCurrentTag, strLstTaskNameBuffer);
+
+            //Step 8 - Make the HashMap of the Task IDs against Tag
+            //Parse the list of Tasks to get make the task ID List
+            for(cursorWhatTaskList.moveToFirst() ; !cursorWhatTaskList.isAfterLast() ; cursorWhatTaskList.moveToNext()){
+                String strCurrentWhatTaskID = cursorWhatTaskList.getString(cursorWhatTaskList.getColumnIndex(dBaseArchitecture._ID));
+                strLstTaskIDBuffer.add(strCurrentWhatTaskID);
+            }
+            //Now we have the Tag in strCurrentTag and all Tasks with names in strLstTaskNameBuffer. Add to HashMap as Key and Value
+            expandableListIDs.put(strCurrentTag, strLstTaskIDBuffer);
+
+            //Step 9 - Make the Hashmap of the Tags againt Tag Count. This is a simple one element value against the Tag Key.
+            strLstTaskCntBuffer.add(cursorWhat.getString(cursorWhat.getColumnIndex(dBaseArchitecture_What.COL_WHAT_COUNT)));
+            expandableListTagCnt.put(strCurrentTag, strLstTaskCntBuffer);
+
         }
 
+        //Step 10 - Call the customExpandableListAdapter to get the list View
         expandableListTags = new ArrayList<String>(expandableListDetail.keySet());
-        expandableListAdapter = new customExpandableListAdapter(getActivity(), expandableListTags, expandableListDetail);
+        expandableListAdapter = new customExpandableListAdapter(getActivity(), expandableListTags, expandableListDetail, expandableListIDs, expandableListTagCnt, maxProgressBar);
         expandableListView.setAdapter(expandableListAdapter);
 
 //        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {

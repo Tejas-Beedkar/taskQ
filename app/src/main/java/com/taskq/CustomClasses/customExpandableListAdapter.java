@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.taskq.DataBase.dBaseArchitecture_What;
 import com.taskq.R;
 
 public class customExpandableListAdapter extends BaseExpandableListAdapter {
@@ -17,12 +19,23 @@ public class customExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
+    private HashMap<String, List<String>> expandableListIDs;
+    private HashMap<String, List<String>> expandableListTagCnt;
+    private int                           maxProgressBar;
 
-    public customExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       HashMap<String, List<String>> expandableListDetail) {
-        this.context = context;
-        this.expandableListTitle = expandableListTitle;
-        this.expandableListDetail = expandableListDetail;
+    public customExpandableListAdapter(Context context,
+                                       List<String> expandableListTitle,
+                                       HashMap<String, List<String>> expandableListDetail,
+                                       HashMap<String, List<String>> expandableListIDs,
+                                       HashMap<String, List<String>> expandableListTagCnt,
+                                       int maxProgressBar   ) {
+        this.context                = context;
+        this.expandableListTitle    = expandableListTitle;
+        this.expandableListDetail   = expandableListDetail;
+        this.expandableListIDs      = expandableListIDs;
+        this.expandableListTagCnt   = expandableListTagCnt;
+        this.maxProgressBar         = maxProgressBar;
+
     }
 
     @Override
@@ -39,7 +52,9 @@ public class customExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
+
         final String expandedListText = (String) getChild(listPosition, expandedListPosition);
+
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -75,16 +90,31 @@ public class customExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int listPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
+
         String listTitle = (String) getGroup(listPosition);
+
         if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.context.
-                    getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.listview_countentries, null);
         }
-        TextView listTitleTextView = (TextView) convertView
-                .findViewById(R.id.search_category);
+
+        //Set the Title
+        TextView listTitleTextView = (TextView) convertView.findViewById(R.id.search_category);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(listTitle);
+
+        //Set the Title progress Bar
+        ProgressBar progress = (ProgressBar) convertView.findViewById(R.id.search_progressBar);
+        progress.setMax(maxProgressBar);
+        List<String> strProgress = this.expandableListTagCnt.get(listTitle);
+        int intProgress = Integer.parseInt(strProgress.get(0));
+        progress.setProgress(intProgress);
+        progress.setScaleY(3f);
+
+        //Set the count
+        TextView listTitleCount = (TextView) convertView.findViewById(R.id.search_count);
+        listTitleCount.setText(strProgress.get(0));
+
         return convertView;
     }
 
