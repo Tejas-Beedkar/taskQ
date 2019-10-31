@@ -47,6 +47,13 @@ public class WhatFragment extends Fragment {
     private taskQSettings Settings;
     private int maxProgressBar;
     private SimpleCursorAdapter adapter;
+
+    //Expandable List Vars
+    private HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
+    private HashMap<String, List<String>> expandableListIDs    = new HashMap<String, List<String>>();
+    private List<String>                  expandableListTags;
+    private ExpandableListAdapter         expandableListAdapter;
+
     //ToDo: add this to taskQGlobal
     public static String strSeparator = "__,__";
 
@@ -90,9 +97,10 @@ public class WhatFragment extends Fragment {
         ArrayList strRecurrringTags = new ArrayList();
         Set<String> hsRecurringTags = new HashSet<>();
         ArrayList strTags = new ArrayList();
-
-        Cursor cursorWhat = dbManager_What.fetch();
         Cursor cursor;
+        Cursor cursorWhat;
+        Cursor cursorWhatTaskList;
+
         if (Settings.getSwitchShowCompleted() == true) {
             cursor = dbManager.fetch();
         } else {
@@ -158,35 +166,52 @@ public class WhatFragment extends Fragment {
         }
         maxProgressBar = maxProgressBar + 1;
 
-        //Step 6 - Create a hash of each category
-        ExpandableListAdapter expandableListAdapter;
-        final List<String> expandableListTitle;
-        final HashMap<String, List<String>> expandableListDetail;
+        //Step 6 - expandableListDetail - Must be a hash of Keys = Tags and List as List<String> of Task COL_TASK
+        cursorWhat = dbManager_What.fetch();
+        for(cursorWhat.moveToFirst() ; !cursorWhat.isAfterLast() ; cursorWhat.moveToNext()){
+            List<String> strLstTaskNameBuffer = new ArrayList<String>();
+            //strCurrentTag now has the Tag Name
+            String strCurrentTag = cursorWhat.getString(cursorWhat.getColumnIndex(dBaseArchitecture_What.COL_WHAT));
+            //Get all Tasks that have the set tag
+            if(Settings.getSwitchShowCompleted() == true){
+                cursorWhatTaskList =  dbManager.fetchEntryByTag(strCurrentTag);
+            }
+            else{
+                cursorWhatTaskList =  dbManager.fetchEntryByTag_NoCompleted(strCurrentTag);
+            }
+            //Parse the list of Tasks to get make the task Array Lost
+            for(cursorWhatTaskList.moveToFirst() ; !cursorWhatTaskList.isAfterLast() ; cursorWhatTaskList.moveToNext()){
+                String strCurrentWhatTask = cursorWhatTaskList.getString(cursorWhatTaskList.getColumnIndex(dBaseArchitecture.COL_NAMES));
+                strLstTaskNameBuffer.add(strCurrentWhatTask);
+            }
+            //Now we have the Tag in strCurrentTag and all Tasks with names in strLstTaskNameBuffer. Add to HashMap as Key and Value
+            expandableListDetail.put(strCurrentTag, strLstTaskNameBuffer);
+        }
 
-        expandableListDetail = ExpandableListDataPump.getData();
-        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-        expandableListAdapter = new customExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
+        //expandableListDetail = ExpandableListDataPump.getData();
+        expandableListTags = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListAdapter = new customExpandableListAdapter(getActivity(), expandableListTags, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
 
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
+//        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+//            @Override
+//            public void onGroupExpand(int groupPosition) {
+//                Toast.makeText(getActivity().getApplicationContext(),
+//                        expandableListTitle.get(groupPosition) + " List Expanded.",
+//                        Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//
+//        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+//            @Override
+//            public void onGroupCollapse(int groupPosition) {
+//                Toast.makeText(getActivity().getApplicationContext(),
+//                        expandableListTitle.get(groupPosition) + " List Collapsed.",
+//                        Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -194,10 +219,10 @@ public class WhatFragment extends Fragment {
                                         int groupPosition, int childPosition, long id) {
                 Toast.makeText(
                         getActivity().getApplicationContext(),
-                        expandableListTitle.get(groupPosition)
+                        expandableListTags.get(groupPosition)
                                 + " -> "
                                 + expandableListDetail.get(
-                                expandableListTitle.get(groupPosition)).get(
+                                expandableListTags.get(groupPosition)).get(
                                 childPosition), Toast.LENGTH_SHORT
                 ).show();
                 return false;

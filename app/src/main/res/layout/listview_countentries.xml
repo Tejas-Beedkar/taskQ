@@ -10,11 +10,12 @@
         android:id="@+id/search_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="40dp"
         android:text="@string/search_category"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/search_listView_bullet"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
@@ -44,15 +45,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/search_progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/search_progressBar" />
-
-    <ImageView
-        android:id="@+id/search_listView_bullet"
-        android:layout_width="@dimen/taskQ_dialog_corner"
-        android:layout_height="@dimen/taskQ_dialog_corner"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/search_progressBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_category"
-        app:srcCompat="@drawable/ic_call_to_action" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
