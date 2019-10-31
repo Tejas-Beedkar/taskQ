@@ -91,7 +91,7 @@ public class AllFragment extends Fragment {
 
         //==========================================================================================
         //          Feature - 016
-        //          Allow items to be opened for the All-Fragment
+        //          Allow items to be opened from the All-Fragment
         //==========================================================================================
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

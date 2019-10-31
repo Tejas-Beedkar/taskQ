@@ -1,6 +1,7 @@
 package com.taskq.Fragments;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -15,7 +16,9 @@ import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.taskq.Activities.taskQEntryActivity;
 import com.taskq.CustomClasses.customExpandableListAdapter;
+import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseArchitecture_What;
 import com.taskq.DataBase.dBaseManager;
@@ -232,14 +235,26 @@ public class WhatFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Toast.makeText(
-                        getActivity().getApplicationContext(),
-                        expandableListTags.get(groupPosition)
-                                + " -> "
-                                + expandableListDetail.get(
-                                expandableListTags.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT
+//                Toast.makeText(
+//                        getActivity().getApplicationContext(),
+//                        expandableListTags.get(groupPosition)
+//                                + " -> "
+//                                + expandableListDetail.get(
+//                                expandableListTags.get(groupPosition)).get(
+//                                childPosition), Toast.LENGTH_SHORT
+//                ).show();
+
+                Toast.makeText( getActivity().getApplicationContext(),
+                                expandableListIDs.get(expandableListTags.get(groupPosition)).get( childPosition),
+                                Toast.LENGTH_SHORT
                 ).show();
+
+                int idModify = Integer.parseInt(expandableListIDs.get(expandableListTags.get(groupPosition)).get( childPosition));
+                if(true == (((taskQGlobal) getActivity().getApplication()).bSetUserEntryModify(idModify))){
+                    Intent modifyIntent = new Intent(getActivity().getApplicationContext(), taskQEntryActivity.class);
+                    startActivity(modifyIntent);
+                }
+
                 return false;
             }
         });

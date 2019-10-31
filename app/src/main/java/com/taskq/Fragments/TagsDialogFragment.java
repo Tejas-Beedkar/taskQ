@@ -20,6 +20,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import com.taskq.Activities.taskQEntryActivity;
+import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseArchitecture_What;
@@ -108,6 +109,10 @@ public class TagsDialogFragment extends DialogFragment {
                 if(!alNamesBuffer.contains(strCursorString)){
                     addChips(strCursorString);
                 }
+            }
+            if(((taskQGlobal) getActivity().getApplication()).bCheckUserEntryNew()){
+                //This is a new entry. so alNamesBuffer.size() == 0 and we need to add the chips from here.
+                addChips(strCursorString);
             }
         }
         dbManager_What.close();
