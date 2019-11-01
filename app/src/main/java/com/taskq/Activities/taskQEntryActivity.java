@@ -73,6 +73,8 @@ public class taskQEntryActivity extends AppCompatActivity {
     private dBaseManager dbManager;
     private static boolean bSetReminder;
     private Cursor cursor;
+    //ToDo - We use this to prevent multiple addtions to the chip group. Is there a better way?
+    private boolean bCreated = false;
 
     public static String strSeparator;
 
@@ -86,6 +88,7 @@ public class taskQEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_taskq_entry);
 
+        bCreated = false;
     }
 
 
@@ -232,29 +235,34 @@ public class taskQEntryActivity extends AppCompatActivity {
             //Task Details
             tabTaskQEntry_Description.setText(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_DESCRIPTION)));
 
-            //Load the Tags to the chipgroup
-            strBuffer = cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_TAGS)).split(strSeparator);
-            if(strBuffer.length ==  1 && strBuffer[0].equals("")){
-                //Set the chipgroup heights so that a empty chipgroup does not collapse on itself
-                ViewGroup.LayoutParams params = TaskQEntry_Tags.getLayoutParams();
-                params.height = 120;
-            }else {
-                for (int i = 0; i < strBuffer.length; i++) {
-                    addTagsChips(strBuffer[i]);
+            //This is called on every resume. WE should not add chips if they are already present
+            if(bCreated == false){
+                //Load the Tags to the chipgroup
+                strBuffer = cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_TAGS)).split(strSeparator);
+                if (strBuffer.length == 1 && strBuffer[0].equals("")) {
+                    //Set the chipgroup heights so that a empty chipgroup does not collapse on itself
+                    ViewGroup.LayoutParams params = TaskQEntry_Tags.getLayoutParams();
+                    params.height = 120;
+                } else {
+                    for (int i = 0; i < strBuffer.length; i++) {
+                        addTagsChips(strBuffer[i]);
+                    }
                 }
-            }
 
-            //Load the Names to the chipgroup
-            strBuffer = cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_NAMES)).split(strSeparator);
-            if(strBuffer.length ==  1 && strBuffer[0].equals("")){
-                ViewGroup.LayoutParams params = TaskQEntry_Names.getLayoutParams();
-                params.height = 120;
-            }else {
-                for (int i = 0; i < strBuffer.length; i++) {
-                     addNamesChips(strBuffer[i]);
+                //Load the Names to the chipgroup
+                strBuffer = cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_NAMES)).split(strSeparator);
+                if(strBuffer.length ==  1 && strBuffer[0].equals("")){
+                    ViewGroup.LayoutParams params = TaskQEntry_Names.getLayoutParams();
+                    params.height = 120;
+                }else {
+                    for (int i = 0; i < strBuffer.length; i++) {
+                         addNamesChips(strBuffer[i]);
+                    }
                 }
-            }
 
+                //Set the flag to prevent continuous addition
+                bCreated = true;
+            }
         }
 
 
@@ -344,15 +352,17 @@ public class taskQEntryActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        //Feature 12 - Close the dBase manager
-        dbManager.close();
     }
 
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Feature 12 - Close the dBase manager
+        //ToDo - Move all dB close to onDestroy
+        dbManager.close();
+        bCreated = false;
+    }
 
     @Override
     public void onBackPressed() {
