@@ -36,6 +36,7 @@ import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseManager;
 import com.taskq.Fragments.TagsDialogFragment;
+import com.taskq.Fragments.NamesDialogFragment;
 import com.taskq.R;
 
 import java.text.SimpleDateFormat;
@@ -55,6 +56,7 @@ public class taskQEntryActivity extends AppCompatActivity {
     private ImageButton tabTaskQEntry_SetReminder;
     private ImageView imageView_done;
     private TagsDialogFragment TagsDialog;
+    private NamesDialogFragment NamesDialog;
     private taskQviewModel tagsDialogViewModel;
     private Switch tabTaskQEntry_Switch_Completion;
     private Calendar cUserTimeDate;
@@ -381,9 +383,25 @@ public class taskQEntryActivity extends AppCompatActivity {
         TagsDialog.show(ft, "dialog");
     }
 
-    //Feature - TBU distributed code
+    //Feature - 22 Contacts in user entry dialog
     public void ClipGroup_AddNames(View v){
 
+        NamesDialog = new NamesDialogFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("Tags", "To Be Updated");
+
+        NamesDialog.setArguments(bundle);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+
+        if (prev != null) {
+            ft.remove(prev);
+        }
+
+        ft.addToBackStack(null);
+        NamesDialog.show(ft, "dialog");
     }
 
     //Feature - 21 Comfort edit dates
