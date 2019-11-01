@@ -182,7 +182,7 @@ public class TagsDialogFragment extends DialogFragment {
             public void onClick(View v) {
 
                 taskQviewModel tagsDialogViewModel =  ViewModelProviders.of(getActivity()).get(taskQviewModel.class);
-                tagsDialogViewModel.strDialogNames.clear();
+                tagsDialogViewModel.strDialogTags.clear();
 
                 //Get the Tags, convert to string and load to ViewModel
                 final ChipGroup chpGrpTagsDialog = getDialog().findViewById(R.id.ChipsGroupTagsDialog);
@@ -190,7 +190,7 @@ public class TagsDialogFragment extends DialogFragment {
                 for(int i = 0; i < chpGrpTagsDialog.getChildCount(); i++){
                     Chip chip = (Chip) chpGrpTagsDialog.getChildAt(i);
                     if(chip.isChecked()){
-                        tagsDialogViewModel.strDialogNames.add(chip.getText());
+                        tagsDialogViewModel.strDialogTags.add(chip.getText());
                     }
                 }
 
