@@ -52,9 +52,7 @@ public class WhatFragment extends Fragment {
     private HashMap<String, List<String>> expandableListTagCnt = new HashMap<String, List<String>>();
     private List<String>                  expandableListTags;
     private ExpandableListAdapter         expandableListAdapter;
-
-    //ToDo: add this to taskQGlobal
-    public static String strSeparator = "__,__";
+    public static String                  strSeparator;
 
     final String[] from = new String[] {
             dBaseArchitecture_What.COL_WHAT_COUNT,
@@ -91,6 +89,7 @@ public class WhatFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        strSeparator = getString(R.string.strSeparator);
         ArrayList strRawTags = new ArrayList();
         ArrayList strRecurrringTagsBuffer = new ArrayList();
         ArrayList strRecurrringTags = new ArrayList();
@@ -107,7 +106,7 @@ public class WhatFragment extends Fragment {
         }
 
         //==============================================================================================
-        // ToDo: Feature - 018 Create a dBase of only Tags
+        //  Feature - 018 Create a dBase of only Tags
         //==============================================================================================
 
         //Step 1 - Get the string to each tag. Store them in a array

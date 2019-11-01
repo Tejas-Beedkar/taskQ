@@ -51,4 +51,11 @@
 
     <string name="Switch_Message_Text">Swipe to Close</string>
 
+    <string name="Overdue">Overdue</string>
+    <string name="Due_Today">Due Today</string>
+    <string name="Due_Tomorrow">Due by Tomorrow</string>
+    <string name="Due_Next_7_Days">Due in the next 7 days</string>
+
+    <string name="strSeparator">__,__</string>
+
 </resources>

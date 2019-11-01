@@ -41,8 +41,7 @@ public class AllFragment extends Fragment {
     private taskQSettings Settings;
     private SimpleCursorAdapter adapter;
 
-    //ToDo: add this to taskQGlobal
-    public static String strSeparator = "__,__";
+    public static String strSeparator;
 
     //Feature 14 - List of all entries - components
     final String[] from = new String[] {
@@ -80,6 +79,9 @@ public class AllFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Cursor cursor;
+
+        strSeparator = getString(R.string.strSeparator);
+
         if(Settings.getSwitchShowCompleted() == true){
             cursor = dbManager.fetch();}
         else{

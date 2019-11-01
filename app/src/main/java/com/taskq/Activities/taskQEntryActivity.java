@@ -66,8 +66,7 @@ public class taskQEntryActivity extends AppCompatActivity {
     private static boolean bSetReminder;
     private Cursor cursor;
 
-    //ToDo: add this to taskQGlobal
-    public static String strSeparator = "__,__";
+    public static String strSeparator;
 
     //NOTE - The simple act of creating a date/time object populated it to the current time.
     private SimpleDateFormat sdfDate_Month = new SimpleDateFormat("dd MMMM");
@@ -93,6 +92,7 @@ public class taskQEntryActivity extends AppCompatActivity {
         super.onResume();
 
         String[] strBuffer;
+        strSeparator = getString(R.string.strSeparator);
 
         //Feature - 002 distributed code
         setTheme(R.style.AppTheme_Main);
