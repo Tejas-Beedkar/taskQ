@@ -233,6 +233,10 @@ public class taskQEntryActivity extends AppCompatActivity {
             if(strBuffer.length ==  1 && strBuffer[0].equals("")){
                 ViewGroup.LayoutParams params = TaskQEntry_Names.getLayoutParams();
                 params.height = 120;
+            }else {
+                for (int i = 0; i < strBuffer.length; i++) {
+                     addNamesChips(strBuffer[i]);
+                }
             }
 
         }
