@@ -12,4 +12,5 @@
     <color name="colorOverdue">#FFE6A191</color>
     <color name="colorToday_txt">#16B91E</color>
     <color name="colorOverdue_txt">#FF5722</color>
+    <color name="transparent">#00000000</color>
 </resources>
