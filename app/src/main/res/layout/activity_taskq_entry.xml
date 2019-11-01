@@ -224,7 +224,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_add_a_day" />
 
             <ImageButton
-                android:id="@+id/tabTaskQEntry__SetReminder"
+                android:id="@+id/tabTaskQEntry_SetReminder"
                 android:layout_width="wrap_content"
                 android:layout_height="104dp"
                 android:layout_marginStart="24dp"

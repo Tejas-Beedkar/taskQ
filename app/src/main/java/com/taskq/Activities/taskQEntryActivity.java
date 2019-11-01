@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,7 +52,7 @@ public class taskQEntryActivity extends AppCompatActivity {
     private ChipGroup TaskQEntry_Tags;
     private ChipGroup TaskQEntry_Names;
     private EditText tabTaskQEntry_Task_Description;
-    private ImageButton tabTaskQEntry__SetReminder;
+    private ImageButton tabTaskQEntry_SetReminder;
     private ImageView imageView_done;
     private TagsDialogFragment TagsDialog;
     private taskQviewModel tagsDialogViewModel;
@@ -98,7 +99,7 @@ public class taskQEntryActivity extends AppCompatActivity {
 
         tabTaskQEntry_Task_Description = findViewById(R.id.tabTaskQEntry_Task_Description);
         imageView_done = findViewById(R.id.imageView_done);
-        tabTaskQEntry__SetReminder = findViewById(R.id.tabTaskQEntry__SetReminder);
+        tabTaskQEntry_SetReminder = findViewById(R.id.tabTaskQEntry_SetReminder);
         tabTaskQEntry_Switch_Completion = findViewById(R.id.tabTaskQEntry_Switch_Completion);
         TaskQEntry_Tags = findViewById(R.id.tabTaskQEntry_Tags);
         TaskQEntry_Names = findViewById(R.id.tabTaskQEntry_Who);
@@ -109,7 +110,7 @@ public class taskQEntryActivity extends AppCompatActivity {
 
         //Feature - 007 distributed code
         tagsDialogViewModel =  ViewModelProviders.of(this).get(taskQviewModel.class);
-        tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_on_dark);
+        tabTaskQEntry_SetReminder.setTag(R.drawable.ic_reminder_on_dark);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             tabTaskQEntry_Task_Description.setAutofillHints(getString(R.string.taskQEntry_Task_Description));
@@ -178,26 +179,26 @@ public class taskQEntryActivity extends AppCompatActivity {
             //Reminder set/notset Icon
             bSetReminder = Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_SET_REMINDER)));
             if(false == bSetReminder){
-                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_off_dark);
-                tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_off_dark);
+                tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_reminder_off_dark);
+                tabTaskQEntry_SetReminder.setTag(R.drawable.ic_reminder_off_dark);
                 //The Off icon is offset by 4 points to the right. So we need to do this.
                 int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
-                tabTaskQEntry__SetReminder.setPadding(intPadding+4,intPadding,intPadding,intPadding);
+                tabTaskQEntry_SetReminder.setPadding(intPadding+4,intPadding,intPadding,intPadding);
                 Log.d(getString(R.string.app_name), "taskQEntryActivity - Reminder Off");
             }
             else{
-                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
-                tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_on_dark);
+                tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
+                tabTaskQEntry_SetReminder.setTag(R.drawable.ic_reminder_on_dark);
                 //The Off icon is offset by 4 points to the right. So we need to do this.
                 int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
-                tabTaskQEntry__SetReminder.setPadding(intPadding,intPadding,intPadding,intPadding);
+                tabTaskQEntry_SetReminder.setPadding(intPadding,intPadding,intPadding,intPadding);
                 Log.d(getString(R.string.app_name), "taskQEntryActivity - Reminder On");
             }
 
             //Status Done/noDone toggle switch
             if(true == Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_STATUS)))){
                 imageView_done.setVisibility(View.VISIBLE);
-                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_delete);
+                tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_delete);
                 tabTaskQEntry_Switch_Completion.setChecked(true);
             }else{
                 imageView_done.setVisibility(View.INVISIBLE);
@@ -267,7 +268,42 @@ public class taskQEntryActivity extends AppCompatActivity {
             }
         });
 
+        //==========================================================================================
+        //          Feature - 019 Allow user to delete tasks permanently
+        //==========================================================================================
+        tabTaskQEntry_SetReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                // Check if the task has been marked completed. If so, delete it
+                if(true == tabTaskQEntry_Switch_Completion.isChecked()) {
+                    dbManager.delete(((taskQGlobal) getApplication()).bGetUserEntryModify());
+                    //We clear this here so that SaveForm() is not called from onBackPressed();
+                    ((taskQGlobal) getApplication()).bClearUserEntryModify();
+                    onBackPressed();
+
+//                    //bClearUserEntryXXX MUST be the last thing to be done here. Else saveForm() will break.
+//                    if (true == ((taskQGlobal) getApplication()).bCheckUserEntryNew()) {
+//                        if (false == ((taskQGlobal) getApplication()).bClearUserEntryNew()) {
+//                            //The flag failed to clear. Now what?
+//                            Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+//                        }
+//                    } else if (true == ((taskQGlobal) getApplication()).bCheckUserEntryModify()) {
+//                        if (false == ((taskQGlobal) getApplication()).bClearUserEntryModify()) {
+//                            //The flag failed to clear. Now what?
+//                            Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+//                        }
+//                    }
+//
+//                    Intent modifyIntent = new Intent(taskQEntryActivity.this, MainActivity.class);
+//                    startActivity(modifyIntent);
+                }
+            }
+        });
     }
+
 
 
 //    @Override
@@ -292,7 +328,7 @@ public class taskQEntryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        //Feature - 010
+        //Feature - 010. This MUST be called before we clear the flags
         saveForm();
 
         //bClearUserEntryXXX MUST be the last thing to be done here. Else saveForm() will break.
@@ -377,25 +413,25 @@ public class taskQEntryActivity extends AppCompatActivity {
             Log.d(getString(R.string.app_name), "taskQEntryActivity - Delete");
         }
         else{
-            if((Integer)tabTaskQEntry__SetReminder.getTag() == R.drawable.ic_reminder_on_dark){
-                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_off_dark);
-                tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_off_dark);
+            if((Integer)tabTaskQEntry_SetReminder.getTag() == R.drawable.ic_reminder_on_dark){
+                tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_reminder_off_dark);
+                tabTaskQEntry_SetReminder.setTag(R.drawable.ic_reminder_off_dark);
 
                 //The Off icon is offset by 4 points to the right. So we need to do this.
                 int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
-                tabTaskQEntry__SetReminder.setPadding(intPadding+4,intPadding,intPadding,intPadding);
+                tabTaskQEntry_SetReminder.setPadding(intPadding+4,intPadding,intPadding,intPadding);
                 Log.d(getString(R.string.app_name), "taskQEntryActivity - Reminder Off");
 
                 //Feature TBU
                 bSetReminder = false;
             }
             else{
-                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
-                tabTaskQEntry__SetReminder.setTag(R.drawable.ic_reminder_on_dark);
+                tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
+                tabTaskQEntry_SetReminder.setTag(R.drawable.ic_reminder_on_dark);
 
                 //The Off icon is offset by 4 points to the right. So we need to do this.
                 int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
-                tabTaskQEntry__SetReminder.setPadding(intPadding,intPadding,intPadding,intPadding);
+                tabTaskQEntry_SetReminder.setPadding(intPadding,intPadding,intPadding,intPadding);
                 Log.d(getString(R.string.app_name), "taskQEntryActivity - Reminder On");
 
                 //Feature TBU
@@ -408,21 +444,21 @@ public class taskQEntryActivity extends AppCompatActivity {
     public void Switch_Completion(View v){
         if(true == tabTaskQEntry_Switch_Completion.isChecked()){
             imageView_done.setVisibility(View.VISIBLE);
-            tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_delete);
+            tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_delete);
         }
         else{
             imageView_done.setVisibility(View.INVISIBLE);
-            if((Integer)tabTaskQEntry__SetReminder.getTag() == R.drawable.ic_reminder_on_dark){
-                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
+            if((Integer)tabTaskQEntry_SetReminder.getTag() == R.drawable.ic_reminder_on_dark){
+                tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
                 //The Off icon is offset by 4 points to the right. So we need to do this.
                 int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
-                tabTaskQEntry__SetReminder.setPadding(intPadding,intPadding,intPadding,intPadding);
+                tabTaskQEntry_SetReminder.setPadding(intPadding,intPadding,intPadding,intPadding);
             }
             else{
-                tabTaskQEntry__SetReminder.setImageResource(R.drawable.ic_reminder_off_dark);
+                tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_reminder_off_dark);
                 //The Off icon is offset by 4 points to the right. So we need to do this.
                 int intPadding = (int) (getResources().getDimension(R.dimen.taskQ_dialog_corner));
-                tabTaskQEntry__SetReminder.setPadding(intPadding+4,intPadding,intPadding,intPadding);
+                tabTaskQEntry_SetReminder.setPadding(intPadding+4,intPadding,intPadding,intPadding);
             }
         }
     }
@@ -513,6 +549,8 @@ public class taskQEntryActivity extends AppCompatActivity {
         //Round off seconds and milliseconds before saving.
         cUserTimeDate.set( Calendar.SECOND, 0 );
         cUserTimeDate.set( Calendar.MILLISECOND, 0 );
+
+        //Feature - 019 - If the task was deleted, both if conditions must fail
 
         //Was this a new entry?
         if(((taskQGlobal) getApplication()).bCheckUserEntryNew()){
