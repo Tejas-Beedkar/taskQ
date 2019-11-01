@@ -11,8 +11,8 @@
     android:paddingBottom="@dimen/taskQ_dialog_padding"
     tools:context=".Fragments.TagsDialogFragment">
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/NamesDialog_CG_Selected"
+    <EditText
+        android:id="@+id/NamesDialog_ET_Selected"
         android:layout_width="0dp"
         android:layout_height="@dimen/taskQ_dialog_boxSize"
         android:layout_marginStart="8dp"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toTopOf="@+id/NamesDialog_DoneButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NamesDialog_CG_Selected"
+        app:layout_constraintTop_toBottomOf="@+id/NamesDialog_ET_Selected"
         app:singleSelection="false" />
 
     <Button
