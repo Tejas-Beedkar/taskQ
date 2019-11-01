@@ -2,6 +2,8 @@ package com.taskq.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,6 +16,19 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // The NotificationChannel class is not supported below API 26
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+            CharSequence strChannelName = this.getText(R.string.Channel_Name);
+            String strChannelDescription =  this.getResources().getString(R.string.Channel_Description);
+            int intChannelImportance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel chNotificationChannel = new NotificationChannel(this.getResources().getString(R.string.Channel_ID), strChannelName, intChannelImportance);
+            chNotificationChannel.setDescription(strChannelDescription);
+
+            NotificationManager notificationManager = this.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(chNotificationChannel);
+        }
     }
 
 //    @Override

@@ -42,6 +42,7 @@ import com.taskq.DataBase.dBaseManager;
 import com.taskq.Fragments.TagsDialogFragment;
 import com.taskq.Fragments.NamesDialogFragment;
 import com.taskq.R;
+import com.taskq.Services.eventLibrary;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -650,9 +651,6 @@ public class taskQEntryActivity extends AppCompatActivity {
         }
         strNames = convertArrayToString(alNamesBuffer);
 
-
-
-
         //Round off seconds and milliseconds before saving.
         cUserTimeDate.set( Calendar.SECOND, 0 );
         cUserTimeDate.set( Calendar.MILLISECOND, 0 );
@@ -667,61 +665,24 @@ public class taskQEntryActivity extends AppCompatActivity {
         }
         //Was this a old entry
         else if(((taskQGlobal) getApplication()).bCheckUserEntryModify()){
-            dbManager.update(((taskQGlobal) getApplication()).bGetUserEntryModify(), strTask, strTags, strNames, strDescription, cUserTimeDate.getTimeInMillis(), strStatus, String.valueOf(bSetReminder));
+            RowId = ((taskQGlobal) getApplication()).bGetUserEntryModify();
+            dbManager.update(RowId, strTask, strTags, strNames, strDescription, cUserTimeDate.getTimeInMillis(), strStatus, String.valueOf(bSetReminder));
             Toast.makeText(this, "Task updated.", Toast.LENGTH_LONG).show();
         }
 
-
-    }
-
-    //Request access to contacts
-    //ToDo:requestPermissions needs min SDK of 23.
-    final private int REQUEST_MULTIPLE_PERMISSIONS = 124;
-
-    private void AccessContact()
-    {
-        List<String> permissionsNeeded = new ArrayList<String>();
-        final List<String> permissionsList = new ArrayList<String>();
-        if (!addPermission(permissionsList, Manifest.permission.READ_CONTACTS))
-            permissionsNeeded.add("Read Contacts");
-        if (!addPermission(permissionsList, Manifest.permission.WRITE_CONTACTS))
-            permissionsNeeded.add("Write Contacts");
-        if (permissionsList.size() > 0) {
-            if (permissionsNeeded.size() > 0) {
-                String message = "You need to grant access to " + permissionsNeeded.get(0);
-                for (int i = 1; i < permissionsNeeded.size(); i++)
-                    message = message + ", " + permissionsNeeded.get(i);
-                showMessageOKCancel(message,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
-                                        REQUEST_MULTIPLE_PERMISSIONS);
-                            }
-                        });
-                return;
-            }
-            requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
-                    REQUEST_MULTIPLE_PERMISSIONS);
-            return;
+        //Feature - 019 Distributed Code Set Reminder based on user settings
+        if(bSetReminder == true) {
+            eventLibrary eventLib = new eventLibrary(this);
+            eventLib.scheduleEvent(RowId, cUserTimeDate.getTimeInMillis());
+            eventLib = null;
+            System.gc();
+        }else{
+            eventLibrary eventLib = new eventLibrary(this);
+            eventLib.removeEvent(RowId, cUserTimeDate.getTimeInMillis());
+            eventLib = null;
+            System.gc();
         }
-    }
-    private boolean addPermission(List<String> permissionsList, String permission) {
-        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-            permissionsList.add(permission);
-            if (!shouldShowRequestPermissionRationale(permission))
-                return false;
-        }
-        return true;
-    }
-    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
 
-        new AlertDialog.Builder(taskQEntryActivity.this)
-                .setMessage(message)
-                .setPositiveButton("OK", okListener)
-                .setNegativeButton("Cancel", null)
-                .create()
-                .show();
     }
 
     //Feature - 010 - support

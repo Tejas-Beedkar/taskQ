@@ -100,7 +100,6 @@ public class eventLibrary {
         Intent intent = new Intent(context, receiverNotification.class);
         intent.putExtra("EventId", String.valueOf(EventId));
         return PendingIntent.getBroadcast(context, Integer.parseInt(String.valueOf(EventId)), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
     }
 
 }
