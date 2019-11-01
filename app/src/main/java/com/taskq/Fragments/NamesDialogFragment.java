@@ -3,6 +3,7 @@ package com.taskq.Fragments;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -24,8 +26,10 @@ import androidx.fragment.app.DialogFragment;
 import com.taskq.Activities.taskQEntryActivity;
 
 import android.provider.ContactsContract;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.R;
 
 import java.util.ArrayList;
@@ -121,6 +125,16 @@ public class NamesDialogFragment extends DialogFragment {
         adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_contacts, cursor, from, to, 0);
         adapter.notifyDataSetChanged();
         listViewNames.setAdapter(adapter);
+
+
+        listViewNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String strNameSelected = ((TextView)(view.findViewById(R.id.listview_contact_names))).getText().toString();
+                Toast.makeText(getActivity(), strNameSelected + " Selected", Toast.LENGTH_LONG).show();
+            }
+        });
 
 
         Toast.makeText(getActivity(), "No of contacts is." + cursor.getCount(), Toast.LENGTH_LONG).show();
