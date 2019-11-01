@@ -498,6 +498,8 @@ public class taskQEntryActivity extends AppCompatActivity {
 
                 //Feature TBU
                 bSetReminder = false;
+
+                //Reminder feature
             }
             else{
                 tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
@@ -510,6 +512,8 @@ public class taskQEntryActivity extends AppCompatActivity {
 
                 //Feature TBU
                 bSetReminder = true;
+
+                //Reminder feature
             }
         }
     }
