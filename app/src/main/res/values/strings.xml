@@ -58,4 +58,10 @@
 
     <string name="strSeparator">__,__</string>
 
+    <string name="Channel_ID">Channel_taskQ_ID</string>
+    <string name="Channel_Name">Task due alerts</string>
+    <string name="Channel_Description">taskQ Tasks Common Notification Channel</string>
+    <string name="Open_caps">OPEN</string>
+    <string name="Dismiss_caps">DISMISS</string>
+
 </resources>
