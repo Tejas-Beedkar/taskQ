@@ -220,11 +220,21 @@ public class TabActivity extends AppCompatActivity {
                 {
                     item.setChecked(false);
                     Settings.setSwitchShowCompleted(false);
+
+                    //ToDo - Preserve the last view
+                    //Force a activity reload as a refresh. Immidiatly refreshes the list views
+                    Intent modifyIntent = new Intent(TabActivity.this, MainActivity.class);
+                    startActivity(modifyIntent);
                 }
                 else
                 {
                     item.setChecked(true);
                     Settings.setSwitchShowCompleted(true);
+
+                    //ToDo - Preserve the last view
+                    //Force a activity reload as a refresh. Immidiatly refreshes the list views
+                    Intent modifyIntent = new Intent(TabActivity.this, MainActivity.class);
+                    startActivity(modifyIntent);
                 }
                 break;
             case R.id.tab_activity_menu_show_all:

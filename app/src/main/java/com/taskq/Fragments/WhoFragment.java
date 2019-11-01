@@ -47,11 +47,11 @@ public class WhoFragment extends Fragment {
     private ExpandableListView expandableListView;
 
     //Expandable List Vars
-    private HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
-    private HashMap<String, List<String>> expandableListIDs    = new HashMap<String, List<String>>();
-    private HashMap<String, List<String>> expandableListTagCnt = new HashMap<String, List<String>>();
-    private List<String>                  expandableListTags;
-    private ExpandableListAdapter expandableListAdapter;
+//    private HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
+//    private HashMap<String, List<String>> expandableListIDs    = new HashMap<String, List<String>>();
+//    private HashMap<String, List<String>> expandableListTagCnt = new HashMap<String, List<String>>();
+//    private List<String>                  expandableListTags;
+//    private ExpandableListAdapter expandableListAdapter;
     public static String                  strSeparator;
 
     public WhoFragment() {
@@ -91,6 +91,15 @@ public class WhoFragment extends Fragment {
         Cursor cursor;
         Cursor cursorWho = dbManager_Who.fetch();
         Cursor cursorWhoTaskList;
+
+        //Expandable List Vars
+        //Moving this here allows immidiate effect of "dont't show completed tasks"
+        //If globals, the last value is preserved and override the effect of "dont't show completed tasks"
+        final HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
+        final HashMap<String, List<String>> expandableListIDs    = new HashMap<String, List<String>>();
+        final HashMap<String, List<String>> expandableListTagCnt = new HashMap<String, List<String>>();
+        final List<String>                  expandableListTags;
+        final ExpandableListAdapter         expandableListAdapter;
 
         if(Settings.getSwitchShowCompleted() == true){
             cursor = dbManager.fetch();}
