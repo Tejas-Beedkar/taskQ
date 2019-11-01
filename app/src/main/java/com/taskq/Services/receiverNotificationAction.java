@@ -29,6 +29,7 @@ public class receiverNotificationAction extends BroadcastReceiver {
             //Activity will not lauanch if the following flag is not set
             modifyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+            //ToDo : Replace ID modify with a string resource
             modifyIntent.putExtra("idModify", strEventId);
             context.startActivity(modifyIntent);
             Log.i("taskQ", "taskQ receiverNotificationAction : Open " + Integer.parseInt(strEventId));

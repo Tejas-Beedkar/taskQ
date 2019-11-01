@@ -99,6 +99,21 @@ public class taskQEntryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        //We can only pass intents from recieverNotification()
+        try {
+                Intent intent = getIntent();
+                String idTrigger = intent.getStringExtra("idModify");
+                if(!idTrigger.isEmpty()){
+                    int idModify = (Integer.parseInt(idTrigger));
+                    if((idTrigger != null) && idModify!= 0){
+                        ((taskQGlobal) getApplication()).bSetUserEntryModify(Integer.parseInt(idTrigger));
+                    }
+                }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         String[] strBuffer;
         strSeparator = getString(R.string.strSeparator);
 
