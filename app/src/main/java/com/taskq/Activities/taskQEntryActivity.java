@@ -284,37 +284,38 @@ public class taskQEntryActivity extends AppCompatActivity {
         //==========================================================================================
         //          Feature - 019 Allow user to delete tasks permanently
         //==========================================================================================
-        tabTaskQEntry_SetReminder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                // Check if the task has been marked completed. If so, delete it
-                if(true == tabTaskQEntry_Switch_Completion.isChecked()) {
-                    dbManager.delete(((taskQGlobal) getApplication()).bGetUserEntryModify());
-                    //We clear this here so that SaveForm() is not called from onBackPressed();
-                    ((taskQGlobal) getApplication()).bClearUserEntryModify();
-                    onBackPressed();
-
-//                    //bClearUserEntryXXX MUST be the last thing to be done here. Else saveForm() will break.
-//                    if (true == ((taskQGlobal) getApplication()).bCheckUserEntryNew()) {
-//                        if (false == ((taskQGlobal) getApplication()).bClearUserEntryNew()) {
-//                            //The flag failed to clear. Now what?
-//                            Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
-//                        }
-//                    } else if (true == ((taskQGlobal) getApplication()).bCheckUserEntryModify()) {
-//                        if (false == ((taskQGlobal) getApplication()).bClearUserEntryModify()) {
-//                            //The flag failed to clear. Now what?
-//                            Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
-//                        }
-//                    }
+        //ToDo - repeted functionality. Delete
+//        tabTaskQEntry_SetReminder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //
-//                    Intent modifyIntent = new Intent(taskQEntryActivity.this, MainActivity.class);
-//                    startActivity(modifyIntent);
-                }
-            }
-        });
+//
+//
+//                // Check if the task has been marked completed. If so, delete it
+//                if(true == tabTaskQEntry_Switch_Completion.isChecked()) {
+//                    dbManager.delete(((taskQGlobal) getApplication()).bGetUserEntryModify());
+//                    //We clear this here so that SaveForm() is not called from onBackPressed();
+//                    ((taskQGlobal) getApplication()).bClearUserEntryModify();
+//                    onBackPressed();
+//
+////                    //bClearUserEntryXXX MUST be the last thing to be done here. Else saveForm() will break.
+////                    if (true == ((taskQGlobal) getApplication()).bCheckUserEntryNew()) {
+////                        if (false == ((taskQGlobal) getApplication()).bClearUserEntryNew()) {
+////                            //The flag failed to clear. Now what?
+////                            Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+////                        }
+////                    } else if (true == ((taskQGlobal) getApplication()).bCheckUserEntryModify()) {
+////                        if (false == ((taskQGlobal) getApplication()).bClearUserEntryModify()) {
+////                            //The flag failed to clear. Now what?
+////                            Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+////                        }
+////                    }
+////
+////                    Intent modifyIntent = new Intent(taskQEntryActivity.this, MainActivity.class);
+////                    startActivity(modifyIntent);
+//                }
+//            }
+//        });
     }
 
 
@@ -465,7 +466,10 @@ public class taskQEntryActivity extends AppCompatActivity {
     public void Button_SetReminder(View v){
 
         if(true == tabTaskQEntry_Switch_Completion.isChecked()){
-            Log.d(getString(R.string.app_name), "taskQEntryActivity - Delete");
+            dbManager.delete(((taskQGlobal) getApplication()).bGetUserEntryModify());
+            //We clear this here so that SaveForm() is not called from onBackPressed();
+            ((taskQGlobal) getApplication()).bClearUserEntryModify();
+            onBackPressed();
         }
         else{
             if((Integer)tabTaskQEntry_SetReminder.getTag() == R.drawable.ic_reminder_on_dark){
