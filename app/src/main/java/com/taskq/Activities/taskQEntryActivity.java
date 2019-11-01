@@ -386,24 +386,47 @@ public class taskQEntryActivity extends AppCompatActivity {
 
     }
 
-    //Feature - TBU distributed code
+    //Feature - 21 Comfort edit dates
     public void Button_Today(View v){
-
+        Calendar c = Calendar.getInstance();
+        cUserTimeDate.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH));
+        cUserTimeDate.set(Calendar.MONTH, c.get(Calendar.MONTH));
+        cUserTimeDate.set(Calendar.YEAR, c.get(Calendar.YEAR));
+        EditText_Date.setText(sdfDate_Month.format(cUserTimeDate.getTime()));
+        EditText_Day.setText(sdfDay.format(cUserTimeDate.getTime()));
     }
 
-    //Feature - TBU distributed code
+    //Feature - 21 Comfort edit dates
     public void Button_Add_a_Day(View v){
-
+        Calendar c = Calendar.getInstance();
+        if(cUserTimeDate.getTimeInMillis() < c.getTimeInMillis()){
+            cUserTimeDate.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH));
+            cUserTimeDate.set(Calendar.MONTH, c.get(Calendar.MONTH));
+            cUserTimeDate.set(Calendar.YEAR, c.get(Calendar.YEAR));
+        }
+        cUserTimeDate.add(Calendar.DAY_OF_YEAR, 1);
+        EditText_Date.setText(sdfDate_Month.format(cUserTimeDate.getTime()));
+        EditText_Day.setText(sdfDay.format(cUserTimeDate.getTime()));
     }
 
-    //Feature - TBU distributed code
+    //Feature - 21 Comfort edit dates
     public void Button_Weekend(View v){
-
+        cUserTimeDate= Calendar.getInstance();
+        int weekday = cUserTimeDate.get(Calendar.DAY_OF_WEEK);
+        if (weekday != Calendar.SATURDAY)
+        {
+            int days = (Calendar.SATURDAY - weekday) % 7;
+            cUserTimeDate.add(Calendar.DAY_OF_YEAR, ((Calendar.SATURDAY - weekday) % 7));
+        }
+        EditText_Date.setText(sdfDate_Month.format(cUserTimeDate.getTime()));
+        EditText_Day.setText(sdfDay.format(cUserTimeDate.getTime()));
     }
 
-    //Feature - TBU distributed code
+    //Feature - 21 Comfort edit dates
     public void Button_Sub_a_Day(View v){
-
+        cUserTimeDate.add(Calendar.DAY_OF_YEAR, -1);
+        EditText_Date.setText(sdfDate_Month.format(cUserTimeDate.getTime()));
+        EditText_Day.setText(sdfDay.format(cUserTimeDate.getTime()));;
     }
 
     //Feature - TBU distributed code
