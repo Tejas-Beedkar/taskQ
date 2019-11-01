@@ -381,7 +381,7 @@ public class taskQEntryActivity extends AppCompatActivity {
         TagsDialog.show(ft, "dialog");
     }
 
-    //Feature - TBU distributed code
+    //Feature - 22 Contacts in user entry dialog
     public void ClipGroup_AddNames(View v){
 
     }
