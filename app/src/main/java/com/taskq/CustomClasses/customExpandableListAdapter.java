@@ -3,6 +3,7 @@ package com.taskq.CustomClasses;
 import java.util.HashMap;
 import java.util.List;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -128,6 +129,20 @@ public class customExpandableListAdapter extends BaseExpandableListAdapter {
         //Set the count
         TextView listTitleCount = (TextView) convertView.findViewById(R.id.search_count);
         listTitleCount.setText(strProgress.get(0));
+
+        //Set color based on name. Overdue is orange and Today is Green
+        //ToDo - this needs to access the string resource file
+        if(listTitle.equals("Overdue")){
+            //ToDo - this needs to access the colorOverdue resource
+            //convertView.setBackgroundColor(Color.parseColor("#FFE6A191"));
+            listTitleTextView.setTextColor(Color.parseColor("#FF5722"));
+        }
+        //ToDo - this needs to access the string resource file
+        if(listTitle.equals("Due Today")){
+            //ToDo - this needs to access the colorToday resource
+            //convertView.setBackgroundColor(Color.parseColor("#7627E632"));
+            listTitleTextView.setTextColor(Color.parseColor("#16B91E"));
+        }
 
         return convertView;
     }

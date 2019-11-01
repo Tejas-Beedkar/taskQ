@@ -8,4 +8,8 @@
     <color name="colorHtmlGrey">#808080</color>
     <color name="colorDoneGreen">#28822E</color>
     <color name="colorChipSelected">#FF5722</color>
+    <color name="colorToday">#7627E632</color>
+    <color name="colorOverdue">#FFE6A191</color>
+    <color name="colorToday_txt">#16B91E</color>
+    <color name="colorOverdue_txt">#FF5722</color>
 </resources>
