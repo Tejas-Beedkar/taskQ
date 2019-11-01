@@ -243,10 +243,10 @@ public class WhatFragment extends Fragment {
 //                                childPosition), Toast.LENGTH_SHORT
 //                ).show();
 
-                Toast.makeText( getActivity().getApplicationContext(),
-                                expandableListIDs.get(expandableListTags.get(groupPosition)).get( childPosition),
-                                Toast.LENGTH_SHORT
-                ).show();
+//                Toast.makeText( getActivity().getApplicationContext(),
+//                                expandableListIDs.get(expandableListTags.get(groupPosition)).get( childPosition),
+//                                Toast.LENGTH_SHORT
+//                ).show();
 
                 int idModify = Integer.parseInt(expandableListIDs.get(expandableListTags.get(groupPosition)).get( childPosition));
                 if(true == (((taskQGlobal) getActivity().getApplication()).bSetUserEntryModify(idModify))){
