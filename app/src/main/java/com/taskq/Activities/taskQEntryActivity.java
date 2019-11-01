@@ -157,11 +157,12 @@ public class taskQEntryActivity extends AppCompatActivity {
                 bSetReminder = true; //This is true because wa want to set the alarm by default
 
                 //Set the chipgroup heights so that a empty chipgroup does not collapse on itself
-                ViewGroup.LayoutParams params;
-                params = TaskQEntry_Tags.getLayoutParams();
-                params.height = 120;
-                params = TaskQEntry_Names.getLayoutParams();
-                params.height = 120;
+                ViewGroup.LayoutParams params1;
+                params1 = TaskQEntry_Tags.getLayoutParams();
+                params1.height = 120;
+                ViewGroup.LayoutParams params2;
+                params2 = TaskQEntry_Names.getLayoutParams();
+                params2.height = 120;
             }
 
         }else
@@ -362,7 +363,7 @@ public class taskQEntryActivity extends AppCompatActivity {
 
         TagsDialog = new TagsDialogFragment();
 
-        //Turn the existing tags to a string
+        //Turn the existing tags to a string to pass to the dialog
         ArrayList<String> alNamesBuffer = new ArrayList<String>();;
         final StringBuilder sbNames = new StringBuilder();
         for (int i=0; i<TaskQEntry_Tags.getChildCount();i++){
@@ -371,6 +372,7 @@ public class taskQEntryActivity extends AppCompatActivity {
             alNamesBuffer.add(sbNames.toString());
             sbNames.setLength(0);
         }
+
         //ToDo - Replace Tags. It's a magic number. Second instance in TagsDialogFragment
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("Tags", alNamesBuffer);
@@ -378,14 +380,14 @@ public class taskQEntryActivity extends AppCompatActivity {
         TagsDialog.setArguments(bundle);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialogTags");
 
         if (prev != null) {
             ft.remove(prev);
         }
 
         ft.addToBackStack(null);
-        TagsDialog.show(ft, "dialog");
+        TagsDialog.show(ft, "dialogTags");
     }
 
     //Feature - 22 Contacts in user entry dialog
@@ -396,19 +398,19 @@ public class taskQEntryActivity extends AppCompatActivity {
         NamesDialog = new NamesDialogFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putString("Tags", "To Be Updated");
+        bundle.putString("Names", "To Be Updated");
 
         NamesDialog.setArguments(bundle);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialogNames");
 
         if (prev != null) {
             ft.remove(prev);
         }
 
         ft.addToBackStack(null);
-        NamesDialog.show(ft, "dialog");
+        NamesDialog.show(ft, "dialogNames");
     }
 
     //Feature - 21 Comfort edit dates
@@ -512,7 +514,8 @@ public class taskQEntryActivity extends AppCompatActivity {
     }
 
     //Feature - 007 distributed code
-    public void onDialogDismiss(){
+    //This is where we get the list of tags from the dialog that was dismissed and add to user entry
+    public void onTagsDialogDismiss(){
         //finish();
         //startActivity(getIntent());
 
@@ -524,6 +527,26 @@ public class taskQEntryActivity extends AppCompatActivity {
             TaskQEntry_Tags.setLayoutParams(params);
         }
         tagsDialogViewModel.strDialogTags.clear();
+
+
+    }
+
+    //Feature - 007 distributed code
+    //This is where we get the list of tags from the dialog that was dismissed and add to user entry
+    public void onNamesDialogDismiss(){
+        //finish();
+        //startActivity(getIntent());
+
+        //Feature - 007 distributed code
+        for (int x=0; x<tagsDialogViewModel. strDialogNames.size(); x++){
+            addNamesChips((String)tagsDialogViewModel.strDialogNames.get(x));
+            ViewGroup.LayoutParams params = TaskQEntry_Names.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            TaskQEntry_Names.setLayoutParams(params);
+        }
+        tagsDialogViewModel.strDialogNames.clear();
+
+
     }
 
     //Feature - 007 distributed code
@@ -556,6 +579,38 @@ public class taskQEntryActivity extends AppCompatActivity {
 
         TaskQEntry_Tags.addView(chip);
     }
+
+    //Feature - 007 distributed code
+    private void addNamesChips(String addchip)
+    {
+        final Chip chip = new Chip(this);
+
+        int paddingDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
+        chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);
+
+        chip.setText(addchip);
+        chip.setCheckable(true);
+        chip.setCloseIconVisible(true);
+        chip.setChipBackgroundColorResource(R.color.colorPrimaryDark);
+        chip.setTextColor(getResources().getColor(R.color.colorThemeLightGrey));
+
+        chip.setOnCloseIconClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                TaskQEntry_Names.removeView(chip);
+
+                if(TaskQEntry_Names.getChildCount() == 0){
+                    ViewGroup.LayoutParams params = TaskQEntry_Names.getLayoutParams();
+                    params.height = (int)getResources().getDimension(R.dimen.taskQ_dialog_tagsChipGroupDefaultHeight);
+                    TaskQEntry_Names.setLayoutParams(params);
+                }
+
+            }
+        });
+
+        TaskQEntry_Names.addView(chip);
+    }
+
 
     //==============================================================================================
     //      Feature - 010 Save the form to the dBaseArchitecture dBase

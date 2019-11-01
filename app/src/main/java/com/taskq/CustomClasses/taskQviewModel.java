@@ -13,6 +13,8 @@ public class taskQviewModel extends ViewModel {
     //Used to pass data from TagsDialogFragment to the taskQEntryActivity
     public ArrayList strDialogTags = new ArrayList();
 
+    public ArrayList strDialogNames = new ArrayList();
+
     public taskQviewModel() {
         super();
     }

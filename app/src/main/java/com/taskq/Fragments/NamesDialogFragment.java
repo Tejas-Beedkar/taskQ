@@ -10,11 +10,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -22,7 +25,11 @@ import android.widget.ListView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ListAdapter;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.taskq.Activities.taskQEntryActivity;
 
 import android.provider.ContactsContract;
@@ -30,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.taskq.CustomClasses.taskQGlobal;
+import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.R;
 
 import java.util.ArrayList;
@@ -45,6 +53,9 @@ public class NamesDialogFragment extends DialogFragment {
     private boolean bCheckIfAsked = false;
     private SimpleCursorAdapter adapter;
     private View view;
+    private ListAdapter listAdapter;
+    private ContentResolver cr;
+    private Cursor cursor;
 
     //Contacts Vars
     private static final String[] PROJECTION =
@@ -57,8 +68,8 @@ public class NamesDialogFragment extends DialogFragment {
             };
     private static final String SELECTION =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
-                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " LIKE ?" :
-                    ContactsContract.Contacts.DISPLAY_NAME + " LIKE ?";
+                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + "=?" :
+                    ContactsContract.Contacts.DISPLAY_NAME + "=?";
 
     private static final String ContactNameQuery =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
@@ -110,7 +121,7 @@ public class NamesDialogFragment extends DialogFragment {
         buttonDone.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                ((taskQEntryActivity)getActivity()).onDialogDismiss();
+                ((taskQEntryActivity)getActivity()).onNamesDialogDismiss();
                 dismiss();
             }
         });
@@ -119,25 +130,58 @@ public class NamesDialogFragment extends DialogFragment {
 
         //Access the contacts dB and populate list with it
         String selString = "SELECT " + ContactNameQuery;// + " FROM " + ContactsContract.Contacts.CONTENT_URI;
-        ContentResolver cr = getContext().getContentResolver();
-        Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        cr = getContext().getContentResolver();
+        cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactNameQuery + " ASC");
 
         adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_contacts, cursor, from, to, 0);
         adapter.notifyDataSetChanged();
         listViewNames.setAdapter(adapter);
 
-
         listViewNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                //Get the String from the contact list
                 String strNameSelected = ((TextView)(view.findViewById(R.id.listview_contact_names))).getText().toString();
-                Toast.makeText(getActivity(), strNameSelected + " Selected", Toast.LENGTH_LONG).show();
+
+                //Store in global class taskQviewModel
+                taskQviewModel tagsDialogViewModel =  ViewModelProviders.of(getActivity()).get(taskQviewModel.class);
+                tagsDialogViewModel.strDialogNames.clear();
+                tagsDialogViewModel.strDialogNames.add(strNameSelected);
+
+                //Call the function in the parent activity
+                ((taskQEntryActivity)getActivity()).onNamesDialogDismiss();
+                dismiss();
+                //Toast.makeText(getActivity(), strNameSelected + " Selected", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                //ToDo Implement Filter Here
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
             }
         });
 
 
-        Toast.makeText(getActivity(), "No of contacts is." + cursor.getCount(), Toast.LENGTH_LONG).show();
+
+
+
+        //Toast.makeText(getActivity(), "No of contacts is." + cursor.getCount(), Toast.LENGTH_LONG).show();
     }
 
 
