@@ -1,37 +1,30 @@
 package com.taskq.Fragments;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 import com.taskq.Activities.taskQEntryActivity;
-import com.taskq.CustomClasses.taskQGlobal;
-import com.taskq.CustomClasses.taskQviewModel;
 
 import android.provider.ContactsContract;
+import android.widget.Toast;
 
 import com.taskq.R;
 
@@ -46,6 +39,33 @@ public class NamesDialogFragment extends DialogFragment {
     private EditText editTextSearch;
     private ListView listViewNames;
     private boolean bCheckIfAsked = false;
+    private SimpleCursorAdapter adapter;
+    private View view;
+
+    //Contacts Vars
+    private static final String[] PROJECTION =
+            {
+                    ContactsContract.Contacts._ID,
+                    ContactsContract.Contacts.LOOKUP_KEY,
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+                            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
+                            ContactsContract.Contacts.DISPLAY_NAME
+            };
+    private static final String SELECTION =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " LIKE ?" :
+                    ContactsContract.Contacts.DISPLAY_NAME + " LIKE ?";
+
+    private static final String ContactNameQuery =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY:
+                    ContactsContract.Contacts.DISPLAY_NAME;
+
+    final String[] from = new String[] {
+            ContactNameQuery,
+    };
+    final int[] to = new int[] {R.id.listview_contact_names};
+
 
     public NamesDialogFragment() {
         // Required empty public constructor
@@ -55,14 +75,14 @@ public class NamesDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //view = inflater.inflate(R.layout.fragment_tags_dialog, container, false);
+        view = inflater.inflate(R.layout.fragment_names_dialog, container, false);
 
         bCheckIfAsked = false;
 
         getActivity().setTheme(R.style.AppTheme_MaterialTab);
         //getDialog().setTitle("Tags"); //does not do anything
 
-        return inflater.inflate(R.layout.fragment_names_dialog, container, false);
+        return view;
     }
 
     @Override
@@ -93,6 +113,17 @@ public class NamesDialogFragment extends DialogFragment {
 
         AccessContact();
 
+        //Access the contacts dB and populate list with it
+        String selString = "SELECT " + ContactNameQuery;// + " FROM " + ContactsContract.Contacts.CONTENT_URI;
+        ContentResolver cr = getContext().getContentResolver();
+        Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+
+        adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_contacts, cursor, from, to, 0);
+        adapter.notifyDataSetChanged();
+        listViewNames.setAdapter(adapter);
+
+
+        Toast.makeText(getActivity(), "No of contacts is." + cursor.getCount(), Toast.LENGTH_LONG).show();
     }
 
 
