@@ -9,16 +9,20 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.CustomClasses.taskQviewModel;
+import com.taskq.DataBase.dBaseManager;
 import com.taskq.Fragments.AllFragment;
 import com.taskq.Fragments.HomeFragment;
 import com.taskq.Fragments.WhatFragment;
@@ -27,7 +31,9 @@ import com.taskq.Fragments.WhoFragment;
 import com.taskq.Settings.taskQSettings;
 import com.taskq.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class TabActivity extends AppCompatActivity {
@@ -46,6 +52,8 @@ public class TabActivity extends AppCompatActivity {
             R.drawable.ic_tab_who_light
     };
     private taskQviewModel tagsDialogViewModel;
+    private TextView tab_DashBoard;
+    private dBaseManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,7 @@ public class TabActivity extends AppCompatActivity {
         tab_Toolbar = findViewById(R.id.tab_toolbar);
         tab_TabLayout = findViewById(R.id.tab_TabLayout);
         tab_ViewPager = findViewById(R.id.tab_ViewPager);
+        tab_DashBoard = findViewById(R.id.EditText_DashBoard);
 
         //==========================================================================================
         //          Feature - 003
@@ -67,6 +76,9 @@ public class TabActivity extends AppCompatActivity {
         setupViewPager(tab_ViewPager);
         tab_TabLayout.setupWithViewPager(tab_ViewPager);
         setupTabIcons();
+
+        dbManager = new dBaseManager(this);
+        dbManager.open();
 
         tagsDialogViewModel =  ViewModelProviders.of(this).get(taskQviewModel.class);
 
@@ -82,6 +94,46 @@ public class TabActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        Long lDateToday;
+        Long lDate_pls1;
+        Cursor cursor;
+        int intActive;
+        int intDue;
+        int intCompleted;
+
+        //Step 1 - Construct search queries
+        //
+        Calendar calenderToday = Calendar.getInstance();
+        try {
+            String strDateCheck =  new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+
+            calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 0);
+            lDateToday = calenderToday.getTimeInMillis();
+            calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_pls1 = calenderToday.getTimeInMillis();
+
+        }catch(java.text.ParseException e) {
+            e.printStackTrace();
+            lDateToday = Calendar.getInstance().getTimeInMillis();
+            lDate_pls1 = Calendar.getInstance().getTimeInMillis();
+        }
+
+        //Step 2 - make the counts
+        cursor = dbManager.fetch();
+        intActive = cursor.getCount();
+
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDateToday, lDate_pls1);
+        intDue = cursor.getCount();
+
+        cursor = dbManager.fetchEntryByWhen(lDateToday, lDate_pls1);
+        intCompleted = cursor.getCount();
+        intCompleted = intCompleted - intDue;
+
+        String strDashboard = "      " + intDue + "  -  Due Today \n" + "      " + intCompleted + "  -  Completed Today \n" + "      " + intActive  + "  -  Active Tasks";
+        tab_DashBoard.setText(strDashboard);
 
         //Feature - 002 distributed code
         setTheme(R.style.AppTheme_Main);
@@ -124,10 +176,11 @@ public class TabActivity extends AppCompatActivity {
 //    }
 
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dbManager.close();
+    }
 
 
     //Feature - 003 distributed code
