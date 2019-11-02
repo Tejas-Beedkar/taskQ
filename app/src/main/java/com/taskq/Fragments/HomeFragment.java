@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
         ProgressBar bar_1 = view.findViewById(R.id.HomeFrag_pbar_1);
 
         bar_1.setMax(100);
-        bar_1.setProgress(1);
+        bar_1.setProgress(100);
     }
 
 }

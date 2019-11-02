@@ -24,19 +24,354 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
-            android:paddingBottom="@android:dimen/app_icon_size">
+            android:paddingBottom="@android:dimen/app_icon_size"
+            android:scrollbars="horizontal">
 
             <ProgressBar
                 android:id="@+id/HomeFrag_pbar_1"
                 style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="26dp"
-                android:layout_height="match_parent"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="32dp"
                 android:max="100"
                 android:progress="25"
                 android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toTopOf="@+id/HomeFrag_pbar_Text_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_1"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_1" />
+
+
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_2"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_1"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_1"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_1" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_2"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_2" />
+
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_3"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_2"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_2"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_2" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_3"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_3"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_3" />
+
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_4"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_3"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_3"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_3" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_4"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_4"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_4" />
+
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_5"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_4"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_4"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_4" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_5"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_5"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_5" />
+
+
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_6"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_5"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_5"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_5" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_6"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_6"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_6" />
+
+
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_7"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_6"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_6"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_6" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_7"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_7"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_7" />
+
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_8"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_7"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_7"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_7" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_8"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_8"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_8" />
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_9"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_8"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_8"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_8" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_9"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_9"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_9" />
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_10"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_9"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_9"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_9" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_10"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_10"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_10" />
+
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_11"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_10"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_10"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_10" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_11"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_11"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_11" />
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_12"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_11"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_11"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_11" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_12"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_12"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_12" />
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_13"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_12"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_12"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_12" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_13"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_13"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_13" />
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_14"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_13"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_13"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_13" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_14"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_14"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_14" />
+
+
+            <ProgressBar
+                android:id="@+id/HomeFrag_pbar_15"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_scale_drawable"
+                app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_14"
+                app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_14"
+                app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_14" />
+
+            <TextView
+                android:id="@+id/HomeFrag_pbar_Text_15"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="-1"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_15"
+                app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_15" />
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
