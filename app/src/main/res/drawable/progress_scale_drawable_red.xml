@@ -7,7 +7,7 @@
         <scale android:scaleGravity="bottom" android:scaleWidth="0%" android:scaleHeight="100%">
             <!-- Do not change these lines . this is what allows the vertical progress bar to work-->
             <shape >
-                <solid android:color="@color/colorPrimaryDark"/>
+                <solid android:color="@color/colorOverdue_txt"/>
                 <corners android:topRightRadius="1dp" android:topLeftRadius="1dp"/>
             </shape>
         </scale>

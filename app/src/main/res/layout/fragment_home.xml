@@ -35,7 +35,7 @@
                 android:layout_marginTop="32dp"
                 android:max="100"
                 android:progress="25"
-                android:progressDrawable="@drawable/progress_scale_drawable"
+                android:progressDrawable="@drawable/progress_scale_drawable_red"
                 app:layout_constraintBottom_toTopOf="@+id/HomeFrag_pbar_Text_1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +59,7 @@
                 android:layout_height="0dp"
                 android:max="100"
                 android:progress="25"
-                android:progressDrawable="@drawable/progress_scale_drawable"
+                android:progressDrawable="@drawable/progress_scale_drawable_red"
                 app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_1"
                 app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_1"
                 app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_1" />
@@ -82,7 +82,7 @@
                 android:layout_height="0dp"
                 android:max="100"
                 android:progress="25"
-                android:progressDrawable="@drawable/progress_scale_drawable"
+                android:progressDrawable="@drawable/progress_scale_drawable_red"
                 app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_2"
                 app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_2"
                 app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_2" />
@@ -105,7 +105,7 @@
                 android:layout_height="0dp"
                 android:max="100"
                 android:progress="25"
-                android:progressDrawable="@drawable/progress_scale_drawable"
+                android:progressDrawable="@drawable/progress_scale_drawable_red"
                 app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_3"
                 app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_3"
                 app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_3" />
@@ -128,7 +128,7 @@
                 android:layout_height="0dp"
                 android:max="100"
                 android:progress="25"
-                android:progressDrawable="@drawable/progress_scale_drawable"
+                android:progressDrawable="@drawable/progress_scale_drawable_red"
                 app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_4"
                 app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_4"
                 app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_4" />
@@ -152,7 +152,7 @@
                 android:layout_height="0dp"
                 android:max="100"
                 android:progress="25"
-                android:progressDrawable="@drawable/progress_scale_drawable"
+                android:progressDrawable="@drawable/progress_scale_drawable_red"
                 app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_5"
                 app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_5"
                 app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_5" />
@@ -176,7 +176,7 @@
                 android:layout_height="0dp"
                 android:max="100"
                 android:progress="25"
-                android:progressDrawable="@drawable/progress_scale_drawable"
+                android:progressDrawable="@drawable/progress_scale_drawable_red"
                 app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_6"
                 app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_6"
                 app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_6" />
@@ -199,7 +199,7 @@
                 android:layout_height="0dp"
                 android:max="100"
                 android:progress="25"
-                android:progressDrawable="@drawable/progress_scale_drawable"
+                android:progressDrawable="@drawable/progress_scale_drawable_green"
                 app:layout_constraintBottom_toBottomOf="@+id/HomeFrag_pbar_7"
                 app:layout_constraintStart_toEndOf="@+id/HomeFrag_pbar_7"
                 app:layout_constraintTop_toTopOf="@+id/HomeFrag_pbar_7" />
