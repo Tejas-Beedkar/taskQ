@@ -46,9 +46,23 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        Long lDate_min8;
+        Long lDate_min7;
+        Long lDate_min6;
+        Long lDate_min5;
+        Long lDate_min4;
+        Long lDate_min3;
+        Long lDate_min2;
         Long lDate_min1;
         Long lDateToday;
         Long lDate_pls1;
+        Long lDate_pls2;
+        Long lDate_pls3;
+        Long lDate_pls4;
+        Long lDate_pls5;
+        Long lDate_pls6;
+        Long lDate_pls7;
+
 
         int maxProgress;
         int curProgress[] = new int[15];
@@ -79,50 +93,161 @@ public class HomeFragment extends Fragment {
         try {
             String strDateCheck =  new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
 
-            //Construct -1
             calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, -7);
+            lDate_min8 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_min7 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_min6 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_min5 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_min4 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_min3 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_min2 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
             lDate_min1 = calenderToday.getTimeInMillis();
 
-            //Construct Today
-            calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
             lDateToday = calenderToday.getTimeInMillis();
 
-            //Construct + 1
-            calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_pls1 = calenderToday.getTimeInMillis();
 
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_pls2 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_pls3 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_pls4 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_pls5 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_pls6 = calenderToday.getTimeInMillis();
+
+            //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+            calenderToday.add(Calendar.DATE, 1);
+            lDate_pls7 = calenderToday.getTimeInMillis();
 
         }catch(java.text.ParseException e) {
             e.printStackTrace();
+            lDate_min8 = Calendar.getInstance().getTimeInMillis();
+            lDate_min7 = Calendar.getInstance().getTimeInMillis();
+            lDate_min6 = Calendar.getInstance().getTimeInMillis();
+            lDate_min5 = Calendar.getInstance().getTimeInMillis();
+            lDate_min4 = Calendar.getInstance().getTimeInMillis();
+            lDate_min3 = Calendar.getInstance().getTimeInMillis();
+            lDate_min2 = Calendar.getInstance().getTimeInMillis();
             lDate_min1 = Calendar.getInstance().getTimeInMillis();
             lDateToday = Calendar.getInstance().getTimeInMillis();
             lDate_pls1 = Calendar.getInstance().getTimeInMillis();
+            lDate_pls2 = Calendar.getInstance().getTimeInMillis();
+            lDate_pls3 = Calendar.getInstance().getTimeInMillis();
+            lDate_pls4 = Calendar.getInstance().getTimeInMillis();
+            lDate_pls5 = Calendar.getInstance().getTimeInMillis();
+            lDate_pls6 = Calendar.getInstance().getTimeInMillis();
+            lDate_pls7 = Calendar.getInstance().getTimeInMillis();
         }
 
         //Step 2 - make the counts
 
-        //Get the cursor
+
+        //min 7
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_min8, lDate_min7);
+        curProgress[0] = cursor.getCount();
+
+        //min 6
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_min7, lDate_min6);
+        curProgress[1] = cursor.getCount();
+
+        //min 5
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_min6, lDate_min5);
+        curProgress[2] = cursor.getCount();
+
+        //min 4
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_min5, lDate_min4);
+        curProgress[3] = cursor.getCount();
+
+        //min 3
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_min4, lDate_min3);
+        curProgress[4] = cursor.getCount();
+
+        //min 2
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_min3, lDate_min2);
+        curProgress[5] = cursor.getCount();
+
+        //min 1
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_min2, lDate_min1);
+        curProgress[6] = cursor.getCount();
+
+        //Today
         cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_min1, lDateToday);
+        curProgress[7] = cursor.getCount();
 
-        curProgress[0] = 1;
-        curProgress[1] = 2;
-        curProgress[2] = 3;
-        curProgress[3] = 4;
-        curProgress[4] = 5;
-        curProgress[5] = 6;
-        curProgress[6] = 7;
-        curProgress[7] = 8;
-        curProgress[8] = 9;
-        curProgress[9] = 10;
-        curProgress[10] = 11;
-        curProgress[11] = 12;
-        curProgress[12] = 13;
-        curProgress[13] = 14;
-        curProgress[14] = 15;
-        maxProgress = 16;
+        //pls 1
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDateToday, lDate_pls1);
+        curProgress[8] = cursor.getCount();
+
+        //pls 2
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_pls1, lDate_pls2);
+        curProgress[9] = cursor.getCount();
+
+        //pls 3
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_pls2, lDate_pls3);
+        curProgress[10] = cursor.getCount();
+
+        //pls 4
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_pls3, lDate_pls4);
+        curProgress[11] = cursor.getCount();
+
+        //pls 5
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_pls4, lDate_pls5);
+        curProgress[12] = cursor.getCount();
+
+        //pls 6
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_pls5, lDate_pls6);
+        curProgress[13] = cursor.getCount();
+
+        //pls 7
+        cursor = dbManager.fetchEntryByWhen_NoCompleted(lDate_pls6, lDate_pls7);
+        curProgress[14] = cursor.getCount();
 
 
+        //Get max bar
+        maxProgress = 7;
+//        for (int i = 1; i < curProgress.length; i++) {
+//            if (curProgress[i] > maxProgress) {
+//                maxProgress = curProgress[i];
+//            }
+//        }
 
         bar_min7.setMax(maxProgress);
         bar_min7.setProgress(curProgress[0]);
