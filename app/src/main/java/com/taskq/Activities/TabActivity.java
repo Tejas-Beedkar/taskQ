@@ -8,7 +8,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -54,6 +56,7 @@ public class TabActivity extends AppCompatActivity {
     private taskQviewModel tagsDialogViewModel;
     private TextView tab_DashBoard;
     private dBaseManager dbManager;
+    private boolean bCheckIfAsked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +88,13 @@ public class TabActivity extends AppCompatActivity {
     }
 
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        bCheckIfAsked = false;
+        AccessContact();
+    }
 
 
     @Override
@@ -298,6 +304,43 @@ public class TabActivity extends AppCompatActivity {
                 break;
             default:
                 return super.onContextItemSelected(item);
+        }
+        return true;
+    }
+
+    //Request access to contacts
+    //ToDo:requestPermissions needs min SDK of 23.
+    final private int REQUEST_MULTIPLE_PERMISSIONS = 124;
+
+    private void AccessContact()
+    {
+        if(bCheckIfAsked == false) {
+            //ToDo - has to be a better way to prevent loops
+            bCheckIfAsked = true;
+
+            List<String> permissionsNeeded = new ArrayList<String>();
+            final List<String> permissionsList = new ArrayList<String>();
+
+            if (!addPermission(permissionsList, Manifest.permission.READ_CONTACTS)) {
+                permissionsNeeded.add("Read Contacts");
+            }
+            if (!addPermission(permissionsList, Manifest.permission.WRITE_CONTACTS)) {
+                permissionsNeeded.add("Write Contacts");
+            }
+
+            if (permissionsList.size() > 0) {
+                requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+                        REQUEST_MULTIPLE_PERMISSIONS);
+            }
+            permissionsList.clear();
+        }
+        return;
+    }
+    private boolean addPermission(List<String> permissionsList, String permission) {
+        if (this.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+            permissionsList.add(permission);
+            if (!shouldShowRequestPermissionRationale(permission))
+                return false;
         }
         return true;
     }
