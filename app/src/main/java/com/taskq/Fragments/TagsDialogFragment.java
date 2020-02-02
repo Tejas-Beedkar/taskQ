@@ -104,16 +104,26 @@ public class TagsDialogFragment extends DialogFragment {
         for(cursorWhat.moveToFirst() ; !cursorWhat.isAfterLast() ; cursorWhat.moveToNext()){
             //Get the Description string from the current entry
             String strCursorString = cursorWhat.getString(cursorWhat.getColumnIndex(dBaseArchitecture_What.COL_WHAT));
-            //Check if the tag is already present
-            for (int i = 0;i<alNamesBuffer.size(); i++) {
-                if(!alNamesBuffer.contains(strCursorString)){
+
+            if(((taskQGlobal) getActivity().getApplication()).bCheckUserEntryNew()){
+                //This is a new entry. So alNamesBuffer.size() == 0 and we need to add the chips from here.
+                addChips(strCursorString);
+            }
+            else{
+                //This is a old entry. So alNamesBuffer.size() may or may not be 0.
+                //Check if the tag is already present
+                if(alNamesBuffer.size() != 0) {
+                    for (int i = 0; i < alNamesBuffer.size(); i++) {
+                        if (!alNamesBuffer.contains(strCursorString)) {
+                            addChips(strCursorString);
+                        }
+                    }
+                }
+                else{
                     addChips(strCursorString);
                 }
             }
-            if(((taskQGlobal) getActivity().getApplication()).bCheckUserEntryNew()){
-                //This is a new entry. so alNamesBuffer.size() == 0 and we need to add the chips from here.
-                addChips(strCursorString);
-            }
+
         }
         dbManager_What.close();
 

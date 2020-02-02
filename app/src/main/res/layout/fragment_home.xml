@@ -402,7 +402,8 @@ android:paddingBottom="@android:dimen/app_icon_size"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@android:dimen/app_icon_size">
 
             <ListView
                 android:id="@+id/ListView_Frag_Home_Today"
