@@ -160,4 +160,10 @@ public class AllFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dbManager.close();
+    }
+
 }
