@@ -18,6 +18,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -195,6 +196,16 @@ public class NamesDialogFragment extends DialogFragment {
                 return cr.query(lookupUri, displayNameProjection, null, null, null);
             }
         });
+
+
+        //==========================================================================================
+        //          Feature - TBD
+        //          Sets focus to names and open keyboard on load.
+        //==========================================================================================
+        if(editTextSearch.requestFocus()){
+            InputMethodManager imgr = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+            imgr.showSoftInput(editTextSearch, InputMethodManager.SHOW_IMPLICIT);
+        }
 
         //Toast.makeText(getActivity(), "No of contacts is." + cursor.getCount(), Toast.LENGTH_LONG).show();
     }

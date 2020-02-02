@@ -669,6 +669,51 @@ public class taskQEntryActivity extends AppCompatActivity {
         TaskQEntry_Names.addView(chip);
     }
 
+    //Feature - 21 Comfort edit dates
+    public void Button_Save(View v){
+
+        //Feature - 010. This MUST be called before we clear the flags
+        saveForm();
+
+        //bClearUserEntryXXX MUST be the last thing to be done here. Else saveForm() will break.
+        if(true ==((taskQGlobal) getApplication()).bCheckUserEntryNew()) {
+            if (false == ((taskQGlobal) getApplication()).bClearUserEntryNew()) {
+                //The flag failed to clear. Now what?
+                Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+            }
+        } else
+        if(true ==((taskQGlobal) getApplication()).bCheckUserEntryModify()) {
+            if (false == ((taskQGlobal) getApplication()).bClearUserEntryModify()) {
+                //The flag failed to clear. Now what?
+                Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+            }
+        }
+
+        Intent modifyIntent = new Intent(taskQEntryActivity.this, TabActivity.class);
+        startActivity(modifyIntent);
+
+    }
+
+    //Feature - 21 Comfort edit dates
+    public void Button_Cancel(View v){
+
+        //bClearUserEntryXXX MUST be the last thing to be done here. Else saveForm() will break.
+        if(true ==((taskQGlobal) getApplication()).bCheckUserEntryNew()) {
+            if (false == ((taskQGlobal) getApplication()).bClearUserEntryNew()) {
+                //The flag failed to clear. Now what?
+                Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+            }
+        } else
+        if(true ==((taskQGlobal) getApplication()).bCheckUserEntryModify()) {
+            if (false == ((taskQGlobal) getApplication()).bClearUserEntryModify()) {
+                //The flag failed to clear. Now what?
+                Log.d(this.getClass().getName(), "User Entry Activity is dead locked");
+            }
+        }
+
+        Intent modifyIntent = new Intent(taskQEntryActivity.this, TabActivity.class);
+        startActivity(modifyIntent);
+    }
 
     //==============================================================================================
     //      Feature - 010 Save the form to the dBaseArchitecture dBase

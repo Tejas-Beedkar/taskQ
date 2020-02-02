@@ -299,6 +299,29 @@
                 app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_Switch_Completion"
                 app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Switch_Completion" />
 
+
+            <Button
+                android:id="@+id/tabTaskQEntry_button_Save"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/rectangle_taskqentry_buttonborder"
+                android:onClick="Button_Save"
+                android:text="@string/button_save"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_button_weekend"
+                app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_Description" />
+
+            <Button
+                android:id="@+id/tabTaskQEntry_button_Cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/rectangle_taskqentry_buttonborder"
+                android:onClick="Button_Cancel"
+                android:text="@string/button_cancel"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_SetReminder"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_button_Save" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
