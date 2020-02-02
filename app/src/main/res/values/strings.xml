@@ -30,6 +30,11 @@
     <string name="search_category">Search Category</string>
     <string name="userEntry_NULL_id">00</string>
 
+    <string name="Time_Morning">8a</string>
+    <string name="Time_Noon">12p</string>
+    <string name="Time_Evening">5p</string>
+    <string name="Time_Night">8p</string>
+
     <string name="Month_january">January</string>
     <string name="Month_february">February</string>
     <string name="Month_march">March</string>

@@ -465,6 +465,35 @@ public class taskQEntryActivity extends AppCompatActivity {
     }
 
     //Feature - 21 Comfort edit dates
+
+    public void Button_Morning(View v){
+        cUserTimeDate.set(Calendar.HOUR_OF_DAY, 8);
+        cUserTimeDate.set(Calendar.MINUTE, 00);
+        Date d = cUserTimeDate.getTime();
+        EditText_Time.setText(sdfHours_Minutes.format(d));
+    }
+
+    public void Button_Noon(View v){
+        cUserTimeDate.set(Calendar.HOUR_OF_DAY, 12);
+        cUserTimeDate.set(Calendar.MINUTE, 00);
+        Date d = cUserTimeDate.getTime();
+        EditText_Time.setText(sdfHours_Minutes.format(d));
+    }
+
+    public void Button_Evening(View v){
+        cUserTimeDate.set(Calendar.HOUR_OF_DAY, 17);
+        cUserTimeDate.set(Calendar.MINUTE, 00);
+        Date d = cUserTimeDate.getTime();
+        EditText_Time.setText(sdfHours_Minutes.format(d));
+    }
+
+    public void Button_Night(View v){
+        cUserTimeDate.set(Calendar.HOUR_OF_DAY, 20);
+        cUserTimeDate.set(Calendar.MINUTE, 00);
+        Date d = cUserTimeDate.getTime();
+        EditText_Time.setText(sdfHours_Minutes.format(d));
+    }
+
     public void Button_Today(View v){
         Calendar c = Calendar.getInstance();
         cUserTimeDate.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH));
