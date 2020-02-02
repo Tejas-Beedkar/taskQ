@@ -75,6 +75,7 @@ public class taskQEntryActivity extends AppCompatActivity {
     private Cursor cursor;
     //ToDo - We use this to prevent multiple addtions to the chip group. Is there a better way?
     private boolean bCreated = false;
+    private boolean bOnPause = false;
 
     public static String strSeparator;
 
@@ -149,6 +150,18 @@ public class taskQEntryActivity extends AppCompatActivity {
         //Feature 12 - Open the dBase
         dbManager = new dBaseManager(this);
         dbManager.open();
+
+        //==========================================================================================
+        //          Feature - TBD
+        //          User Entry- Resume after pause
+        //==========================================================================================
+        if(bOnPause == true){
+
+            //Reset flag
+            bOnPause = false;
+
+            //no need to manually re-enter. They are preserved.
+        }
 
         //==========================================================================================
         //          Feature - 010
@@ -352,6 +365,13 @@ public class taskQEntryActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        bOnPause = true;
     }
 
 

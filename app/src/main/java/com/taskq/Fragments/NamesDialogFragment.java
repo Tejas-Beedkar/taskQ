@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -33,6 +36,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.taskq.Activities.taskQEntryActivity;
 
 import android.provider.ContactsContract;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,18 +62,18 @@ public class NamesDialogFragment extends DialogFragment {
     private Cursor cursor;
 
     //Contacts Vars
-    private static final String[] PROJECTION =
-            {
-                    ContactsContract.Contacts._ID,
-                    ContactsContract.Contacts.LOOKUP_KEY,
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
-                            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
-                            ContactsContract.Contacts.DISPLAY_NAME
-            };
-    private static final String SELECTION =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
-                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + "=?" :
-                    ContactsContract.Contacts.DISPLAY_NAME + "=?";
+//    private static final String[] PROJECTION =
+//            {
+//                    ContactsContract.Contacts._ID,
+//                    ContactsContract.Contacts.LOOKUP_KEY,
+//                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+//                            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
+//                            ContactsContract.Contacts.DISPLAY_NAME
+//            };
+//    private static final String SELECTION =
+//            Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+//                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + "=?" :
+//                    ContactsContract.Contacts.DISPLAY_NAME + "=?";
 
     private static final String ContactNameQuery =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
@@ -79,6 +83,7 @@ public class NamesDialogFragment extends DialogFragment {
     final String[] from = new String[] {
             ContactNameQuery,
     };
+
     final int[] to = new int[] {R.id.listview_contact_names};
 
 
@@ -161,7 +166,7 @@ public class NamesDialogFragment extends DialogFragment {
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 //ToDo Implement Filter Here
-
+                adapter.getFilter().filter(cs.toString());
             }
 
             @Override
@@ -172,18 +177,27 @@ public class NamesDialogFragment extends DialogFragment {
             }
 
             @Override
-            public void afterTextChanged(Editable arg0) {
+            public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
+                //adapter.getFilter().filter(s.toString());
             }
         });
 
+        adapter.setFilterQueryProvider(new FilterQueryProvider() {
+            public Cursor runQuery(CharSequence constraint) {
 
+                Uri lookupUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_FILTER_URI, Uri.encode(constraint.toString()));
 
+                String[] displayNameProjection = { ContactsContract.Contacts._ID,
+                                                   ContactsContract.Contacts.LOOKUP_KEY,
+                                                   Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? ContactsContract.Contacts.DISPLAY_NAME_PRIMARY : ContactsContract.Contacts.DISPLAY_NAME };
 
+                return cr.query(lookupUri, displayNameProjection, null, null, null);
+            }
+        });
 
         //Toast.makeText(getActivity(), "No of contacts is." + cursor.getCount(), Toast.LENGTH_LONG).show();
     }
-
 
     //Request access to contacts
     //ToDo:requestPermissions needs min SDK of 23.
@@ -228,6 +242,7 @@ public class NamesDialogFragment extends DialogFragment {
         }
         return;
     }
+
     private boolean addPermission(List<String> permissionsList, String permission) {
         if (getContext().checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
             permissionsList.add(permission);
@@ -236,6 +251,7 @@ public class NamesDialogFragment extends DialogFragment {
         }
         return true;
     }
+
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
 
         new AlertDialog.Builder(getActivity())
