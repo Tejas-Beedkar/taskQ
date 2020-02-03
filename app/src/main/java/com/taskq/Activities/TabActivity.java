@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.CustomClasses.taskQviewModel;
+import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseManager;
 import com.taskq.Fragments.AllFragment;
 import com.taskq.Fragments.HomeFragment;
@@ -33,14 +34,18 @@ import com.taskq.Fragments.WhoFragment;
 import com.taskq.Settings.taskQSettings;
 import com.taskq.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TabActivity extends AppCompatActivity {
 
     private Button tab_Button_NewItem;
+    private Button tab_Button_SmartReset;
     private TabLayout tab_TabLayout;
     private taskQSettings Settings;
     private Toolbar tab_Toolbar;
@@ -128,7 +133,7 @@ public class TabActivity extends AppCompatActivity {
         }
 
         //Step 2 - make the counts
-        cursor = dbManager.fetch();
+        cursor = dbManager.fetch_NoCompleted();
         intActive = cursor.getCount();
 
         cursor = dbManager.fetchEntryByWhen_NoCompleted(lDateToday, lDate_pls1);
@@ -167,8 +172,101 @@ public class TabActivity extends AppCompatActivity {
 
             }
         });
+
+        //==========================================================================================
+        //          Feature - TBD Smart Reset
+        //==========================================================================================
+        tab_Button_SmartReset = findViewById(R.id.tab_Button_SmartReset);
+        tab_Button_SmartReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Step 1 - Get a cursor to all overdue entries
+                //
+                Calendar calenderToday = Calendar.getInstance();
+                Long lDateToday;
+                int intToday = 0;
+
+                Cursor cursorOverdue;
+                Calendar cUserTimeDate;
+
+                SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
+
+                try {
+                    String strDateCheck =  new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+                    //Construct Today
+                    calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+                    lDateToday = calenderToday.getTimeInMillis();
+                    intToday = calenderToday.get(Calendar.DAY_OF_WEEK);
+
+                }catch(java.text.ParseException e) {
+                    e.printStackTrace();
+                    lDateToday = Calendar.getInstance().getTimeInMillis();
+                }
+
+
+                if(Settings.getSwitchShowCompleted() == true){
+                    cursorOverdue = dbManager.fetchEntryByWhen(0L, lDateToday);
+                }
+                else{
+                    cursorOverdue = dbManager.fetchEntryByWhen_NoCompleted(0L, lDateToday);
+                }
+
+                //Step 3 - Loop through the cursor to reset all overdue
+                cUserTimeDate = Calendar.getInstance();
+
+                for(cursorOverdue.moveToFirst() ; !cursorOverdue.isAfterLast() ; cursorOverdue.moveToNext()){
+
+                    cUserTimeDate.setTimeInMillis(cursorOverdue.getLong(cursorOverdue.getColumnIndex(dBaseArchitecture.COL_WHEN_TIME)));
+                    String day = sdfDay.format(cUserTimeDate.getTime());
+                    int dayOfWeek = parseDayOfWeek(day, Locale.US);
+
+                    //in case parseDayOfWeek() fails, we get a value larger than 8
+                    if(dayOfWeek < 8){
+                        if(intToday > dayOfWeek){
+                            cUserTimeDate.set(Calendar.DAY_OF_MONTH, calenderToday.get(Calendar.DAY_OF_MONTH));
+                            cUserTimeDate.add(Calendar.DAY_OF_MONTH, ((7 - intToday) + dayOfWeek));
+                            cUserTimeDate.set(Calendar.MONTH, calenderToday.get(Calendar.MONTH));
+                            cUserTimeDate.set(Calendar.YEAR, calenderToday.get(Calendar.YEAR));
+                        }
+                        else if(intToday < dayOfWeek){
+                            cUserTimeDate.set(Calendar.DAY_OF_MONTH, calenderToday.get(Calendar.DAY_OF_MONTH));
+                            cUserTimeDate.add(Calendar.DAY_OF_MONTH, (dayOfWeek - intToday));
+                            cUserTimeDate.set(Calendar.MONTH, calenderToday.get(Calendar.MONTH));
+                            cUserTimeDate.set(Calendar.YEAR, calenderToday.get(Calendar.YEAR));
+                        }
+                        else{
+                            //intToday < dayOfWeek
+                            cUserTimeDate.set(Calendar.DAY_OF_MONTH, calenderToday.get(Calendar.DAY_OF_MONTH));
+                            //cUserTimeDate.add(Calendar.DAY_OF_MONTH, 7);
+                            cUserTimeDate.set(Calendar.MONTH, calenderToday.get(Calendar.MONTH));
+                            cUserTimeDate.set(Calendar.YEAR, calenderToday.get(Calendar.YEAR));
+                        }
+
+                        //Update to dBase
+                        dbManager.update_Date(cursorOverdue.getLong(cursorOverdue.getColumnIndex(dBaseArchitecture._ID)), cUserTimeDate.getTimeInMillis());
+                        Intent modifyIntent = new Intent(TabActivity.this, MainActivity.class);
+                        startActivity(modifyIntent);
+
+                    }
+                    //Toast.makeText(TabActivity.this, day, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
+    private static int parseDayOfWeek(String day, Locale locale) {
+        try{
+            SimpleDateFormat dayFormat = new SimpleDateFormat("E", locale);
+            Date date = dayFormat.parse(day);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            return dayOfWeek;
+        } catch(java.text.ParseException e) {
+            return 8;
+        }
+    }
 
 //    @Override
 //    protected void onPause() {

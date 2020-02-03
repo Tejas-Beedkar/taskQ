@@ -57,6 +57,20 @@ public class dBaseManager {
         return database.update(dBaseArchitecture.TABLE_NAME, updateContentValue, dBaseArchitecture._ID + " = " + _id, null);
     }
 
+    public int update_Date(long _id, long time) {
+        ContentValues updateContentValue = new ContentValues();
+
+        //updateContentValue.put(dBaseArchitecture.COL_TASK, task);
+        //updateContentValue.put(dBaseArchitecture.COL_TAGS, tags);
+        //updateContentValue.put(dBaseArchitecture.COL_NAMES, names);
+        //updateContentValue.put(dBaseArchitecture.COL_DESCRIPTION, description);
+        updateContentValue.put(dBaseArchitecture.COL_WHEN_TIME, time);
+        //updateContentValue.put(dBaseArchitecture.COL_STATUS, status);
+        //updateContentValue.put(dBaseArchitecture.COL_SET_REMINDER, setReminder);
+
+        return database.update(dBaseArchitecture.TABLE_NAME, updateContentValue, dBaseArchitecture._ID + " = " + _id, null);
+    }
+
     public int update_disableReminder(long _id) {
 
         ContentValues updateContentValue = new ContentValues();

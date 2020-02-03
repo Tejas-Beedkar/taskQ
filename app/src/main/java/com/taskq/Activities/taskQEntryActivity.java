@@ -60,7 +60,7 @@ public class taskQEntryActivity extends AppCompatActivity {
     private ChipGroup TaskQEntry_Names;
     private EditText tabTaskQEntry_Task_Description;
     private ImageButton tabTaskQEntry_SetReminder;
-    private ImageView imageView_done;
+//    private ImageView imageView_done;
     private TagsDialogFragment TagsDialog;
     private NamesDialogFragment NamesDialog;
     private taskQviewModel tagsDialogViewModel;
@@ -125,7 +125,7 @@ public class taskQEntryActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme_Main);
 
         tabTaskQEntry_Task_Description = findViewById(R.id.tabTaskQEntry_Task_Description);
-        imageView_done = findViewById(R.id.imageView_done);
+//        imageView_done = findViewById(R.id.imageView_done);
         tabTaskQEntry_SetReminder = findViewById(R.id.tabTaskQEntry_SetReminder);
         tabTaskQEntry_Switch_Completion = findViewById(R.id.tabTaskQEntry_Switch_Completion);
         TaskQEntry_Tags = findViewById(R.id.tabTaskQEntry_Tags);
@@ -237,11 +237,11 @@ public class taskQEntryActivity extends AppCompatActivity {
 
             //Status Done/noDone toggle switch
             if(true == Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_STATUS)))){
-                imageView_done.setVisibility(View.VISIBLE);
+//                imageView_done.setVisibility(View.VISIBLE);
                 tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_delete);
                 tabTaskQEntry_Switch_Completion.setChecked(true);
             }else{
-                imageView_done.setVisibility(View.INVISIBLE);
+//                imageView_done.setVisibility(View.INVISIBLE);
                 tabTaskQEntry_Switch_Completion.setChecked(false);
             }
 
@@ -580,11 +580,11 @@ public class taskQEntryActivity extends AppCompatActivity {
     //Feature - TBU distributed code
     public void Switch_Completion(View v){
         if(true == tabTaskQEntry_Switch_Completion.isChecked()){
-            imageView_done.setVisibility(View.VISIBLE);
+//            imageView_done.setVisibility(View.VISIBLE);
             tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_delete);
         }
         else{
-            imageView_done.setVisibility(View.INVISIBLE);
+//            imageView_done.setVisibility(View.INVISIBLE);
             if((Integer)tabTaskQEntry_SetReminder.getTag() == R.drawable.ic_reminder_on_dark){
                 tabTaskQEntry_SetReminder.setImageResource(R.drawable.ic_reminder_on_dark);
                 //The Off icon is offset by 4 points to the right. So we need to do this.

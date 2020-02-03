@@ -276,6 +276,18 @@
                 app:layout_constraintStart_toEndOf="@+id/tabTaskQEntry_button_weekend"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_add_a_day" />
 
+            <Button
+                android:id="@+id/tabTaskQEntry_button_taskDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/rectangle_dark"
+                android:onClick="Button_Sub_a_Day"
+                android:text="@string/button_task_manager"
+                android:textColor="@color/colorThemeLightGrey"
+                app:layout_constraintBottom_toBottomOf="@+id/tabTaskQEntry_Switch_Completion"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_button_weekend"
+                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Switch_Completion" />
+
             <ImageButton
                 android:id="@+id/tabTaskQEntry_SetReminder"
                 android:layout_width="wrap_content"
@@ -296,27 +308,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
                 android:onClick="Switch_Completion"
                 android:switchMinWidth="@dimen/switch_track_width"
                 android:thumb="@drawable/switch_selector"
                 android:track="@drawable/switch_tracker"
-                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_button_Today"
+                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_SetReminder"
+
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_weekend" />
 
-            <ImageView
-                android:id="@+id/imageView_done"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:clickable="false"
-                android:longClickable="false"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_SetReminder"
-                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_SetReminder"
-                app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_Switch_Completion"
-                app:srcCompat="@drawable/ic_task_done" />
+
 
             <EditText
                 android:id="@+id/tabTaskQEntry_Description"

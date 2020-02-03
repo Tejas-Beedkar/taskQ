@@ -8,6 +8,7 @@
     <string name="settings_about">About taskQ</string>
 
     <string name="button_add_symbol">+</string>
+    <string name="button_Smart_Readjust">Smart Reset</string>
     <string name="button_Done">Done</string>
     <string name="button_today">Today</string>
     <string name="button_plus_1_day">+ 1 Day</string>
@@ -15,6 +16,7 @@
     <string name="button_weekend">Weekend</string>
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_task_manager">Tasks</string>
 
     <string name="imageView_Name_contentDescription">New task description</string>
     <string name="imageView_taskQIcon_contentDescription">Task Details Form</string>

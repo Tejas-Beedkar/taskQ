@@ -55,7 +55,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/tab_Button_NewItem"
             app:layout_constraintEnd_toStartOf="@+id/tab_Button_NewItem"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tab_Button_SmartReset"
             app:layout_constraintTop_toTopOf="@+id/tab_Button_NewItem" />
 
         <Button
@@ -74,6 +74,24 @@
             app:layout_constrainedHeight="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/tab_Button_SmartReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/ubuntu_bold"
+            android:hapticFeedbackEnabled="true"
+            android:text="@string/button_Smart_Readjust"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constrainedHeight="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
