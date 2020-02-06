@@ -829,4 +829,55 @@ public class taskQEntryActivity extends AppCompatActivity {
         String[] arr = str.split(strSeparator);
         return arr;
     }
+
+    //Feature - 21 Comfort edit dates
+    public void Button_tasks(View v){
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

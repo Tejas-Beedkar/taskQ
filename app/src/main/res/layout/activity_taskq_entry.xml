@@ -281,7 +281,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:background="@drawable/rectangle_dark"
-                android:onClick="Button_Sub_a_Day"
+                android:onClick="Button_tasks"
                 android:text="@string/button_task_manager"
                 android:textColor="@color/colorThemeLightGrey"
                 app:layout_constraintBottom_toBottomOf="@+id/tabTaskQEntry_Switch_Completion"
