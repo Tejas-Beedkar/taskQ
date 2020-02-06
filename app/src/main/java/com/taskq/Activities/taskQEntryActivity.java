@@ -79,6 +79,8 @@ public class taskQEntryActivity extends AppCompatActivity {
     private boolean bCreated = false;
     private boolean bOnPause = false;
 
+    private long lTaskId;
+
     public static String strSeparator;
 
     //NOTE - The simple act of creating a date/time object populated it to the current time.
@@ -199,6 +201,8 @@ public class taskQEntryActivity extends AppCompatActivity {
                 params2.height = 120;
             }
 
+            lTaskId = 0;
+
         }else
         //==========================================================================================
         //          Feature - 017
@@ -207,7 +211,8 @@ public class taskQEntryActivity extends AppCompatActivity {
         if(((taskQGlobal) getApplication()).bCheckUserEntryModify()){
 
             //This is now the handle to the entry
-            cursor = dbManager.fetch_EntryById(((taskQGlobal) getApplication()).bGetUserEntryModify());
+            lTaskId = ((taskQGlobal) getApplication()).bGetUserEntryModify();
+            cursor = dbManager.fetch_EntryById(lTaskId);
 
             //Task Description
             tabTaskQEntry_Task_Description.setText(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_TASK)));
@@ -835,13 +840,16 @@ public class taskQEntryActivity extends AppCompatActivity {
     //Feature - 21 Comfort edit dates
     public void Button_tasks(View v){
 
-        //AccessContact();
 
         TasksDialog = new TasksDialogFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putString("Tasks", "To Be Updated");
-
+        if(lTaskId != 0){
+            bundle.putLong("TasksID", lTaskId);
+        }
+        else{
+            ;
+        }
         TasksDialog.setArguments(bundle);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
