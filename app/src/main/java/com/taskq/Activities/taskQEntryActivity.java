@@ -41,6 +41,7 @@ import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseManager;
 import com.taskq.Fragments.TagsDialogFragment;
 import com.taskq.Fragments.NamesDialogFragment;
+import com.taskq.Fragments.TasksDialogFragment;
 import com.taskq.R;
 import com.taskq.Services.eventLibrary;
 
@@ -63,6 +64,7 @@ public class taskQEntryActivity extends AppCompatActivity {
 //    private ImageView imageView_done;
     private TagsDialogFragment TagsDialog;
     private NamesDialogFragment NamesDialog;
+    private TasksDialogFragment TasksDialog;
     private taskQviewModel tagsDialogViewModel;
     private Switch tabTaskQEntry_Switch_Completion;
     private Calendar cUserTimeDate;
@@ -833,9 +835,33 @@ public class taskQEntryActivity extends AppCompatActivity {
     //Feature - 21 Comfort edit dates
     public void Button_tasks(View v){
 
+        //AccessContact();
+
+        TasksDialog = new TasksDialogFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("Tasks", "To Be Updated");
+
+        TasksDialog.setArguments(bundle);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialogTasks");
+
+        if (prev != null) {
+            ft.remove(prev);
+        }
+
+        ft.addToBackStack(null);
+        TasksDialog.show(ft, "dialogTasks");
+
     }
 
+    //Feature - 007 distributed code
+    //This is where we get the list of tags from the dialog that was dismissed and add to user entry
+    public void onTasksDialogDismiss(){
 
+        Toast.makeText(this, "Tasks Dialog Dismissed", Toast.LENGTH_LONG).show();
+    }
 
 
 

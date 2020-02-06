@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_task_notDone" />
+        app:srcCompat="@drawable/ic_task_not_done" />
 
     <TextView
         android:id="@+id/listview_tasks_TextView_Description"
