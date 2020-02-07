@@ -20,13 +20,25 @@
         android:id="@+id/listview_tasks_TextView_Description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@android:color/white"
-        android:inputType="textMultiLine"
+        android:inputType="textMultiLine|textImeMultiLine"
         android:paddingStart="8dp"
         android:text="Tasks"
+        android:layout_gravity="fill"
         app:layout_constraintBottom_toBottomOf="@+id/listview_tasks_imageView_Status"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/listview_tasks_imageView_Delete"
         app:layout_constraintStart_toEndOf="@+id/listview_tasks_imageView_Status"
         app:layout_constraintTop_toTopOf="@+id/listview_tasks_imageView_Status" />
+
+    <ImageView
+        android:id="@+id/listview_tasks_imageView_Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/listview_tasks_TextView_Description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/listview_tasks_TextView_Description"
+        app:srcCompat="@drawable/ic_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

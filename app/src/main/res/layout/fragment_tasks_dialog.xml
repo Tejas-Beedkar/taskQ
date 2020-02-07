@@ -20,6 +20,9 @@
         android:background="@drawable/rectangle_taskqentry_buttonborder"
         android:fontFamily="@font/ubuntu_light"
         android:gravity="center_vertical"
+        android:inputType="textMultiLine|textImeMultiLine"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:text="@string/taskQEntry_Task_Tasks"
@@ -40,14 +43,17 @@
         android:id="@+id/NamesDialog_LV_Tasks"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rectangle_taskqentry_buttonborder"
         android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/TasksDialog_DoneButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/TasksDialog_ET_Selected"
         app:layout_constraintTop_toBottomOf="@+id/TasksDialog_ET_Selected"
         app:singleSelection="false" />
 
@@ -55,15 +61,13 @@
         android:id="@+id/TasksDialog_DoneButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rectangle_dark"
         android:fontFamily="@font/ubuntu_bold"
         android:text="@string/button_Done"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/NamesDialog_LV_Tasks"
+        app:layout_constraintStart_toStartOf="@+id/NamesDialog_LV_Tasks" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

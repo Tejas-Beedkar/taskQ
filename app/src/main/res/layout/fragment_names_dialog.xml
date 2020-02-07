@@ -31,14 +31,17 @@
         android:id="@+id/NamesDialog_LV_Names"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rectangle_taskqentry_buttonborder"
         android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/NamesDialog_DoneButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/NamesDialog_ET_Selected"
+        app:layout_constraintStart_toStartOf="@+id/NamesDialog_ET_Selected"
         app:layout_constraintTop_toBottomOf="@+id/NamesDialog_ET_Selected"
         app:singleSelection="false" />
 
@@ -46,14 +49,12 @@
         android:id="@+id/NamesDialog_DoneButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rectangle_dark"
         android:fontFamily="@font/ubuntu_bold"
         android:text="@string/button_Done"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/NamesDialog_LV_Names"
+        app:layout_constraintStart_toStartOf="@+id/NamesDialog_LV_Names" />
 </androidx.constraintlayout.widget.ConstraintLayout>

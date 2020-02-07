@@ -103,9 +103,13 @@ public class TasksDialogFragment extends DialogFragment {
                 String strTaskDescription = editText.getText().toString();
                 dbManager_Tasks.insert(Long.toString(lTaskId), "false", strTaskDescription);
                 editText.setText("");
-                listView.invalidate();
+
+                final Cursor cursorButtonAdd = dbManager_Tasks.fetch_EntryById(lTaskId);
+                adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_tasks, cursorButtonAdd, from, to, 0);
+                adapter.setViewBinder(new TasksDialogFragment.CustomViewBinder());
                 adapter.notifyDataSetChanged();
                 listView.setAdapter(adapter);
+
             }
         });
 
