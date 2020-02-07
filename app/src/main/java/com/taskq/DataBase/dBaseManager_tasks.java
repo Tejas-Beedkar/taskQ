@@ -64,7 +64,7 @@ public class dBaseManager_tasks {
 
     public Cursor fetch_EntryById(long _id) {
 
-            String selection = "SELECT * FROM " + dBaseArchitecture_tasks.TABLE_NAME + " WHERE instr(" + dBaseArchitecture_tasks.COL_TASK_PARENT + ", " + "'" + String.valueOf(_id) + "' ) > 0";
+            String selection = "SELECT * FROM " + dBaseArchitecture_tasks.TABLE_NAME + " WHERE instr(" + dBaseArchitecture_tasks.COL_TASK_PARENT + ", " + "'" + String.valueOf(_id) + "' ) > 0 " + "ORDER BY _ID DESC";
 
             Cursor cursor = database.rawQuery(selection, null);
 
