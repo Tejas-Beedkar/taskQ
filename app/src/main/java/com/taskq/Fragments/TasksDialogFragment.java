@@ -39,6 +39,8 @@ public class TasksDialogFragment extends DialogFragment {
     private View view;
     private Button buttonDone;
     private Button buttonAdd;
+    private Button buttonStatus;
+    private Button buttonDelete;
     private int height;
     private int width;
     private dBaseManager_tasks dbManager_Tasks;
@@ -101,11 +103,10 @@ public class TasksDialogFragment extends DialogFragment {
         editText = view.findViewById(R.id.TasksDialog_ET_Selected);
 
         buttonAdd = getDialog().findViewById(R.id.TasksDialog_EntryButton);
-        //Add new Tag
+        //Add new Task
         buttonAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 String strTaskDescription = editText.getText().toString();
 
                 if(bTaskNew ==  false){
@@ -114,11 +115,15 @@ public class TasksDialogFragment extends DialogFragment {
                 else
                 {
                     bTaskNew = false;
-
+                    dbManager_Tasks.update_Description(bTaskOldId, strTaskDescription);
                     bTaskOldId = 0L;
                 }
 
                 editText.setText("");
+                buttonStatus.setEnabled(false);
+                buttonStatus.setVisibility(view.GONE);
+                buttonDelete.setEnabled(false);
+                buttonDelete.setVisibility(view.GONE);
 
                 final Cursor cursorButtonAdd = dbManager_Tasks.fetch_EntryById(lTaskId);
                 adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_tasks, cursorButtonAdd, from, to, 0);
@@ -130,17 +135,62 @@ public class TasksDialogFragment extends DialogFragment {
         });
 
         buttonDone = getDialog().findViewById(R.id.TasksDialog_DoneButton);
-
-        //Return back to the taskQEntryActivity
+        //Return
         buttonDone.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 dbManager_Tasks.close();
                 ((taskQEntryActivity)getActivity()).onTasksDialogDismiss();
                 dismiss();
+            }
+        });
+
+        buttonStatus = getDialog().findViewById(R.id.TasksDialog_StatusButton);
+        //Change Status
+        buttonStatus.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            final Cursor cursorStatus = dbManager_Tasks.fetch_ID(bTaskOldId);
+
+            if (Boolean.valueOf(cursorStatus.getString(cursorStatus.getColumnIndex(dBaseArchitecture_tasks.COL_TASK_STATUS))) == true) {
+                buttonStatus.setBackground(getActivity().getDrawable(R.drawable.ic_task_not_done));
+                dbManager_Tasks.update_status(bTaskOldId, "false");
+            } else {
+                buttonStatus.setBackground(getActivity().getDrawable(R.drawable.ic_task_done));
+                dbManager_Tasks.update_status(bTaskOldId, "true");
+            }
 
             }
         });
+        buttonStatus.setEnabled(false);
+        buttonStatus.setVisibility(view.GONE);
+
+        buttonDelete = getDialog().findViewById(R.id.TasksDialog_DeleteButton);
+        //Delete Task
+        buttonDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                dbManager_Tasks.delete(bTaskOldId);
+                bTaskOldId = 0l;
+
+                editText.setText("");
+                buttonStatus.setEnabled(false);
+                buttonStatus.setVisibility(view.GONE);
+                buttonDelete.setEnabled(false);
+                buttonDelete.setVisibility(view.GONE);
+
+                final Cursor cursorButtonAdd = dbManager_Tasks.fetch_EntryById(lTaskId);
+                adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_tasks, cursorButtonAdd, from, to, 0);
+                adapter.setViewBinder(new TasksDialogFragment.CustomViewBinder());
+                adapter.notifyDataSetChanged();
+                listView.setAdapter(adapter);
+
+            }
+        });
+        buttonDelete.setEnabled(false);
+        buttonDelete.setVisibility(view.GONE);
 
         //==========================================================================================
         //          Feature - TBD
@@ -150,14 +200,25 @@ public class TasksDialogFragment extends DialogFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 bTaskOldId = Long.parseLong( ((TextView)(view.findViewById(R.id.listView_tasks_id))).getText().toString());
                 editText.setText(((TextView)(view.findViewById(R.id.listview_tasks_TextView_Description))).getText().toString());
+
+                buttonStatus.setEnabled(true);
+                buttonStatus.setVisibility(view.VISIBLE);
+                buttonDelete.setEnabled(true);
+                buttonDelete.setVisibility(view.VISIBLE);
+                bTaskNew = true;
+
+                final Cursor cursorStatus = dbManager_Tasks.fetch_ID(bTaskOldId);
+                if (Boolean.valueOf(cursorStatus.getString(cursorStatus.getColumnIndex(dBaseArchitecture_tasks.COL_TASK_STATUS))) == false) {
+                    buttonStatus.setBackground(getActivity().getDrawable(R.drawable.ic_task_not_done));
+                } else {
+                    buttonStatus.setBackground(getActivity().getDrawable(R.drawable.ic_task_done));
+                }
+
             }
         });
-
-
-
-
 
     }
 

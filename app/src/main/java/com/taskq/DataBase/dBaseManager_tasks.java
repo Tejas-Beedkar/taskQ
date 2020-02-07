@@ -36,16 +36,6 @@ public class dBaseManager_tasks {
         return database.insert(dBaseArchitecture_tasks.TABLE_NAME, null, insertContentValue);
     }
 
-    public int update(long _id, String task_parent, String task_status, String task_description) {
-        ContentValues updateContentValue = new ContentValues();
-
-        updateContentValue.put(dBaseArchitecture_tasks.COL_TASK_PARENT, task_parent);
-        updateContentValue.put(dBaseArchitecture_tasks.COL_TASK_STATUS, task_status);
-        updateContentValue.put(dBaseArchitecture_tasks.COL_TASK_DESCRIPTION, task_description);
-
-        return database.update(dBaseArchitecture_tasks.TABLE_NAME, updateContentValue, dBaseArchitecture_tasks._ID + " = " + _id, null);
-    }
-
     public void delete(long _id) {
         database.delete(dBaseArchitecture_tasks.TABLE_NAME, dBaseArchitecture_tasks._ID + "=" + _id, null);
     }
@@ -62,6 +52,28 @@ public class dBaseManager_tasks {
         return cursor;
     }
 
+    public Cursor fetch_ID(long _id) {
+        String selection = "SELECT * FROM " + dBaseArchitecture_tasks.TABLE_NAME + " WHERE " + dBaseArchitecture_tasks._ID + " = " + _id;
+        Cursor cursor = database.rawQuery(selection, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    public int update_status(long _id, String task_status) {
+
+        ContentValues updateContentValue = new ContentValues();
+        updateContentValue.put(dBaseArchitecture_tasks.COL_TASK_STATUS, task_status);
+        return database.update(dBaseArchitecture_tasks.TABLE_NAME, updateContentValue, dBaseArchitecture_tasks._ID + " = " + _id, null);
+    }
+
+    public int update_Description(long _id, String task_description) {
+        ContentValues updateContentValue = new ContentValues();
+        updateContentValue.put(dBaseArchitecture_tasks.COL_TASK_DESCRIPTION, task_description);
+        return database.update(dBaseArchitecture_tasks.TABLE_NAME, updateContentValue, dBaseArchitecture_tasks._ID + " = " + _id, null);
+    }
+
     public Cursor fetch_EntryById(long _id) {
 
             String selection = "SELECT * FROM " + dBaseArchitecture_tasks.TABLE_NAME + " WHERE instr(" + dBaseArchitecture_tasks.COL_TASK_PARENT + ", " + "'" + String.valueOf(_id) + "' ) > 0 " + "ORDER BY _ID DESC";
@@ -72,7 +84,7 @@ public class dBaseManager_tasks {
                 cursor.moveToFirst();
             }
             return cursor;
-        }
+    }
 
 
 }
