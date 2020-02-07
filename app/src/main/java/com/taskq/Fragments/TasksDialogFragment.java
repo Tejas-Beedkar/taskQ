@@ -146,27 +146,12 @@ public class TasksDialogFragment extends DialogFragment {
         //          Feature - TBD
         //          Edit task details
         //==========================================================================================
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 bTaskOldId = Long.parseLong( ((TextView)(view.findViewById(R.id.listView_tasks_id))).getText().toString());
                 editText.setText(((TextView)(view.findViewById(R.id.listview_tasks_TextView_Description))).getText().toString());
-
-                switch(view.getId()) {
-                    case R.id.listview_tasks_imageView_Status:
-
-                    break;
-
-                    case R.id.listview_tasks_TextView_Description:
-
-                    break;
-
-                    case R.id.listview_tasks_imageView_Delete:
-
-                    break;
-
-                }
             }
         });
 
