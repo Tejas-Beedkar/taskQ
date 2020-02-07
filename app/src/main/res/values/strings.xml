@@ -17,6 +17,7 @@
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_task_manager">Tasks</string>
+    <string name="button_tomorrow">Tomorrow</string>
 
     <string name="imageView_Name_contentDescription">New task description</string>
     <string name="imageView_taskQIcon_contentDescription">Task Details Form</string>

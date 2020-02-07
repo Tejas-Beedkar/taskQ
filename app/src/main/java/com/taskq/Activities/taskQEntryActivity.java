@@ -510,6 +510,16 @@ public class taskQEntryActivity extends AppCompatActivity {
         EditText_Day.setText(sdfDay.format(cUserTimeDate.getTime()));
     }
 
+    public void Button_Tomorrow(View v){
+        Calendar c = Calendar.getInstance();
+        cUserTimeDate.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH));
+        cUserTimeDate.set(Calendar.MONTH, c.get(Calendar.MONTH));
+        cUserTimeDate.set(Calendar.YEAR, c.get(Calendar.YEAR));
+        cUserTimeDate.add(Calendar.DAY_OF_YEAR, 1);
+        EditText_Date.setText(sdfDate_Month.format(cUserTimeDate.getTime()));
+        EditText_Day.setText(sdfDay.format(cUserTimeDate.getTime()));
+    }
+
     //Feature - 21 Comfort edit dates
     public void Button_Add_a_Day(View v){
         Calendar c = Calendar.getInstance();
