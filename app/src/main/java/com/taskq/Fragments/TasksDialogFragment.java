@@ -1,5 +1,6 @@
 package com.taskq.Fragments;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +21,7 @@ import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.fragment.app.DialogFragment;
 
 import com.taskq.Activities.taskQEntryActivity;
+import com.taskq.CustomClasses.taskQGlobal;
 import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseArchitecture_tasks;
 import com.taskq.DataBase.dBaseManager_tasks;
@@ -43,13 +46,15 @@ public class TasksDialogFragment extends DialogFragment {
     private long lTaskId;
     private ListView listView;
     private EditText editText;
+    private boolean bTaskNew = false;
+    private long bTaskOldId = 0L;
 
     final String[] from = new String[] {
             dBaseArchitecture_tasks._ID,
             dBaseArchitecture_tasks.COL_TASK_STATUS,
             dBaseArchitecture_tasks.COL_TASK_DESCRIPTION,
     };
-    final int[] to = new int[] {R.id.listview_tasks_imageView_Status, R.id.listview_tasks_TextView_Description};
+    final int[] to = new int[] {R.id.listView_tasks_id, R.id.listview_tasks_imageView_Status, R.id.listview_tasks_TextView_Description};
 
     public TasksDialogFragment() {
         // Required empty public constructor
@@ -91,7 +96,7 @@ public class TasksDialogFragment extends DialogFragment {
         adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_tasks, cursor, from, to, 0);
         adapter.setViewBinder(new TasksDialogFragment.CustomViewBinder());
         adapter.notifyDataSetChanged();
-        listView = view.findViewById(R.id.NamesDialog_LV_Tasks);
+        listView = view.findViewById(R.id.TasksDialog_ListView);
         listView.setAdapter(adapter);
         editText = view.findViewById(R.id.TasksDialog_ET_Selected);
 
@@ -100,8 +105,19 @@ public class TasksDialogFragment extends DialogFragment {
         buttonAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
                 String strTaskDescription = editText.getText().toString();
-                dbManager_Tasks.insert(Long.toString(lTaskId), "false", strTaskDescription);
+
+                if(bTaskNew ==  false){
+                    dbManager_Tasks.insert(Long.toString(lTaskId), "false", strTaskDescription);
+                }
+                else
+                {
+                    bTaskNew = false;
+
+                    bTaskOldId = 0L;
+                }
+
                 editText.setText("");
 
                 final Cursor cursorButtonAdd = dbManager_Tasks.fetch_EntryById(lTaskId);
@@ -125,6 +141,39 @@ public class TasksDialogFragment extends DialogFragment {
 
             }
         });
+
+        //==========================================================================================
+        //          Feature - TBD
+        //          Edit task details
+        //==========================================================================================
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                bTaskOldId = Long.parseLong( ((TextView)(view.findViewById(R.id.listView_tasks_id))).getText().toString());
+                editText.setText(((TextView)(view.findViewById(R.id.listview_tasks_TextView_Description))).getText().toString());
+
+                switch(view.getId()) {
+                    case R.id.listview_tasks_imageView_Status:
+
+                    break;
+
+                    case R.id.listview_tasks_TextView_Description:
+
+                    break;
+
+                    case R.id.listview_tasks_imageView_Delete:
+
+                    break;
+
+                }
+            }
+        });
+
+
+
+
+
     }
 
     private class CustomViewBinder implements SimpleCursorAdapter.ViewBinder{
