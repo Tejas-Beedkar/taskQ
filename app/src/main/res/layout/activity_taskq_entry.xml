@@ -184,14 +184,14 @@
                 android:text="@string/Time_Morning"
                 android:textColor="@android:color/black"
                 app:layout_constraintBottom_toTopOf="@+id/tabTaskQEntry_button_Today"
-                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry__Time"
+                app:layout_constraintStart_toStartOf="@+id/imageView_when"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry__Date" />
 
             <Button
                 android:id="@+id/tabTaskQEntry_button_noon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="48dp"
+                android:layout_marginLeft="20dp"
                 android:background="@drawable/rectangle_taskqentry_buttonborder"
                 android:marqueeRepeatLimit="8"
                 android:onClick="Button_Noon"
@@ -204,7 +204,7 @@
                 android:id="@+id/tabTaskQEntry_button_evening"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="48dp"
+                android:layout_marginLeft="20dp"
                 android:background="@drawable/rectangle_taskqentry_buttonborder"
                 android:marqueeRepeatLimit="8"
                 android:onClick="Button_Evening"
@@ -217,7 +217,7 @@
                 android:id="@+id/tabTaskQEntry_button_night"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="48dp"
+                android:layout_marginLeft="20dp"
                 android:background="@drawable/rectangle_taskqentry_buttonborder"
                 android:marqueeRepeatLimit="8"
                 android:onClick="Button_Night"
@@ -256,12 +256,12 @@
                 android:id="@+id/tabTaskQEntry_button_add_a_day"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/rectangle_taskqentry_buttonborder"
                 android:onClick="Button_Add_a_Day"
                 android:text="@string/button_plus_1_day"
                 android:textColor="@android:color/black"
-                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_button_night"
+                app:layout_constraintEnd_toStartOf="@+id/tabTaskQEntry_Animation"
                 app:layout_constraintTop_toTopOf="@+id/tabTaskQEntry_button_Today" />
 
             <Button
@@ -280,13 +280,12 @@
                 android:id="@+id/tabTaskQEntry_button_sub_a_day"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rectangle_taskqentry_buttonborder"
                 android:onClick="Button_Sub_a_Day"
                 android:text="@string/button_minus_1_day"
                 android:textColor="@android:color/black"
-                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_button_night"
+                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_button_add_a_day"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_add_a_day" />
 
             <Button
@@ -298,9 +297,22 @@
                 android:onClick="Button_tasks"
                 android:text="@string/button_task_manager"
                 android:textColor="@color/colorThemeLightGrey"
-                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_button_sub_a_day"
-                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_button_weekend"
+                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_Switch_Completion"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry__Time"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_sub_a_day" />
+
+            <ImageButton
+                android:id="@+id/tabTaskQEntry_Animation"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:onClick="Button_Expand_Collapse_Comfort_Time_Editor"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_Task_Description"
+                app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry__Day"
+                app:srcCompat="@drawable/arrow_collapse_dark" />
 
             <ImageButton
                 android:id="@+id/tabTaskQEntry_SetReminder"
@@ -328,7 +340,7 @@
                 android:switchMinWidth="@dimen/switch_track_width"
                 android:thumb="@drawable/switch_selector"
                 android:track="@drawable/switch_tracker"
-                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_button_weekend"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry__Time"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_button_taskDialog" />
 
 
@@ -336,9 +348,7 @@
                 android:id="@+id/tabTaskQEntry_Description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="8dp"
                 android:autofillHints=""
                 android:ems="10"
                 android:fontFamily="@font/ubuntu_light"
@@ -347,8 +357,8 @@
                 android:selectAllOnFocus="false"
                 android:textAlignment="textStart"
                 android:textColorHint="?android:attr/colorButtonNormal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tabTaskQEntry_Animation"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_Switch_Completion"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_Switch_Completion" />
 
             <TextView
@@ -375,7 +385,7 @@
                 android:onClick="Button_Save"
                 android:text="@string/button_save"
                 android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_button_weekend"
+                app:layout_constraintStart_toStartOf="@+id/tabTaskQEntry_Description"
                 app:layout_constraintTop_toBottomOf="@+id/tabTaskQEntry_Description" />
 
             <Button

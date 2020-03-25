@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,6 +25,9 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -88,6 +92,20 @@ public class taskQEntryActivity extends AppCompatActivity {
     private SimpleDateFormat sdfHours_Minutes = new SimpleDateFormat("HH:mm");
     private SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
 
+    //Feature 31 - Collapsible comfort editor
+    private Button Button_tabTaskQEntry_button_morning;
+    private Button Button_tabTaskQEntry_button_noon;
+    private Button Button_tabTaskQEntry_button_evening;
+    private Button Button_tabTaskQEntry_button_night;
+    private Button Button_tabTaskQEntry_button_Today;
+    private Button Button_tabTaskQEntry_button_weekend;
+    private Button Button_tabTaskQEntry_button_Tomorrow;
+    private Button Button_tabTaskQEntry_button_add_a_day;
+    private Button Button_tabTaskQEntry_button_sub_a_day;
+    private ImageButton Button_tabTaskQEntry_Animation;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +145,32 @@ public class taskQEntryActivity extends AppCompatActivity {
 
         //Feature - 002 distributed code
         setTheme(R.style.AppTheme_Main);
+
+        //Feature 31 - Collapsible comfort editor
+        Button_tabTaskQEntry_button_morning = findViewById(R.id.tabTaskQEntry_button_morning );
+        Button_tabTaskQEntry_button_noon = findViewById(R.id.tabTaskQEntry_button_noon);
+        Button_tabTaskQEntry_button_evening = findViewById(R.id.tabTaskQEntry_button_evening);
+        Button_tabTaskQEntry_button_night = findViewById(R.id.tabTaskQEntry_button_night);
+        Button_tabTaskQEntry_button_Today = findViewById(R.id.tabTaskQEntry_button_Today);
+        Button_tabTaskQEntry_button_weekend = findViewById(R.id.tabTaskQEntry_button_weekend);
+        Button_tabTaskQEntry_button_Tomorrow = findViewById(R.id.tabTaskQEntry_button_Tomorrow);
+        Button_tabTaskQEntry_button_add_a_day = findViewById(R.id.tabTaskQEntry_button_add_a_day );
+        Button_tabTaskQEntry_button_sub_a_day = findViewById(R.id.tabTaskQEntry_button_sub_a_day );
+        Button_tabTaskQEntry_Animation = findViewById(R.id.tabTaskQEntry_Animation);
+
+        Button_tabTaskQEntry_button_morning.setVisibility(View.GONE);
+        Button_tabTaskQEntry_button_noon.setVisibility(View.GONE);
+        Button_tabTaskQEntry_button_evening.setVisibility(View.GONE);
+        Button_tabTaskQEntry_button_night.setVisibility(View.GONE);
+        Button_tabTaskQEntry_button_Today.setVisibility(View.GONE);
+        Button_tabTaskQEntry_button_weekend.setVisibility(View.GONE);
+        Button_tabTaskQEntry_button_Tomorrow.setVisibility(View.GONE);
+        Button_tabTaskQEntry_button_add_a_day.setVisibility(View.GONE);
+        Button_tabTaskQEntry_button_sub_a_day.setVisibility(View.GONE);
+        Button_tabTaskQEntry_Animation.setImageResource(R.drawable.arrow_expand_dark);
+
+
+
 
         tabTaskQEntry_Task_Description = findViewById(R.id.tabTaskQEntry_Task_Description);
 //        imageView_done = findViewById(R.id.imageView_done);
@@ -882,46 +926,115 @@ public class taskQEntryActivity extends AppCompatActivity {
     }
 
 
+    //Feature - 31 Expanse/Collapse the Comfort Editors
+    public void Button_Expand_Collapse_Comfort_Time_Editor(View v){
 
+        if(Button_tabTaskQEntry_button_morning.isShown()){
 
+            slide_up(this, Button_tabTaskQEntry_button_morning);
+            slide_up(this, Button_tabTaskQEntry_button_noon);
+            slide_up(this, Button_tabTaskQEntry_button_evening);
+            slide_up(this, Button_tabTaskQEntry_button_night);
+            slide_up(this, Button_tabTaskQEntry_button_Today);
+            slide_up(this, Button_tabTaskQEntry_button_weekend);
+            slide_up(this, Button_tabTaskQEntry_button_Tomorrow);
+            slide_up(this, Button_tabTaskQEntry_button_add_a_day);
+            slide_up(this, Button_tabTaskQEntry_button_sub_a_day);
 
+            Button_tabTaskQEntry_button_morning.setVisibility(View.GONE);
+            Button_tabTaskQEntry_button_noon.setVisibility(View.GONE);
+            Button_tabTaskQEntry_button_evening.setVisibility(View.GONE);
+            Button_tabTaskQEntry_button_night.setVisibility(View.GONE);
+            Button_tabTaskQEntry_button_Today.setVisibility(View.GONE);
+            Button_tabTaskQEntry_button_weekend.setVisibility(View.GONE);
+            Button_tabTaskQEntry_button_Tomorrow.setVisibility(View.GONE);
+            Button_tabTaskQEntry_button_add_a_day.setVisibility(View.GONE);
+            Button_tabTaskQEntry_button_sub_a_day.setVisibility(View.GONE);
 
+            Button_tabTaskQEntry_Animation.setImageResource(R.drawable.arrow_expand_dark);
+        }
+        else{
 
+            Button_tabTaskQEntry_button_morning.setVisibility(View.VISIBLE);
+            Button_tabTaskQEntry_button_noon.setVisibility(View.VISIBLE);
+            Button_tabTaskQEntry_button_evening.setVisibility(View.VISIBLE);
+            Button_tabTaskQEntry_button_night.setVisibility(View.VISIBLE);
+            Button_tabTaskQEntry_button_Today.setVisibility(View.VISIBLE);
+            Button_tabTaskQEntry_button_weekend.setVisibility(View.VISIBLE);
+            Button_tabTaskQEntry_button_Tomorrow.setVisibility(View.VISIBLE);
+            Button_tabTaskQEntry_button_add_a_day.setVisibility(View.VISIBLE);
+            Button_tabTaskQEntry_button_sub_a_day.setVisibility(View.VISIBLE);
 
+            slide_down(this, Button_tabTaskQEntry_button_morning);
+            slide_down(this, Button_tabTaskQEntry_button_noon);
+            slide_down(this, Button_tabTaskQEntry_button_evening);
+            slide_down(this, Button_tabTaskQEntry_button_night);
+            slide_down(this, Button_tabTaskQEntry_button_Today);
+            slide_down(this, Button_tabTaskQEntry_button_weekend);
+            slide_down(this, Button_tabTaskQEntry_button_Tomorrow);
+            slide_down(this, Button_tabTaskQEntry_button_add_a_day);
+            slide_down(this, Button_tabTaskQEntry_button_sub_a_day);
 
+            Button_tabTaskQEntry_Animation.setImageResource(R.drawable.arrow_expand_dark);
 
+            /*
+            slide_down(this, Button_tabTaskQEntry_button_morning);
+            Button_tabTaskQEntry_button_morning.setVisibility(View.VISIBLE);
 
+            slide_down(this, Button_tabTaskQEntry_button_noon);
+            Button_tabTaskQEntry_button_noon.setVisibility(View.VISIBLE);
 
+            slide_down(this, Button_tabTaskQEntry_button_evening);
+            Button_tabTaskQEntry_button_evening.setVisibility(View.VISIBLE);
 
+            slide_down(this, Button_tabTaskQEntry_button_night);
+            Button_tabTaskQEntry_button_night.setVisibility(View.VISIBLE);
 
+            slide_down(this, Button_tabTaskQEntry_button_Today);
+            Button_tabTaskQEntry_button_Today.setVisibility(View.VISIBLE);
 
+            slide_down(this, Button_tabTaskQEntry_button_weekend);
+            Button_tabTaskQEntry_button_weekend.setVisibility(View.VISIBLE);
 
+            slide_down(this, Button_tabTaskQEntry_button_Tomorrow);
+            Button_tabTaskQEntry_button_Tomorrow.setVisibility(View.VISIBLE);
 
+            slide_down(this, Button_tabTaskQEntry_button_add_a_day);
+            Button_tabTaskQEntry_button_add_a_day.setVisibility(View.VISIBLE);
 
+            slide_down(this, Button_tabTaskQEntry_button_sub_a_day);
+            Button_tabTaskQEntry_button_sub_a_day.setVisibility(View.VISIBLE);
+             */
 
+            Button_tabTaskQEntry_Animation.setImageResource(R.drawable.arrow_collapse_dark);
+        }
+/*
 
+*/
 
+    }
 
+    public static void slide_down(Context ctx, View v) {
 
+        Animation a = AnimationUtils.loadAnimation(ctx, R.anim.slide_down);
+        if (a != null) {
+            a.reset();
+            if (v != null) {
+                v.clearAnimation();
+                v.startAnimation(a);
+            }
+        }
+    }
 
+    public static void slide_up(Context ctx, View v){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            Animation a = AnimationUtils.loadAnimation(ctx, R.anim.slide_up);
+            if (a != null) {
+                a.reset();
+                if (v != null) {
+                    v.clearAnimation();
+                    v.startAnimation(a);
+                }
+            }
+    }
 }
