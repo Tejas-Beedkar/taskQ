@@ -882,46 +882,12 @@ public class taskQEntryActivity extends AppCompatActivity {
     }
 
 
+    //Feature - 31 Expanse Collapse the Comfort Editors
+    public void Button_Expand_Collapse_Comfort_Time_Editor(View v){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }
