@@ -40,8 +40,6 @@ public class dBaseManager_What {
 
         Cursor cursor = database.query(dBaseArchitecture_What.TABLE_NAME_WHAT, columns, null, null, null, null, null);
 
-        //Cursor cursor = database.rawQuery("SELECT * FROM " + dBaseArchitecture_What.TABLE_NAME_WHAT+ " ORDER BY "+ dBaseArchitecture_What.COL_WHAT_COUNT  + " ASC", new String[] {});
-
         if (cursor != null) {
             cursor.moveToFirst();
         }
