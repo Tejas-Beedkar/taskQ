@@ -37,7 +37,7 @@ public class dBaseManager_Who {
         String[] columns = new String[] {   dBaseArchitecture_Who._ID_WHO,
                 dBaseArchitecture_Who.COL_WHO,
                 dBaseArchitecture_Who.COL_WHO_COUNT };
-        Cursor cursor = database.query(dBaseArchitecture_Who.TABLE_NAME_WHO, columns, null, null, null, null, null);
+        Cursor cursor = database.query(dBaseArchitecture_Who.TABLE_NAME_WHO, columns, null, null, null, null, dBaseArchitecture_Who.COL_WHO_COUNT+" DESC");
         if (cursor != null) {
             cursor.moveToFirst();
         }

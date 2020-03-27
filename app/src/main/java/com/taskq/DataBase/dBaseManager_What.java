@@ -38,7 +38,7 @@ public class dBaseManager_What {
                 dBaseArchitecture_What.COL_WHAT,
                 dBaseArchitecture_What.COL_WHAT_COUNT };
 
-        Cursor cursor = database.query(dBaseArchitecture_What.TABLE_NAME_WHAT, columns, null, null, null, null, null);
+        Cursor cursor = database.query(dBaseArchitecture_What.TABLE_NAME_WHAT, columns, null, null, null, null, dBaseArchitecture_What.COL_WHAT_COUNT+" DESC");
 
         if (cursor != null) {
             cursor.moveToFirst();
