@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -96,9 +97,9 @@ public class WhatFragment extends Fragment {
         //Expandable List Vars
         //Moving this here allows immidiate effect of "dont't show completed tasks"
         //If globals, the last value is preserved and override the effect of "dont't show completed tasks"
-        final HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
-        final HashMap<String, List<String>> expandableListIDs    = new HashMap<String, List<String>>();
-        final HashMap<String, List<String>> expandableListTagCnt = new HashMap<String, List<String>>();
+        final LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<String, List<String>>();
+        final LinkedHashMap<String, List<String>> expandableListIDs    = new LinkedHashMap<String, List<String>>();
+        final LinkedHashMap<String, List<String>> expandableListTagCnt = new LinkedHashMap<String, List<String>>();
         final List<String>                  expandableListTags;
         final ExpandableListAdapter         expandableListAdapter;
 
