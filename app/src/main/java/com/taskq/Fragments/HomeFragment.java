@@ -118,6 +118,12 @@ public class HomeFragment extends Fragment {
         adapter.addFrag(new HomeFragment_Minus_1(), "-1");
         adapter.addFrag(new HomeFragment_Today(), "T");
         adapter.addFrag(new HomeFragment_Plus_1(), "+1");
+        adapter.addFrag(new HomeFragment_Plus_2(), "+2");
+        adapter.addFrag(new HomeFragment_Plus_3(), "+3");
+        adapter.addFrag(new HomeFragment_Plus_4(), "+4");
+        adapter.addFrag(new HomeFragment_Plus_5(), "+5");
+        adapter.addFrag(new HomeFragment_Plus_6(), "+6");
+        adapter.addFrag(new HomeFragment_Plus_7(), "+7");
 
         viewPager.setAdapter(adapter);
     }
