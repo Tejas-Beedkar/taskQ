@@ -3,6 +3,7 @@ package com.taskq.Fragments;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -51,6 +52,23 @@ public class HomeFragment extends Fragment {
     private TabLayout tab_TabLayout;
     private ViewPager tab_ViewPager;
     private taskQviewModel tagsDialogViewModel;
+
+    private TextView HomeFrag_pbar_Text_Minus_7;
+    private TextView HomeFrag_pbar_Text_Minus_6;
+    private TextView HomeFrag_pbar_Text_Minus_5;
+    private TextView HomeFrag_pbar_Text_Minus_4;
+    private TextView HomeFrag_pbar_Text_Minus_3;
+    private TextView HomeFrag_pbar_Text_Minus_2;
+    private TextView HomeFrag_pbar_Text_Minus_1;
+    private TextView HomeFrag_pbar_Text_Today;
+    private TextView HomeFrag_pbar_Text_Plus_1;
+    private TextView HomeFrag_pbar_Text_Plus_2;
+    private TextView HomeFrag_pbar_Text_Plus_3;
+    private TextView HomeFrag_pbar_Text_Plus_4;
+    private TextView HomeFrag_pbar_Text_Plus_5;
+    private TextView HomeFrag_pbar_Text_Plus_6;
+    private TextView HomeFrag_pbar_Text_Plus_7;
+
 
     final String[] from = new String[] {
             dBaseArchitecture._ID,
@@ -102,6 +120,22 @@ public class HomeFragment extends Fragment {
         tagsDialogViewModel.HomeFrag_pbar_Text_Pls_5 = view.findViewById(R.id.HomeFrag_pbar_Text_13);
         tagsDialogViewModel.HomeFrag_pbar_Text_Pls_6 = view.findViewById(R.id.HomeFrag_pbar_Text_14);
         tagsDialogViewModel.HomeFrag_pbar_Text_Pls_7 = view.findViewById(R.id.HomeFrag_pbar_Text_15);
+
+        HomeFrag_pbar_Text_Minus_7 = view.findViewById(R.id.HomeFrag_pbar_Text_1);
+        HomeFrag_pbar_Text_Minus_6 = view.findViewById(R.id.HomeFrag_pbar_Text_2);
+        HomeFrag_pbar_Text_Minus_5 = view.findViewById(R.id.HomeFrag_pbar_Text_3);
+        HomeFrag_pbar_Text_Minus_4 = view.findViewById(R.id.HomeFrag_pbar_Text_4);
+        HomeFrag_pbar_Text_Minus_3 = view.findViewById(R.id.HomeFrag_pbar_Text_5);
+        HomeFrag_pbar_Text_Minus_2 = view.findViewById(R.id.HomeFrag_pbar_Text_6);
+        HomeFrag_pbar_Text_Minus_1 = view.findViewById(R.id.HomeFrag_pbar_Text_7);
+        HomeFrag_pbar_Text_Today = view.findViewById(R.id.HomeFrag_pbar_Text_8);
+        HomeFrag_pbar_Text_Plus_1 = view.findViewById(R.id.HomeFrag_pbar_Text_9);
+        HomeFrag_pbar_Text_Plus_2 = view.findViewById(R.id.HomeFrag_pbar_Text_10);
+        HomeFrag_pbar_Text_Plus_3 = view.findViewById(R.id.HomeFrag_pbar_Text_11);
+        HomeFrag_pbar_Text_Plus_4 = view.findViewById(R.id.HomeFrag_pbar_Text_12);
+        HomeFrag_pbar_Text_Plus_5 = view.findViewById(R.id.HomeFrag_pbar_Text_13);
+        HomeFrag_pbar_Text_Plus_6 = view.findViewById(R.id.HomeFrag_pbar_Text_14);
+        HomeFrag_pbar_Text_Plus_7 = view.findViewById(R.id.HomeFrag_pbar_Text_15);
 
         return view;
     }
@@ -220,66 +254,171 @@ public class HomeFragment extends Fragment {
         Calendar calenderToday = Calendar.getInstance();
         try {
             String strDateCheck =  new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-
             calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
+
             calenderToday.add(Calendar.DATE, -7);
             lDate_min8 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Minus_7.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Minus_7.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Minus_7.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_min7 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Minus_6.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Minus_6.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Minus_6.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_min6 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Minus_5.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Minus_5.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Minus_5.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_min5 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Minus_4.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Minus_4.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Minus_4.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_min4 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Minus_3.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Minus_3.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Minus_3.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_min3 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Minus_2.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Minus_2.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Minus_2.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_min2 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Minus_1.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Minus_1.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Minus_1.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_min1 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Today.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Today.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Today.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDateToday = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Plus_1.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Plus_1.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Plus_1.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_pls1 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Plus_2.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Plus_2.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Plus_2.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_pls2 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Plus_3.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Plus_3.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Plus_3.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_pls3 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Plus_4.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Plus_4.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Plus_4.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_pls4 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Plus_5.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Plus_5.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Plus_5.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_pls5 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Plus_6.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH))+" ");
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Plus_6.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Plus_6.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);
             lDate_pls6 = calenderToday.getTimeInMillis();
+            HomeFrag_pbar_Text_Plus_7.setText(Integer.toString(calenderToday.get(Calendar.DAY_OF_MONTH)));
+            if (calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    calenderToday.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                HomeFrag_pbar_Text_Plus_7.setTextColor(Color.RED);
+            }else{
+                HomeFrag_pbar_Text_Plus_7.setTextColor(Color.BLACK);
+            }
 
             //calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
             calenderToday.add(Calendar.DATE, 1);

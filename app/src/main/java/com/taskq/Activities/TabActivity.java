@@ -55,8 +55,8 @@ public class TabActivity extends AppCompatActivity {
             R.drawable.ic_tab_home_light,
             R.drawable.ic_tab_all_light,
             R.drawable.ic_tab_what_light,
-            R.drawable.ic_tab_when_light,
-            R.drawable.ic_tab_who_light
+            R.drawable.ic_tab_who_light,
+            R.drawable.ic_tab_when_light
     };
     private taskQviewModel tagsDialogViewModel;
     private TextView tab_DashBoard;
@@ -302,8 +302,8 @@ public class TabActivity extends AppCompatActivity {
         adapter.addFrag(new HomeFragment(), "HOME");
         adapter.addFrag(new AllFragment(), "ALL");
         adapter.addFrag(new WhatFragment(), "WHAT");
-        adapter.addFrag(new WhenFragment(), "WHEN");
         adapter.addFrag(new WhoFragment(), "WHO");
+        adapter.addFrag(new WhenFragment(), "WHEN");
         if(adapter != null) {
             viewPager.setAdapter(adapter);
         }
