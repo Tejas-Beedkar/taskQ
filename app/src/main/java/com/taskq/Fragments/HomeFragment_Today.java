@@ -61,7 +61,7 @@ public class HomeFragment_Today extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_home_today, container, false);
+        view = inflater.inflate(R.layout.fragment_home_today, container, false); // EDIT REQUIRED
 
         tagsDialogViewModel =  ViewModelProviders.of(getActivity()).get(taskQviewModel.class);
 
@@ -70,7 +70,7 @@ public class HomeFragment_Today extends Fragment {
         dbManager = new dBaseManager(getActivity());
         dbManager.open();
 
-        listView = view.findViewById(R.id.ListView_Home_Today);
+        listView = view.findViewById(R.id.ListView_Home_Today); // EDIT REQUIRED
 
         return view;
     }
@@ -97,25 +97,29 @@ public class HomeFragment_Today extends Fragment {
         super.onDetach();
     }
 
+    //EDIT - ADD
     @Override
     public void onDestroy() {
         super.onDestroy();
         dbManager.close();
     }
 
+    //EDIT - ADD
     @Override
     public void onResume() {
         super.onResume();
 
-        UpdateTodayList();
+        UpdateList();
     }
 
-    private void UpdateTodayList(){
+    //EDIT - ADD
+    private void UpdateList(){
 
         Cursor cursorToday;
         Long lDateToday;
         Long lDateTomorrow;
 
+        // EDIT REQUIRED
         //Step 1 - Construct search queries
         //
         Calendar calenderToday = Calendar.getInstance();
@@ -146,7 +150,7 @@ public class HomeFragment_Today extends Fragment {
         }
 
         adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_userentries, cursorToday, from, to, 0);
-        adapter.setViewBinder(new HomeFragment_Today.CustomViewBinder());
+        adapter.setViewBinder(new HomeFragment_Today.CustomViewBinder());// EDIT REQUIRED
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
 

@@ -304,7 +304,9 @@ public class TabActivity extends AppCompatActivity {
         adapter.addFrag(new WhatFragment(), "WHAT");
         adapter.addFrag(new WhenFragment(), "WHEN");
         adapter.addFrag(new WhoFragment(), "WHO");
-        viewPager.setAdapter(adapter);
+        if(adapter != null) {
+            viewPager.setAdapter(adapter);
+        }
     }
 
     //Feature - 003 distributed code
