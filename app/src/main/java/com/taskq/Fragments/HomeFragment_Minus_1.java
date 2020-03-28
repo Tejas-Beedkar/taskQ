@@ -117,8 +117,8 @@ public class HomeFragment_Minus_1 extends Fragment {
     private void UpdateList(){
 
         Cursor cursorToday;
-        Long lDateToday;
-        Long lDateTomorrow;
+        Long lDateStart;
+        Long lDateEnd;
 
         // EDIT REQUIRED
         //Step 1 - Construct search queries
@@ -128,25 +128,26 @@ public class HomeFragment_Minus_1 extends Fragment {
             String strDateCheck =  new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
             //Construct Today
             calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
-            lDateToday = calenderToday.getTimeInMillis();
+            calenderToday.add(Calendar.DATE, -1); // EDIT REQUIRED
+            lDateStart = calenderToday.getTimeInMillis();
             //Construct Tomorrow
             calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
-            calenderToday.add(Calendar.DATE, 1);
-            lDateTomorrow = calenderToday.getTimeInMillis();
+            calenderToday.add(Calendar.DATE, 0); // EDIT REQUIRED
+            lDateEnd = calenderToday.getTimeInMillis();
 
         }catch(java.text.ParseException e) {
             e.printStackTrace();
-            lDateToday = Calendar.getInstance().getTimeInMillis();
-            lDateTomorrow = Calendar.getInstance().getTimeInMillis();
+            lDateStart = Calendar.getInstance().getTimeInMillis();
+            lDateEnd = Calendar.getInstance().getTimeInMillis();
         }
 
         //Step 3 - Query Main database for items based on Due Date
         //
         if(Settings.getSwitchShowCompleted() == true){
-            cursorToday = dbManager.fetchEntryByWhen(lDateToday, lDateTomorrow);
+            cursorToday = dbManager.fetchEntryByWhen(lDateStart, lDateEnd);
         }
         else{
-            cursorToday = dbManager.fetchEntryByWhen_NoCompleted(lDateToday, lDateTomorrow);
+            cursorToday = dbManager.fetchEntryByWhen_NoCompleted(lDateStart, lDateEnd);
 
         }
 
