@@ -143,7 +143,7 @@ public class TabActivity extends AppCompatActivity {
         intCompleted = cursor.getCount();
         intCompleted = intCompleted - intDue;
 
-        String strDashboard = "      " + intDue + "  -  Due Today \n" + "      " + intCompleted + "  -  Completed Today \n" + "      " + intActive  + "  -  Active Tasks";
+        String strDashboard = "      " + intDue + "  -  Due Today \n" + "      " + intCompleted + "  -  Completed Today \n" + "      " + intActive  + "  -  Active";
         tab_DashBoard.setText(strDashboard);
 
         //Feature - 002 distributed code
