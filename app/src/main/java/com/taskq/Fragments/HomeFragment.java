@@ -47,10 +47,7 @@ public class HomeFragment extends Fragment {
 
     private View view;
     private dBaseManager dbManager;
-    private ExpandableListView expandableListView;
     private taskQSettings Settings;
-    private SimpleCursorAdapter adapter;
-    private ListView listView;
     private TabLayout tab_TabLayout;
     private ViewPager tab_ViewPager;
     private taskQviewModel tagsDialogViewModel;
@@ -78,7 +75,6 @@ public class HomeFragment extends Fragment {
         dbManager = new dBaseManager(getActivity());
         dbManager.open();
 
-        expandableListView = view.findViewById(R.id.ListView_Frag_When_Expandable);
         Settings = new taskQSettings(getActivity().getApplicationContext());
 
         tab_TabLayout = view.findViewById(R.id.tablayout_home);
@@ -88,11 +84,22 @@ public class HomeFragment extends Fragment {
         tab_ViewPager.setCurrentItem( 1, false);
 
         tagsDialogViewModel = ViewModelProviders.of(getActivity()).get(taskQviewModel.class);
+
+        tagsDialogViewModel.HomeFrag_pbar_Text_Min_7 = view.findViewById(R.id.HomeFrag_pbar_Text_1);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Min_6 = view.findViewById(R.id.HomeFrag_pbar_Text_2);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Min_5 = view.findViewById(R.id.HomeFrag_pbar_Text_3);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Min_4 = view.findViewById(R.id.HomeFrag_pbar_Text_4);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Min_3 = view.findViewById(R.id.HomeFrag_pbar_Text_5);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Min_2 = view.findViewById(R.id.HomeFrag_pbar_Text_6);
         tagsDialogViewModel.HomeFrag_pbar_Text_Min_1 = view.findViewById(R.id.HomeFrag_pbar_Text_7);
         tagsDialogViewModel.HomeFrag_pbar_Text_Today = view.findViewById(R.id.HomeFrag_pbar_Text_8);
         tagsDialogViewModel.HomeFrag_pbar_Text_Pls_1 = view.findViewById(R.id.HomeFrag_pbar_Text_9);
-
-        //listView = view.findViewById(R.id.ListView_Frag_Home_Today);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Pls_2 = view.findViewById(R.id.HomeFrag_pbar_Text_10);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Pls_3 = view.findViewById(R.id.HomeFrag_pbar_Text_11);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Pls_4 = view.findViewById(R.id.HomeFrag_pbar_Text_12);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Pls_5 = view.findViewById(R.id.HomeFrag_pbar_Text_13);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Pls_6 = view.findViewById(R.id.HomeFrag_pbar_Text_14);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Pls_7 = view.findViewById(R.id.HomeFrag_pbar_Text_15);
 
         return view;
     }
@@ -100,6 +107,7 @@ public class HomeFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager) {
 
         HomeFragment.ViewPagerAdapter adapter = new HomeFragment.ViewPagerAdapter(getFragmentManager());
+
 
         adapter.addFrag(new HomeFragment_Minus_1(), "-1");
         adapter.addFrag(new HomeFragment_Today(), "T");
@@ -143,125 +151,12 @@ public class HomeFragment extends Fragment {
         super.onResume();
 
         UpdateGraph();
-        //UpdateTodayList();
-
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         dbManager.close();
-    }
-
-
-    private void UpdateTodayList(){
-
-        Cursor cursorToday;
-        Long lDateToday;
-        Long lDateTomorrow;
-
-        //Step 1 - Construct search queries
-        //
-        Calendar calenderToday = Calendar.getInstance();
-        try {
-            String strDateCheck =  new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-            //Construct Today
-            calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
-            lDateToday = calenderToday.getTimeInMillis();
-            //Construct Tomorrow
-            calenderToday.setTime((new SimpleDateFormat("dd/MM/yyyy")).parse(strDateCheck));
-            calenderToday.add(Calendar.DATE, 1);
-            lDateTomorrow = calenderToday.getTimeInMillis();
-
-        }catch(java.text.ParseException e) {
-            e.printStackTrace();
-            lDateToday = Calendar.getInstance().getTimeInMillis();
-            lDateTomorrow = Calendar.getInstance().getTimeInMillis();
-        }
-
-        //Step 3 - Query Main database for items based on Due Date
-        //
-        if(Settings.getSwitchShowCompleted() == true){
-            cursorToday = dbManager.fetchEntryByWhen(lDateToday, lDateTomorrow);
-         }
-        else{
-            cursorToday = dbManager.fetchEntryByWhen_NoCompleted(lDateToday, lDateTomorrow);
-
-        }
-
-        adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_userentries, cursorToday, from, to, 0);
-        adapter.setViewBinder(new CustomViewBinder());
-        adapter.notifyDataSetChanged();
-        listView.setAdapter(adapter);
-
-        //==========================================================================================
-        //          Feature - 016
-        //          Allow items to be opened from the All-Fragment
-        //==========================================================================================
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                //Get the SQL Entry index as retrieved from the view.
-                //TextView idTextView = view.findViewById(R.id.userEntry_listView_id);
-                //long idModify = Long.parseLong(idTextView.getText().toString());
-                long idModify = Long.parseLong( ((TextView)(view.findViewById(R.id.userEntry_listView_id))).getText().toString());
-
-                //Set the ID into the taskQGlobal class and load the taskQEntryActivity
-                if(true == (((taskQGlobal) getActivity().getApplication()).bSetUserEntryModify(idModify))){
-                    Intent modifyIntent = new Intent(getActivity().getApplicationContext(), taskQEntryActivity.class);
-                    startActivity(modifyIntent);
-                }
-            }
-        });
-
-
-    }
-
-    private class CustomViewBinder implements SimpleCursorAdapter.ViewBinder{
-        @Override
-        public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-
-            boolean retVal = false;
-
-            if(view.getId()==R.id.userEntry_listView_notification_image)
-            {
-                ImageView imageView = (ImageView) view;
-                if(false == Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_STATUS)))) {
-                    if (Boolean.valueOf(cursor.getString(cursor.getColumnIndex(dBaseArchitecture.COL_SET_REMINDER))) == true) {
-                        imageView.setImageResource(R.drawable.ic_reminder_on_dark);
-                        retVal = true;
-                    } else {
-                        imageView.setImageResource(R.drawable.ic_reminder_off_dark);
-                        retVal = true;
-                    }
-                }else{
-                    imageView.setImageResource(R.drawable.ic_delete);
-                    retVal = true;
-                }
-
-            }
-
-            if(view.getId()==R.id.userEntry_listView_date)
-            {
-                //Declare and init vars
-                Calendar cUserTimeDate = Calendar.getInstance();;
-                SimpleDateFormat sdfDate_Month = new SimpleDateFormat("dd MMMM");
-                SimpleDateFormat sdfHours_Minutes = new SimpleDateFormat("HH:mm");
-                SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
-                String strTimeBuffer;
-                TextView textView = (TextView) view;
-                //Get Time form dBase
-                cUserTimeDate.setTimeInMillis(cursor.getLong(cursor.getColumnIndex(dBaseArchitecture.COL_WHEN_TIME)));
-                //Construct the time string
-                strTimeBuffer = sdfDay.format(cUserTimeDate.getTime()) +", " + sdfDate_Month.format(cUserTimeDate.getTime());
-                //Show string in list view
-                textView.setText(strTimeBuffer, EDITABLE);
-                retVal = true;
-            }
-
-            return retVal;
-        }
     }
 
     private void UpdateGraph(){
