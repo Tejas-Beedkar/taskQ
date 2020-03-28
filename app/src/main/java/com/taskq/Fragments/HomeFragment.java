@@ -81,7 +81,8 @@ public class HomeFragment extends Fragment {
         tab_ViewPager = view.findViewById(R.id.viewpager_home);
         setupViewPager(tab_ViewPager);
         tab_TabLayout.setupWithViewPager(tab_ViewPager);
-        tab_ViewPager.setCurrentItem( 1, false);
+
+        tab_ViewPager.setCurrentItem( 7, false);
 
         tagsDialogViewModel = ViewModelProviders.of(getActivity()).get(taskQviewModel.class);
 
@@ -108,7 +109,12 @@ public class HomeFragment extends Fragment {
 
         HomeFragment.ViewPagerAdapter adapter = new HomeFragment.ViewPagerAdapter(getFragmentManager());
 
-
+        adapter.addFrag(new HomeFragment_Minus_7(), "-7");
+        adapter.addFrag(new HomeFragment_Minus_6(), "-6");
+        adapter.addFrag(new HomeFragment_Minus_5(), "-5");
+        adapter.addFrag(new HomeFragment_Minus_4(), "-4");
+        adapter.addFrag(new HomeFragment_Minus_3(), "-3");
+        adapter.addFrag(new HomeFragment_Minus_2(), "-2");
         adapter.addFrag(new HomeFragment_Minus_1(), "-1");
         adapter.addFrag(new HomeFragment_Today(), "T");
         adapter.addFrag(new HomeFragment_Plus_1(), "+1");

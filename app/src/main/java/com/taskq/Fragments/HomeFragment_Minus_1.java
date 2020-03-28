@@ -81,7 +81,7 @@ public class HomeFragment_Minus_1 extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if(tagsDialogViewModel != null){
-                tagsDialogViewModel.setMainMinus1();
+                tagsDialogViewModel.setMainMinus1(); // EDIT REQUIRED
             }
         }
         else {
@@ -223,47 +223,4 @@ public class HomeFragment_Minus_1 extends Fragment {
             return retVal;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

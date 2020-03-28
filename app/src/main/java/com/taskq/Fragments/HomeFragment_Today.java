@@ -80,7 +80,7 @@ public class HomeFragment_Today extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if(tagsDialogViewModel != null){
-                tagsDialogViewModel.setMainToday();
+                tagsDialogViewModel.setMainToday(); // EDIT REQUIRED
             }
         }
         else {
