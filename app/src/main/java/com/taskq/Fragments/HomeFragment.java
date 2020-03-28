@@ -86,6 +86,7 @@ public class HomeFragment extends Fragment {
 
         tagsDialogViewModel = ViewModelProviders.of(getActivity()).get(taskQviewModel.class);
 
+        tagsDialogViewModel.tab_ViewPager = tab_ViewPager;
         tagsDialogViewModel.HomeFrag_pbar_Text_Min_7 = view.findViewById(R.id.HomeFrag_pbar_Text_1);
         tagsDialogViewModel.HomeFrag_pbar_Text_Min_6 = view.findViewById(R.id.HomeFrag_pbar_Text_2);
         tagsDialogViewModel.HomeFrag_pbar_Text_Min_5 = view.findViewById(R.id.HomeFrag_pbar_Text_3);

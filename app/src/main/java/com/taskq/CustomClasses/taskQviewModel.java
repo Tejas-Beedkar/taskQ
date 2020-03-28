@@ -3,6 +3,7 @@ package com.taskq.CustomClasses;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModel;
+import androidx.viewpager.widget.ViewPager;
 
 import com.taskq.R;
 
@@ -18,6 +19,8 @@ public class taskQviewModel extends ViewModel {
     public ArrayList strDialogTags = new ArrayList();
 
     public ArrayList strDialogNames = new ArrayList();
+
+    public ViewPager tab_ViewPager;
 
     public TextView HomeFrag_pbar_Text_Min_7;
     public TextView HomeFrag_pbar_Text_Min_6;

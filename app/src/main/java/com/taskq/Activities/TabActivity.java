@@ -444,4 +444,138 @@ public class TabActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    public void Frag_Home_ProgressBar_Minus_7(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 0, true);
+        tagsDialogViewModel.setMainMinus7();
+    }
+
+    public void Frag_Home_ProgressBar_Minus_6(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 1, true);
+        tagsDialogViewModel.setMainMinus6();
+    }
+
+    public void Frag_Home_ProgressBar_Minus_5(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 2, true);
+        tagsDialogViewModel.setMainMinus5();
+    }
+
+    public void Frag_Home_ProgressBar_Minus_4(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 3, true);
+        tagsDialogViewModel.setMainMinus4();
+    }
+
+    public void Frag_Home_ProgressBar_Minus_3(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 4, true);
+        tagsDialogViewModel.setMainMinus3();
+    }
+
+    public void Frag_Home_ProgressBar_Minus_2(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 5, true);
+        tagsDialogViewModel.setMainMinus2();
+    }
+
+    public void Frag_Home_ProgressBar_Minus_1(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 6, true);
+        tagsDialogViewModel.setMainMinus1();
+    }
+
+    public void Frag_Home_ProgressBar_Today(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 7, true);
+        tagsDialogViewModel.setMainToday();
+    }
+
+    public void Frag_Home_ProgressBar_Plus_1(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 8, true);
+        tagsDialogViewModel.setMainPlus1();
+    }
+
+    public void Frag_Home_ProgressBar_Plus_2(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 9, true);
+        tagsDialogViewModel.setMainPlus2();
+    }
+
+    public void Frag_Home_ProgressBar_Plus_3(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 10, true);
+        tagsDialogViewModel.setMainPlus3();
+    }
+
+    public void Frag_Home_ProgressBar_Plus_4(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 11, true);
+        tagsDialogViewModel.setMainPlus4();
+    }
+
+    public void Frag_Home_ProgressBar_Plus_5(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 12, true);
+        tagsDialogViewModel.setMainPlus5();
+    }
+
+    public void Frag_Home_ProgressBar_Plus_6(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 13, true);
+        tagsDialogViewModel.setMainPlus6();
+    }
+
+    public void Frag_Home_ProgressBar_Plus_7(View v){
+        ViewPager tab_ViewPager = tagsDialogViewModel.tab_ViewPager;
+        tab_ViewPager.setCurrentItem( 14, true);
+        tagsDialogViewModel.setMainPlus7();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
