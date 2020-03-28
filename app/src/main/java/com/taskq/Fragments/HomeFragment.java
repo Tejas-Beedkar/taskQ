@@ -5,8 +5,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,16 +23,20 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.tabs.TabLayout;
+import com.taskq.Activities.TabActivity;
 import com.taskq.Activities.taskQEntryActivity;
 import com.taskq.CustomClasses.taskQGlobal;
+import com.taskq.CustomClasses.taskQviewModel;
 import com.taskq.DataBase.dBaseArchitecture;
 import com.taskq.DataBase.dBaseManager;
-import com.taskq.DataBase.dBaseManager_When;
 import com.taskq.R;
 import com.taskq.Settings.taskQSettings;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static android.widget.TextView.BufferType.EDITABLE;
 
@@ -42,6 +51,9 @@ public class HomeFragment extends Fragment {
     private taskQSettings Settings;
     private SimpleCursorAdapter adapter;
     private ListView listView;
+    private TabLayout tab_TabLayout;
+    private ViewPager tab_ViewPager;
+    private taskQviewModel tagsDialogViewModel;
 
     final String[] from = new String[] {
             dBaseArchitecture._ID,
@@ -69,17 +81,69 @@ public class HomeFragment extends Fragment {
         expandableListView = view.findViewById(R.id.ListView_Frag_When_Expandable);
         Settings = new taskQSettings(getActivity().getApplicationContext());
 
-        listView = view.findViewById(R.id.ListView_Frag_Home_Today);
+        tab_TabLayout = view.findViewById(R.id.tablayout_home);
+        tab_ViewPager = view.findViewById(R.id.viewpager_home);
+        setupViewPager(tab_ViewPager);
+        tab_TabLayout.setupWithViewPager(tab_ViewPager);
+        tab_ViewPager.setCurrentItem( 1, false);
+
+        tagsDialogViewModel = ViewModelProviders.of(getActivity()).get(taskQviewModel.class);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Min_1 = view.findViewById(R.id.HomeFrag_pbar_Text_7);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Today = view.findViewById(R.id.HomeFrag_pbar_Text_8);
+        tagsDialogViewModel.HomeFrag_pbar_Text_Pls_1 = view.findViewById(R.id.HomeFrag_pbar_Text_9);
+
+        //listView = view.findViewById(R.id.ListView_Frag_Home_Today);
 
         return view;
     }
+
+    private void setupViewPager(ViewPager viewPager) {
+
+        HomeFragment.ViewPagerAdapter adapter = new HomeFragment.ViewPagerAdapter(getFragmentManager());
+
+        adapter.addFrag(new HomeFragment_Minus_1(), "-1");
+        adapter.addFrag(new HomeFragment_Today(), "T");
+        adapter.addFrag(new HomeFragment_Plus_1(), "+1");
+
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
 
     @Override
     public void onResume() {
         super.onResume();
 
         UpdateGraph();
-        UpdateTodayList();
+        //UpdateTodayList();
 
     }
 

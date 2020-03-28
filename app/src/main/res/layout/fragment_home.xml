@@ -406,8 +406,13 @@ android:paddingBottom="@android:dimen/app_icon_size"
             android:orientation="vertical"
             android:paddingBottom="@android:dimen/app_icon_size">
 
-            <ListView
-                android:id="@+id/ListView_Frag_Home_Today"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tablayout_home"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

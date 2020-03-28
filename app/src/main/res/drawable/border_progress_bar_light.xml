@@ -12,8 +12,8 @@
         android:right="0dp"
         android:bottom="0dp"/>
     <size
-        android:width="64dp"
-        android:height="64dp"/>->
+        android:width="0dp"
+        android:height="0dp"/>
     <stroke
         android:width="2dp"
         android:color="@color/transparent" >
