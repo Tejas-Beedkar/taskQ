@@ -151,15 +151,21 @@ public class TasksDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
 
-            final Cursor cursorStatus = dbManager_Tasks.fetch_ID(bTaskOldId);
+                final Cursor cursorStatus = dbManager_Tasks.fetch_ID(bTaskOldId);
 
-            if (Boolean.valueOf(cursorStatus.getString(cursorStatus.getColumnIndex(dBaseArchitecture_tasks.COL_TASK_STATUS))) == true) {
-                buttonStatus.setBackground(getActivity().getDrawable(R.drawable.ic_task_not_done));
-                dbManager_Tasks.update_status(bTaskOldId, "false");
-            } else {
-                buttonStatus.setBackground(getActivity().getDrawable(R.drawable.ic_task_done));
-                dbManager_Tasks.update_status(bTaskOldId, "true");
-            }
+                if (Boolean.valueOf(cursorStatus.getString(cursorStatus.getColumnIndex(dBaseArchitecture_tasks.COL_TASK_STATUS))) == true) {
+                    buttonStatus.setBackground(getActivity().getDrawable(R.drawable.ic_task_not_done));
+                    dbManager_Tasks.update_status(bTaskOldId, "false");
+                } else {
+                    buttonStatus.setBackground(getActivity().getDrawable(R.drawable.ic_task_done));
+                    dbManager_Tasks.update_status(bTaskOldId, "true");
+                }
+
+                final Cursor cursorButtonAdd = dbManager_Tasks.fetch_EntryById(lTaskId);
+                adapter = new SimpleCursorAdapter( view.getContext(), R.layout.listview_tasks, cursorButtonAdd, from, to, 0);
+                adapter.setViewBinder(new TasksDialogFragment.CustomViewBinder());
+                adapter.notifyDataSetChanged();
+                listView.setAdapter(adapter);
 
             }
         });

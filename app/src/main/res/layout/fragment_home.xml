@@ -23,7 +23,7 @@ android:paddingBottom="@android:dimen/app_icon_size"
             style="?android:attr/listViewStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.4"
             android:background="@android:color/white"
             android:orientation="vertical">
 
@@ -232,6 +232,7 @@ android:paddingBottom="@android:dimen/app_icon_size"
                     android:layout_height="wrap_content"
                     android:text=" T"
                     android:textSize="20sp"
+                    android:background="@drawable/border_progress_bar_dark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/HomeFrag_pbar_8"
                     app:layout_constraintStart_toStartOf="@+id/HomeFrag_pbar_8" />
